@@ -1,9 +1,9 @@
 <template>
   <div
-    class="relative h-full p-12 grid grid-rows-3 grid-cols-2 md:grid-rows-2 gap-10"
+    class="relative min-h-full p-4 md:p-12 grid grid-rows-3 grid-cols-2 md:grid-rows-2 gap-10"
   >
     <form
-      class="relative col-span-2 md:col-span-1 h-full w-full mx-auto bg-gray-200 p-6 text-gray-700"
+      class="relative col-span-2 md:col-span-1 w-full mx-auto bg-gray-200 p-6 text-gray-700"
       @submit.prevent="onSubmit"
       enctype="multipart/form-data"
     >
@@ -30,7 +30,7 @@
       </button>
       <div
         :class="[
-          `h-full box__input p-6 border-2 ${
+          `p-6 border-2 ${
             imgSrc ? 'border-green-600' : 'border-gray-400'
           } border-dashed flex items-center justify-center`,
         ]"
