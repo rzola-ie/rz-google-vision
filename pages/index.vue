@@ -119,7 +119,7 @@
 export default {
   methods: {
     signin() {
-      this.$router.push("/game");
+      this.$router.push("/home");
     },
   },
 };

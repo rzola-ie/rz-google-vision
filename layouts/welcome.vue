@@ -3,10 +3,10 @@
     class="relative overflow-x-hidden pt-20 h-screen bg-gradient-to-bl from-green-200 to-blue-200"
   >
     <div
-      class="fixed z-50 h-20 px-4 md:px-10 bg-white top-0 inset-x-0 shadow-md grid grid-col-3 items-center"
+      class="fixed z-50 h-20 px-4 md:px-10 bg-white top-0 inset-x-0 shadow-md grid grid-cols-3 items-center"
     >
       <div class="col-start-2 justify-self-center">
-        <nuxt-link to="/">
+        <nuxt-link to="/home">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -21,7 +21,14 @@
         </nuxt-link>
       </div>
       <div class="col-start-3 justify-self-end text-blue-900">
-        <div>
+        <div class="hidden md:block">
+          <nav>
+            <nuxt-link class="mr-4" to="/game">Emoji Game </nuxt-link>
+            <nuxt-link class="mr-4" to="/labels">Labels</nuxt-link>
+            <nuxt-link to="/dragdrop">Drag &amp; Drop</nuxt-link>
+          </nav>
+        </div>
+        <div class="md:hidden">
           <button @click="() => (open = !open)">
             <svg
               class="h-8 w-8"
