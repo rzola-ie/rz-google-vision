@@ -3,7 +3,7 @@
     class="relative overflow-x-hidden pt-20 h-screen bg-gradient-to-bl from-green-200 to-blue-200"
   >
     <div
-      class="fixed z-50 h-20 px-10 bg-white top-0 inset-x-0 shadow-md grid grid-col-3 items-center"
+      class="fixed z-50 h-20 px-4 md:px-10 bg-white top-0 inset-x-0 shadow-md grid grid-col-3 items-center"
     >
       <div class="col-start-2 justify-self-center">
         <svg

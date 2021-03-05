@@ -1,5 +1,7 @@
 <template>
-  <div class="m-0 h-full grid grid-cols-2">
+  <div
+    class="m-0 h-full grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-cols-1"
+  >
     <div
       class="bg-cover bg-no-repeat bg-center ..."
       style="background-image: url(/cube.png)"
@@ -7,16 +9,17 @@
     <div class="flex items-center bg-white">
       <div class="w-full mx-auto">
         <h1
-          class="text-center font-bold text-3xl tracking-wide text-green-600 mb-10"
+          class="text-center font-bold text-2xl md:text-3xl tracking-wide text-green-600 mb-0 md:mb-10"
         >
           WELCOME
         </h1>
         <div class="w-2/3 mx-auto text-lg">
-          <p class="pb-2 text-center text-gray-700">
-            Welcome back or, whatever
+          <p class="text-base md:text-lg text-center text-gray-700">
+            Sign in... or don't
           </p>
+          <p class="text-xs pb-2 text-center text-gray-700">I'm not your mom</p>
 
-          <form class="mx-auto w-3/4" @submit.prevent="signin">
+          <form class="mx-auto w-full md:w-3/4" @submit.prevent="signin">
             <div class="relative">
               <div
                 class="absolute inset-y-0 flex items-center pl-3 text-green-600 pointer-events-none"
@@ -68,15 +71,17 @@
                 placeholder="Password"
               />
             </div>
-            <div class="text-red-600 text-base mb-4"></div>
+            <div class="text-red-600 text-base mb-2 md:mb-4"></div>
 
-            <nuxt-link class="block text-center text-green-600 mb-4" to="/"
+            <nuxt-link
+              class="block text-center text-green-600 mb-2 text-xs md:text-lg md:mb-4"
+              to="/"
               >I've forgotten my password</nuxt-link
             >
 
             <button
               type="submit"
-              class="btn bg-green-600 text-white w-full mb-4 py-4 rounded-md tracking-wide text-2xl"
+              class="btn bg-green-600 text-white w-full mb-2 py-2 md:mb-4 md:py-4 rounded-md tracking-wide text-2xl"
             >
               Sign In
             </button>
