@@ -74,7 +74,7 @@
           />
           <button
             type="submit"
-            class="font-semibold text-2xl h-full w-full rounded-b-md bg-green-400 bg-opacity-90 text-green-900 shadow-md hover:bg-green-700 hover:text-white hover:shadow-lg transition ease-in duration-200"
+            class="font-semibold text-2xl h-full w-full px-4 rounded-b-md bg-green-400 bg-opacity-90 text-green-900 shadow-md hover:bg-green-700 hover:text-white hover:shadow-lg transition ease-in duration-200"
           >
             Analyze
             <svg
