@@ -133,7 +133,10 @@
     </div> -->
     <!-- image preview -->
 
-    <div class="h-full w-full bg-gray-200 p-6 col-span-2 md:col-span-1">
+    <div
+      id="results"
+      class="h-full w-full bg-gray-200 p-6 col-span-2 md:col-span-1"
+    >
       <div
         class="h-full w-full bg-gray-200 p-6 border-2 border-gray-400 border-dashed"
       >
@@ -155,7 +158,13 @@
           </svg>
         </div>
         <div class="flex-1">
-          <ul v-if="results">
+          <div
+            v-if="loading"
+            class="h-full w-full flex items-center justify-center"
+          >
+            Loading...
+          </div>
+          <ul v-if="results && !loading">
             <li
               v-for="result in results.slice(1, 10)"
               :key="result.description.toLowerCase()"
@@ -221,6 +230,7 @@ export default {
       imgSrc: null,
       imgPreview: null,
       hasAdvanced: false,
+      loading: false,
       results: [],
       selectedResults: [],
       gCloudVisionUrl:
@@ -257,6 +267,10 @@ export default {
       );
     },
     async onSubmit(e) {
+      this.loading = true;
+      var elmnt = document.getElementById("results");
+      elmnt.scrollIntoView();
+
       if (this.imgSrc) {
         let requestBody = {
           requests: [
@@ -297,6 +311,8 @@ export default {
         } catch (error) {
           console.log(error);
           // this.handleError(error);
+        } finally {
+          this.loading = false;
         }
       } else {
         console.error("You have not captured an image");
