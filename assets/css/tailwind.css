@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ./assets/css/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply font-semibold py-3 px-5 rounded-md shadow-md transition ease-in duration-200
+  }
+
+  .btn-blue {
+    @apply bg-blue-800 text-blue-100 hover:bg-blue-900;
+  }
+
+  .btn-red {
+    @apply bg-red-700 text-red-100 hover:bg-red-800;
+  }
+
+  .btn-green {
+    @apply bg-green-600 text-green-100 hover:bg-green-700;
+  }
+}
