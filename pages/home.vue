@@ -46,8 +46,8 @@
             </nuxt-link>
           </li>
           <li class="mb-4">
-            <nuxt-link to="/dragdrop"
-              >Drag and drop some things
+            <nuxt-link to="/medications"
+              >Medications
               <svg
                 class="h-6 w-6 inline"
                 xmlns="http://www.w3.org/2000/svg"

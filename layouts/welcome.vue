@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative overflow-x-hidden pt-20 h-screen bg-gradient-to-bl from-green-200 to-blue-200"
+    class="relative overflow-x-hidden py-20 h-screen bg-gradient-to-bl from-green-200 to-blue-200"
   >
     <div
       class="fixed z-50 h-20 px-4 md:px-10 bg-white top-0 inset-x-0 shadow-md grid grid-cols-3 items-center"
@@ -25,7 +25,7 @@
           <nav>
             <nuxt-link class="mr-4" to="/game">Emoji Game </nuxt-link>
             <nuxt-link class="mr-4" to="/labels">Labels</nuxt-link>
-            <nuxt-link to="/dragdrop">Drag &amp; Drop</nuxt-link>
+            <nuxt-link to="/medications">Medications</nuxt-link>
           </nav>
         </div>
         <div class="md:hidden">
@@ -49,6 +49,12 @@
       </div>
     </div>
     <Nuxt />
+    <footer class="fixed inset-x-0 bottom-0 py-7 px-4 bg-white text-gray-800">
+      <div class="mx-auto text-center">
+        <a href="#">Privacy Policy</a> <span class="mx-3">|</span>
+        <a href="tel:18882345678">1-888-234-5678</a>
+      </div>
+    </footer>
     <div
       :class="[
         `absolute z-40 w-2/3 inset-y-0 top-0 pt-32 p-6 ${

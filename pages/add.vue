@@ -1,139 +1,198 @@
 <template>
   <div
-    class="relative min-h-full p-4 md:p-8 grid grid-rows-3 grid-cols-2 md:grid-rows-2 gap-5"
+    class="relative min-h-full p-4 md:p-8 bg-white bg-opacity-70 text-blue-900"
   >
-    <form
-      class="relative col-span-2 w-full mx-auto bg-gray-200 p-6 text-gray-700"
-      @submit.prevent="onSubmit"
-      enctype="multipart/form-data"
-    >
-      <button
-        v-show="imgPreview"
-        class="absolute top-10 right-10"
-        @click="removeImage"
-        type="button"
-      >
+    <div class="relative mb-4 text-center">
+      <nuxt-link to="/medications" class="absolute left-0 top-0">
         <svg
-          class="h-6 w-6"
+          class="w-6 h-6 stroke-current"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke="currentColor"
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </nuxt-link>
+      <h1 class="text-2xl text-blue-900 font-semibold text-center">
+        {{ captureOption === "photo" ? "Add Photo" : "Text Search" }}
+      </h1>
+    </div>
+
+    <div class="flex mb-4">
+      <button
+        @click="() => (captureOption = 'search')"
+        :class="[
+          `${
+            captureOption === 'search'
+              ? 'bg-blue-900 text-white'
+              : 'bg-gray-300 text-blue-900'
+          } py-4 w-1/2 rounded-l-md`,
+        ]"
+      >
+        <svg
+          class="mx-auto h-6 w-6 stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
       </button>
-      <div
+      <button
+        @click="() => (captureOption = 'photo')"
         :class="[
-          `min-h-full p-6 border-2 ${
-            imgSrc ? 'border-green-600' : 'border-gray-400'
-          } border-dashed flex items-center justify-center`,
+          `${
+            captureOption === 'photo'
+              ? 'bg-blue-900 text-white'
+              : 'bg-gray-300 text-blue-900'
+          } py-4 w-1/2 rounded-r-md`,
         ]"
       >
-        <div v-if="!imgSrc">
-          <input
-            class="box__file hidden"
-            type="file"
-            name="files[]"
-            id="file"
-            data-multiple-caption="{count} files selected"
-            multiple
-            @change="loadFile"
-          />
-          <label for="file" class="text-center cursor-pointer">
-            <div class="font-bold text-2xl">Choose a file</div>
-            <div v-if="hasAdvanced">or drag it here</div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="h-8 w-8 mx-auto mt-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-              />
-            </svg>
-          </label>
-        </div>
-        <div v-else>
-          <img
-            v-if="imgPreview"
-            :src="imgPreview"
-            alt=""
-            class="mx-auto object-cover"
-            id="output"
-          />
-          <button
-            type="submit"
-            class="font-semibold text-2xl h-full w-full px-4 rounded-b-md bg-green-400 bg-opacity-90 text-green-900 shadow-md hover:bg-green-700 hover:text-white hover:shadow-lg transition ease-in duration-200"
-          >
-            Analyze
-            <svg
-              class="h-6 w-6 inline-block ml-2 stroke-current"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div class="box__uploading">Uploading…</div>
-      <div class="box__success">Done!</div>
-      <div class="box__error">Error! <span></span>.</div>
-    </form>
-    <!-- form -->
-
-    <!-- <div class="h-full w-full p-6 bg-gray-200">
-      <div
-        :class="[
-          `w-full h-full border-2  ${
-            imgPreview ? 'border-green-600' : 'border-gray-400'
-          } border-dashed overflow-hidden flex items-center justify-center`,
-        ]"
-      >
-        <img
-          v-if="imgPreview"
-          :src="imgPreview"
-          alt=""
-          class="mx-auto object-cover"
-          id="output"
-        />
-
         <svg
+          class="mx-auto h-6 w-6 stroke-current"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          class="h-20 w-20 mx-auto text-gray-400 stroke-current"
-          v-else
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+          />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
           />
         </svg>
+      </button>
+    </div>
+    <div v-if="captureOption === 'photo'">
+      <form
+        v-if="!imgPreview"
+        class="relative col-span-2 w-full mx-auto bg-gray-200 p-6 text-gray-700"
+        @submit.prevent="onSubmit"
+        enctype="multipart/form-data"
+      >
+        <button
+          v-show="imgPreview"
+          class="absolute top-10 right-10"
+          @click="removeImage"
+          type="button"
+        >
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <div
+          :class="[
+            `min-h-full p-6 border-2 ${
+              imgSrc ? 'border-green-600' : 'border-gray-400'
+            } border-dashed flex items-center justify-center`,
+          ]"
+        >
+          <div v-if="!imgSrc">
+            <input
+              class="box__file hidden"
+              type="file"
+              name="files[]"
+              id="file"
+              data-multiple-caption="{count} files selected"
+              multiple
+              @change="loadFile"
+            />
+            <label for="file" class="text-center cursor-pointer">
+              <div class="font-bold text-2xl">Choose a file</div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="h-8 w-8 mx-auto mt-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                />
+              </svg>
+            </label>
+          </div>
+        </div>
+        <div class="box__uploading">Uploading…</div>
+        <div class="box__success">Done!</div>
+        <div class="box__error">Error! <span></span>.</div>
+      </form>
+      <div v-else>
+        <div class="p-4 mb-4 bg-gray-300">
+          <div class="relative p-4 border border-gray-400">
+            <img
+              v-if="imgPreview"
+              :src="imgPreview"
+              alt=""
+              class="mx-auto object-cover"
+              id="output"
+            />
+            <button class="absolute top-2 right-2" @click="removeImage">
+              <svg
+                class="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div>
+          <button
+            class="h-16 w-full mb-4 bg-blue-900 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md"
+          >
+            Select
+          </button>
+        </div>
       </div>
-    </div> -->
-    <!-- image preview -->
+    </div>
+    <!-- photo search -->
+    <div v-else>
+      <form action="">
+        <input type="text" name="" id="" />
+      </form>
+    </div>
+    <!-- text search -->
 
-    <div
+    <!-- <div
       id="results"
       class="h-full w-full bg-gray-200 p-6 col-span-2 md:col-span-1"
     >
@@ -183,10 +242,10 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- results list -->
 
-    <div class="h-full w-full bg-gray-200 p-6 col-span-2 md:col-span-1">
+    <!-- <div class="h-full w-full bg-gray-200 p-6 col-span-2 md:col-span-1">
       <div
         class="h-full w-full bg-gray-200 p-6 border-2 border-gray-400 border-dashed"
       >
@@ -207,15 +266,16 @@
             />
           </svg>
         </div>
-        <div class="flex-1">
-          <ul>
-            <li v-for="item in selectedResults" :key="item" class="text-xl">
-              {{ item }}
-            </li>
-          </ul>
+        <div class="flex flex-col">
+          <div class="h-full">
+            {{ selectedResults.join(" ") }}
+          </div>
+          <button class="bg-green-500 px-4 py-2 w-full rounded-md text-white">
+            Search
+          </button>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- selected list -->
   </div>
 </template>
@@ -227,6 +287,7 @@ export default {
   layout: "welcome",
   data() {
     return {
+      captureOption: "photo",
       imgSrc: null,
       imgPreview: null,
       hasAdvanced: false,
