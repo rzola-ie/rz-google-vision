@@ -290,7 +290,7 @@
     <!-- capture options -->
 
     <div v-else class="flex-1 flex flex-col">
-      <div class="mb-4 flex-1">
+      <div class="mb-4 flex flex-col flex-1">
         <div class="w-full flex flex-wrap mb-4 -mx-2">
           <button
             v-for="item in selectedResults"
@@ -316,15 +316,16 @@
           </button>
         </div>
 
-        <div>
+        <div class="flex-1 flex flex-col">
           <h2 class="text-gray-700">Select Medication</h2>
-          <div>
+          <div class="flex flex-1 items-center justify-center bg-gray-200">
             <div
               v-if="suggestedMedications.length === 0"
-              class="py-8 text-3xl text-center"
+              class="py-8 text-xl text-center"
             >
               <p>Your search returned no results.</p>
-              <p>Clean your camera lense, gross... 😳</p>
+              <p>Clean your camera lense, gross...</p>
+              <p class="text-3xl">😳😳😳</p>
             </div>
             <div v-else>
               <div v-for="(med, index) in suggestedMedications" :key="index">
