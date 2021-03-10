@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative overflow-x-hidden py-20 h-screen bg-gradient-to-bl from-green-200 to-blue-200"
+    class="relative overflow-x-hidden pt-20 h-screen bg-gradient-to-bl from-green-200 to-blue-200"
   >
     <div
       class="fixed z-50 h-20 px-4 md:px-10 bg-white top-0 inset-x-0 shadow-md grid grid-cols-3 items-center"
@@ -49,7 +49,7 @@
       </div>
     </div>
     <Nuxt />
-    <footer class="fixed inset-x-0 bottom-0 py-7 px-4 bg-white text-gray-800">
+    <footer class="py-7 px-4 bg-white text-gray-800">
       <div class="mx-auto text-center">
         <a href="#">Privacy Policy</a> <span class="mx-3">|</span>
         <a href="tel:18882345678">1-888-234-5678</a>
