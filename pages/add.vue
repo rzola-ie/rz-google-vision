@@ -27,12 +27,13 @@
     <div class="flex mb-4">
       <button
         @click="() => (captureOption = 'text')"
+        :disabled="searched"
         :class="[
           `${
             captureOption === 'text'
               ? 'bg-blue-900 text-white'
               : 'bg-gray-300 text-blue-900'
-          } py-4 w-1/2 rounded-l-md`,
+          } py-4 w-1/2 rounded-l-md disabled:opacity-50 disabled:cursor-not-allowed`,
         ]"
       >
         <svg
@@ -51,12 +52,13 @@
       </button>
       <button
         @click="() => (captureOption = 'photo')"
+        :disabled="searched"
         :class="[
           `${
             captureOption === 'photo'
               ? 'bg-blue-900 text-white'
               : 'bg-gray-300 text-blue-900'
-          } py-4 w-1/2 rounded-r-md`,
+          } py-4 w-1/2 rounded-r-md disabled:opacity-50 disabled:cursor-not-allowed`,
         ]"
       >
         <svg
@@ -80,7 +82,7 @@
         </svg>
       </button>
     </div>
-    <!-- se;ect buttons -->
+    <!-- select buttons -->
 
     <div v-if="!searched" class="flex flex-1 mb-4">
       <div v-if="captureOption === 'photo'" class="flex flex-col flex-1">
@@ -180,8 +182,9 @@
               v-for="{ description } in results.slice(1, 10)"
               :key="description"
               @click="addToList(description)"
+              role="checkbox"
               :class="[
-                `flex items-center px-8 py-4 text-2xl uppercase mb-2 last:mb-0 ${
+                `flex items-center p-4 text-2xl uppercase mb-2 cursor-pointer last:mb-0 ${
                   selectedResults.includes(description)
                     ? 'bg-blue-900 bg-opacity-20'
                     : ''
@@ -287,8 +290,8 @@
     <!-- capture options -->
 
     <div v-else class="flex-1 flex flex-col">
-      <div class="mb-4 -mx-2 flex-1">
-        <div class="w-full flex flex-wrap">
+      <div class="mb-4 flex-1">
+        <div class="w-full flex flex-wrap mb-4 -mx-2">
           <button
             v-for="item in selectedResults"
             :key="item"
@@ -311,6 +314,24 @@
               />
             </svg>
           </button>
+        </div>
+
+        <div>
+          <h2 class="text-gray-700">Select Medication</h2>
+          <div>
+            <div
+              v-if="suggestedMedications.length === 0"
+              class="py-8 text-3xl text-center"
+            >
+              Your search returned no results, clean your camera lense, gross...
+              😳
+            </div>
+            <div v-else>
+              <div v-for="(med, index) in suggestedMedications" :key="index">
+                medicine {{ index }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div>
@@ -341,6 +362,7 @@ export default {
       searched: false,
       results: [],
       selectedResults: [],
+      suggestedMedications: [],
       gCloudVisionUrl:
         "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBqHINyqX2rb2v7MddQ9fwDDE--fX-hnTE",
     };
