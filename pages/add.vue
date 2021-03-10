@@ -150,7 +150,7 @@
         <div v-else class="mb-4 flex-1 flex flex-col">
           <div class="p-4 bg-gray-200 flex-1">
             <div
-              class="relative h-full p-4 border-2 border-gray-400 border-dashed"
+              class="relative h-full p-4 border-2 border-gray-400 border-dashed flex items-center justify-center"
             >
               <img
                 v-if="imgPreview && !loading"
@@ -159,34 +159,35 @@
                 class="mx-auto object-cover"
                 id="output"
               />
-              <button class="absolute top-2 right-2" @click="removeImage">
-                <svg
-                  class="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
             </div>
           </div>
         </div>
         <!-- image preview -->
 
         <div>
-          <button
-            :disabled="!imgPreview && !loading"
-            class="h-16 w-full bg-blue-900 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md disabled:bg-gray-300 disabled:text-gray-700"
-          >
-            Select
-          </button>
+          <div v-if="selected">
+            <button
+              v-if="results.length === 0"
+              @click="onSubmit"
+              class="h-16 mb-4 w-full bg-blue-900 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md"
+            >
+              Analyze
+            </button>
+
+            <button
+              v-else
+              class="h-16 mb-4 w-full bg-blue-700 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md"
+            >
+              Find Medicine
+            </button>
+
+            <button
+              @click="removeImage"
+              class="h-16 w-full rounded-md text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 shadow-md"
+            >
+              Retake
+            </button>
+          </div>
         </div>
       </div>
       <!-- photo search -->
@@ -219,6 +220,31 @@
       </div>
       <!-- text search -->
     </div>
+    <!-- capture options -->
+
+    <div>
+      <ul>
+        <li
+          v-for="{ description } in results.slice(1, 10)"
+          :key="description"
+          :class="[
+            `px-8 py-4 text-2xl uppercase mb-2 last:mb-0 ${
+              selectedResults.includes(description)
+                ? 'bg-blue-900 bg-opacity-20'
+                : ''
+            }`,
+          ]"
+        >
+          <input
+            type="checkbox"
+            class="mr-2"
+            @change="addToList(description)"
+          />
+          <span>{{ description }}</span>
+        </li>
+      </ul>
+    </div>
+    <!-- results -->
   </div>
 </template>
 
@@ -234,6 +260,7 @@ export default {
       imgPreview: null,
       hasAdvanced: false,
       loading: false,
+      selected: false,
       results: [],
       selectedResults: [],
       gCloudVisionUrl:
@@ -260,6 +287,7 @@ export default {
 
       reader.readAsDataURL(event.target.files[0]);
       this.imgPreview = URL.createObjectURL(event.target.files[0]);
+      this.selected = true;
     },
     isAdvancedUpload() {
       var div = document.createElement("div");
@@ -271,8 +299,6 @@ export default {
     },
     async onSubmit(e) {
       this.loading = true;
-      var elmnt = document.getElementById("results");
-      elmnt.scrollIntoView();
 
       if (this.imgSrc) {
         let requestBody = {
