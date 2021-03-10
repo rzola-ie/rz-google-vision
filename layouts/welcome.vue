@@ -65,7 +65,7 @@
       <div class="mb-10 text-2xl" @click="() => (open = !open)">
         <nuxt-link class="block" to="/game">Emoji Game</nuxt-link>
         <nuxt-link class="block" to="/labels">Labels</nuxt-link>
-        <nuxt-link class="block" to="/dragdrop">Drag &amp; Drop</nuxt-link>
+        <nuxt-link class="block" to="/medications">Medications</nuxt-link>
       </div>
       <nuxt-link to="/" class="btn btn-blue" @click="() => (open = !open)">
         <svg

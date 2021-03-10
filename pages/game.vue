@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="pt-6 h-full flex justify-center items-center">
+  <div id="app" class="pt-0 h-full md:flex md:justify-center md:items-center">
     <div class="flex justify-center items-center" v-if="!instructions">
       <div class="bg-white p-10 rounded-md shadow-lg">
         <h1 class="text-3xl text-blue-900 font-bold">Play the Emoji Game!</h1>
