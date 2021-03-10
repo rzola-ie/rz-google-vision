@@ -25,6 +25,7 @@
             wrong prediction
           </li>
           <li class="mb-4">If the clock runs out, it's Game Over!</li>
+          <li class="text-xs">DISCLAIMER: THIS GAME KINDA SUCKS</li>
         </ul>
         <div class="mt-6">
           <button class="btn btn-blue" href="#" role="button" @click="login()">
