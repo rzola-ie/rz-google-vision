@@ -178,19 +178,47 @@
             <li
               v-for="{ description } in results.slice(1, 10)"
               :key="description"
+              @click="addToList(description)"
               :class="[
-                `px-8 py-4 text-2xl uppercase mb-2 last:mb-0 ${
+                `flex items-center px-8 py-4 text-2xl uppercase mb-2 last:mb-0 ${
                   selectedResults.includes(description)
                     ? 'bg-blue-900 bg-opacity-20'
                     : ''
                 }`,
               ]"
             >
-              <input
-                type="checkbox"
-                class="mr-2"
-                @change="addToList(description)"
-              />
+              <svg
+                v-if="selectedResults.includes(description)"
+                class="h-6 w-6 mr-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+
+              <svg
+                v-else
+                class="h-6 w-6 mr-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 12 a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+
               <span>{{ description }}</span>
             </li>
           </ul>
