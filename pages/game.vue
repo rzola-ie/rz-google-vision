@@ -24,7 +24,7 @@
             You gain 10 points for a correct prediction and lose 5 points for a
             wrong prediction
           </li>
-          <li class="mb-4">If the clock runs out, its Game Over!</li>
+          <li class="mb-4">If the clock runs out, it's Game Over!</li>
         </ul>
         <div class="mt-6">
           <button class="btn btn-blue" href="#" role="button" @click="login()">
