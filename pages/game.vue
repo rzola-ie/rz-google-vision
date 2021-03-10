@@ -2,7 +2,9 @@
   <div id="app" class="pt-0 h-full md:flex md:justify-center md:items-center">
     <div class="flex justify-center items-center" v-if="!instructions">
       <div class="bg-white p-10 rounded-md shadow-lg">
-        <h1 class="text-3xl text-blue-900 font-bold">Play the Emoji Game!</h1>
+        <h1 class="text-2xl md:text-3xl text-blue-900 font-bold">
+          Play the Emoji Game!
+        </h1>
         <p class="text-xl text-blue-900">Instructions</p>
         <ul class="my-6">
           <li class="mb-4">

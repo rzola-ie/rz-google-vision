@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative min-h-full p-4 md:p-8 bg-white bg-opacity-70 text-blue-900 flex flex-col transition ease-in duration-150"
+    class="relative min-h-full p-4 pb-10 md:pb-4 md:p-8 bg-white bg-opacity-70 text-blue-900 flex flex-col transition ease-in duration-150"
   >
     <div class="relative mb-4 text-center">
       <nuxt-link to="/medications" class="absolute left-0 top-0">
