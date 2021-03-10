@@ -1,5 +1,5 @@
 export const state = () => ({
-  medications: [{title: 'crestor'}]
+  medications: [{title: "Crestor OTC"}]
 })
 
 export const mutations = {
