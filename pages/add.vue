@@ -174,7 +174,8 @@
         </div>
         <!-- image preview -->
 
-        <div>
+        <div v-if="results.length">
+          <p class="text-gray-700">Select items to search:</p>
           <ul>
             <li
               v-for="{ description } in results.slice(1, 10)"
