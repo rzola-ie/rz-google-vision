@@ -23,7 +23,7 @@
       </h1>
     </div>
 
-    <div class="flex mb-2">
+    <div class="flex mb-8">
       <button
         @click="() => (captureOption = 'text')"
         :class="[
@@ -81,8 +81,8 @@
     </div>
     <!-- se;ect buttons -->
 
-    <div class="flex flex-1">
-      <div v-if="captureOption === 'photo'" class="flex flex-col flex-1 p-4">
+    <div class="flex flex-1 mb-8">
+      <div v-if="captureOption === 'photo'" class="flex flex-col flex-1">
         <form
           v-if="!imgPreview"
           class="relative p-4 mb-4 col-span-2 w-full mx-auto bg-gray-200 text-gray-700 flex flex-1"
@@ -233,7 +233,7 @@
     </div>
     <!-- capture options -->
 
-    <div class="p-4">
+    <div>
       <ul>
         <li
           v-for="{ description } in results.slice(1, 10)"
