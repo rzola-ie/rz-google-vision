@@ -324,8 +324,6 @@
               class="py-8 text-xl text-center"
             >
               <p>Your search returned no results.</p>
-              <p>Clean your camera lense, gross...</p>
-              <p class="text-3xl">😳😳😳</p>
             </div>
             <div v-else>
               <div v-for="(med, index) in suggestedMedications" :key="index">
