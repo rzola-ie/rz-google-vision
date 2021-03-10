@@ -122,6 +122,7 @@
                 type="file"
                 name="files[]"
                 id="file"
+                accept="image/png, image/jpeg"
                 @change="loadFile"
               />
               <label for="file" class="text-center cursor-pointer">
