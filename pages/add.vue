@@ -286,12 +286,17 @@
     </div>
     <!-- capture options -->
 
-    <div v-else>
-      <div class="flex flex-wrap">
-        <button v-for="item in selectedResults" :key="item">
+    <div v-else class="flex flex-col">
+      <div class="mb-4 flex-1 flex flex-wrap gap-4">
+        <button
+          v-for="item in selectedResults"
+          :key="item"
+          class="px-4 py-1 bg-gray-300 rounded-md flex items-center uppercase"
+          @click="removeSelectedItem(item)"
+        >
           {{ item }}
           <svg
-            class="h-4 w-4"
+            class="h-4 w-4 ml-4"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -304,6 +309,14 @@
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>
+        </button>
+      </div>
+      <div>
+        <button
+          @click="removeImage"
+          class="h-16 w-full rounded-md text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 shadow-md"
+        >
+          Retake
         </button>
       </div>
     </div>
@@ -427,6 +440,12 @@ export default {
       this.selectedResults = [];
       this.selected = false;
       this.searched = false;
+    },
+    removeSelectedItem(term) {
+      if (this.selectedResults.includes(term)) {
+        const termIndex = this.selectedResults.indexOf(term);
+        this.selectedResults.splice(termIndex, 1);
+      }
     },
     onFindMeds() {
       this.searched = true;
