@@ -323,8 +323,8 @@
               v-if="suggestedMedications.length === 0"
               class="py-8 text-3xl text-center"
             >
-              Your search returned no results, clean your camera lense, gross...
-              😳
+              <p>Your search returned no results.</p>
+              <p>Clean your camera lense, gross... 😳</p>
             </div>
             <div v-else>
               <div v-for="(med, index) in suggestedMedications" :key="index">
