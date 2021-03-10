@@ -286,30 +286,32 @@
     </div>
     <!-- capture options -->
 
-    <div v-else class="flex flex-col">
-      <div class="mb-4 flex-1 flex flex-wrap gap-4">
-        <button
-          v-for="item in selectedResults"
-          :key="item"
-          class="px-4 py-1 bg-gray-300 rounded-md flex items-center uppercase"
-          @click="removeSelectedItem(item)"
-        >
-          {{ item }}
-          <svg
-            class="h-4 w-4 ml-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+    <div v-else class="flex-1 flex flex-col">
+      <div class="mb-4 -mx-2 flex-1">
+        <div class="w-full flex flex-wrap">
+          <button
+            v-for="item in selectedResults"
+            :key="item"
+            class="h-10 px-4 py-1 m-2 bg-gray-300 rounded-md flex items-center uppercase"
+            @click="removeSelectedItem(item)"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
+            {{ item }}
+            <svg
+              class="h-4 w-4 ml-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div>
         <button
