@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative min-h-full p-4 md:p-8 bg-white bg-opacity-70 text-blue-900 flex flex-col"
+    class="relative min-h-full p-4 md:p-8 bg-white bg-opacity-70 text-blue-900 flex flex-col transition ease-in duration-150"
   >
     <div class="relative mb-4 text-center">
       <nuxt-link to="/medications" class="absolute left-0 top-0">
@@ -23,7 +23,7 @@
       </h1>
     </div>
 
-    <div class="flex mb-8">
+    <div class="flex mb-4">
       <button
         @click="() => (captureOption = 'text')"
         :class="[
@@ -81,7 +81,7 @@
     </div>
     <!-- se;ect buttons -->
 
-    <div class="flex flex-1 mb-8">
+    <div class="flex flex-1 mb-4">
       <div v-if="captureOption === 'photo'" class="flex flex-col flex-1">
         <form
           v-if="!imgPreview"
@@ -175,6 +175,30 @@
         <!-- image preview -->
 
         <div>
+          <ul>
+            <li
+              v-for="{ description } in results.slice(1, 10)"
+              :key="description"
+              :class="[
+                `px-8 py-4 text-2xl uppercase mb-2 last:mb-0 ${
+                  selectedResults.includes(description)
+                    ? 'bg-blue-900 bg-opacity-20'
+                    : ''
+                }`,
+              ]"
+            >
+              <input
+                type="checkbox"
+                class="mr-2"
+                @change="addToList(description)"
+              />
+              <span>{{ description }}</span>
+            </li>
+          </ul>
+        </div>
+        <!-- results list -->
+
+        <div>
           <div v-if="selected">
             <button
               v-if="results.length === 0"
@@ -232,30 +256,6 @@
       <!-- text search -->
     </div>
     <!-- capture options -->
-
-    <div>
-      <ul>
-        <li
-          v-for="{ description } in results.slice(1, 10)"
-          :key="description"
-          :class="[
-            `px-8 py-4 text-2xl uppercase mb-2 last:mb-0 ${
-              selectedResults.includes(description)
-                ? 'bg-blue-900 bg-opacity-20'
-                : ''
-            }`,
-          ]"
-        >
-          <input
-            type="checkbox"
-            class="mr-2"
-            @change="addToList(description)"
-          />
-          <span>{{ description }}</span>
-        </li>
-      </ul>
-    </div>
-    <!-- results -->
   </div>
 </template>
 
