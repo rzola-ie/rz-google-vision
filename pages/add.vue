@@ -23,7 +23,7 @@
       </h1>
     </div>
 
-    <div class="flex mb-4">
+    <div class="flex mb-2">
       <button
         @click="() => (captureOption = 'text')"
         :class="[
@@ -153,12 +153,22 @@
               class="relative h-full p-4 border-2 border-gray-400 border-dashed flex items-center justify-center"
             >
               <img
-                v-if="imgPreview && !loading"
+                v-if="imgPreview"
                 :src="imgPreview"
                 alt=""
-                class="mx-auto object-cover"
+                :class="[
+                  `mx-auto object-cover ${
+                    loading ? 'opacity-40' : 'opacity-100'
+                  }`,
+                ]"
                 id="output"
               />
+              <h1
+                v-if="loading"
+                class="absolute top-50 left-0 right-0 transform -translate-y-1/2 font-bold text-2xl text-center z-10"
+              >
+                Loading...
+              </h1>
             </div>
           </div>
         </div>
@@ -176,7 +186,8 @@
 
             <button
               v-else
-              class="h-16 mb-4 w-full bg-blue-700 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md"
+              class="h-16 mb-4 w-full bg-blue-700 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md disabled:bg-gray-300 disabled:text-gray-700"
+              :disabled="selectedResults.length === 0"
             >
               Find Medicine
             </button>
@@ -222,7 +233,7 @@
     </div>
     <!-- capture options -->
 
-    <div>
+    <div class="p-4">
       <ul>
         <li
           v-for="{ description } in results.slice(1, 10)"
@@ -349,13 +360,20 @@ export default {
     },
     addToList(term) {
       console.log(term);
-      // this.selectedResults.push(term);
+      console.log(this.selectedResults);
+      if (this.selectedResults.includes(term)) {
+        const termIndex = this.selectedResults.indexOf(term);
+        this.selectedResults.splice(termIndex, 1);
+      } else {
+        this.selectedResults.push(term);
+      }
     },
     removeImage() {
       this.imgSrc = null;
       this.imgPreview = null;
       this.results = [];
       this.selectedResults = [];
+      this.selected = false;
     },
   },
 };
