@@ -122,8 +122,6 @@
                 type="file"
                 name="files[]"
                 id="file"
-                data-multiple-caption="{count} files selected"
-                multiple
                 @change="loadFile"
               />
               <label for="file" class="text-center cursor-pointer">
