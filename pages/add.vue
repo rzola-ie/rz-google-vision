@@ -111,9 +111,7 @@
             </svg>
           </button>
           <div
-            :class="[
-              `flex items-center justify-center flex-1 text-gray-700 border-2 border-gray-400 border-dashed`,
-            ]"
+            class="flex items-center justify-center flex-1 text-gray-700 border-2 border-gray-400 border-dashed"
           >
             <div v-if="!imgSrc">
               <input
