@@ -1,6 +1,7 @@
 <template>
   <div
-    class="relative min-h-full p-4 pb-10 md:pb-4 md:p-8 bg-white bg-opacity-70 text-blue-900 flex flex-col transition ease-in duration-150"
+    style="min-height: calc(100% - 80px)"
+    class="relative p-4 md:pb-4 md:p-8 bg-white bg-opacity-70 text-blue-900 flex flex-col transition ease-in duration-150"
   >
     <div class="relative mb-4 text-center">
       <nuxt-link to="/medications" class="absolute left-0 top-0">
@@ -81,7 +82,7 @@
     </div>
     <!-- se;ect buttons -->
 
-    <div class="flex flex-1 mb-4">
+    <div v-if="!searched" class="flex flex-1 mb-4">
       <div v-if="captureOption === 'photo'" class="flex flex-col flex-1">
         <form
           v-if="!imgPreview"
@@ -237,6 +238,7 @@
 
             <button
               v-else
+              @click="onFindMeds"
               class="h-16 mb-4 w-full bg-blue-700 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md disabled:bg-gray-300 disabled:text-gray-700"
               :disabled="selectedResults.length === 0"
             >
@@ -283,6 +285,28 @@
       <!-- text search -->
     </div>
     <!-- capture options -->
+
+    <div v-else>
+      <div class="flex flex-wrap">
+        <button v-for="item in selectedResults" :key="item">
+          {{ item }}
+          <svg
+            class="h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -299,6 +323,7 @@ export default {
       hasAdvanced: false,
       loading: false,
       selected: false,
+      searched: false,
       results: [],
       selectedResults: [],
       gCloudVisionUrl:
@@ -401,6 +426,14 @@ export default {
       this.results = [];
       this.selectedResults = [];
       this.selected = false;
+      this.searched = false;
+    },
+    onFindMeds() {
+      this.searched = true;
+      this.$nextTick(() => {
+        window.scrollTo(0, 0);
+        console.log("bro");
+      });
     },
   },
 };
