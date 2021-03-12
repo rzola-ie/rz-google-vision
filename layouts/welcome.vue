@@ -69,10 +69,28 @@
                   } transition-all ease-in duration-150 origin-top-right`,
                 ]"
               >
-                <h1 class="py-2 mb-4 text-lg font-semibold border-b">
+                <h1
+                  class="py-2 mb-4 text-lg font-semibold text-center border-b"
+                >
                   {{ $store.state.user.displayName }}
                 </h1>
-                <button @click="logout">log out</button>
+                <button
+                  @click="logout"
+                  class="flex items-center justify-center w-full px-1 py-2 transition-colors duration-150 ease-in rounded-sm hover:bg-gray-200"
+                >
+                  Log Out
+                  <svg
+                    class="w-4 h-4 ml-2 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </nav>
