@@ -1,12 +1,19 @@
 <template>
   <div
-    class="m-0 h-full grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1"
+    class="relative m-0 h-full grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1"
   >
-    <div
-      class="bg-cover bg-no-repeat bg-center ..."
-      style="background-image: url(/cube.png)"
-    ></div>
-    <div class="flex items-center bg-white">
+    <div class="">
+      <video
+        muted
+        loop
+        playsinline
+        autoplay
+        class="object-cover -z-1 transform -translate-y-36"
+      >
+        <source src="/logo.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="flex items-center bg-white z-10">
       <div class="w-full mx-auto">
         <h1
           class="text-center font-bold text-2xl md:text-3xl tracking-wide text-green-600 mb-0 md:mb-10"
@@ -43,41 +50,10 @@
                 class="w-full h-10 border rounded-md border-gray-600 placeholder-gray-600 pl-12"
                 type="text"
                 placeholder="Email"
+                v-model="email"
               />
             </div>
             <div class="text-red-600 text-base mb-4"></div>
-
-            <div class="relative text-green-600">
-              <div
-                class="absolute inset-y-0 flex items-center pl-3 pointer-events-none"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  class="h-6 w-6 stroke-current"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
-              </div>
-              <input
-                class="w-full h-10 border rounded-md border-gray-600 placeholder-gray-600 pl-12 focus:outline-none focus:ring focus:ring-purple-600 focus:ring-opacity-50"
-                type="password"
-                placeholder="Password"
-              />
-            </div>
-            <div class="text-red-600 text-base mb-2 md:mb-4"></div>
-
-            <nuxt-link
-              class="block text-center text-green-600 mb-2 text-xs md:text-lg md:mb-4"
-              to="/"
-              >I've forgotten my password</nuxt-link
-            >
 
             <button
               type="submit"
@@ -116,10 +92,39 @@
 </template>
 
 <script>
+import { auth } from "~/services/fireinit";
+
 export default {
+  data() {
+    return {
+      email: null,
+      signInEmail: null,
+    };
+  },
+  created() {
+    this.signInEmail = localStorage.getItem("email");
+    const url = location.href;
+
+    if (auth.isSignInWithEmailLink(url)) {
+      auth.signInWithEmailLink(this.signInEmail, url);
+    }
+  },
   methods: {
-    signin() {
-      this.$router.push("/home");
+    async signin() {
+      localStorage.setItem("email", this.email);
+
+      const actionCodeSettings = {
+        url: location.origin,
+        handleCodeInApp: true,
+      };
+
+      try {
+        await auth.sendSignInLinkToEmail(this.email, actionCodeSettings);
+
+        this.$router.push("/email");
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };

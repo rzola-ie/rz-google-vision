@@ -13,6 +13,9 @@ module.exports = {
         'ie-green': {
           500: '#69DAA6'
         }
+      },
+      zIndex: {
+        '-1': "-1"
       }
     },
     screens: {

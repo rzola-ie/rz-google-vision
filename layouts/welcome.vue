@@ -67,7 +67,7 @@
         <nuxt-link class="block" to="/labels">Labels</nuxt-link>
         <nuxt-link class="block" to="/medications">Medications</nuxt-link>
       </div>
-      <nuxt-link to="/" class="btn btn-blue" @click="() => (open = !open)">
+      <button class="btn btn-blue" @click="logout">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -82,7 +82,7 @@
           />
         </svg>
         <span>Logout</span>
-      </nuxt-link>
+      </button>
     </div>
   </div>
 </template>
@@ -93,6 +93,13 @@ export default {
     return {
       open: false,
     };
+  },
+  methods: {
+    logout() {
+      this.$store.commit("REMOVE_USER");
+      this.open = false;
+      this.$router.replace("/");
+    },
   },
 };
 </script>

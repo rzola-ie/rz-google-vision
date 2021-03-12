@@ -178,20 +178,20 @@
           <p class="text-gray-700">Select items to search:</p>
           <ul>
             <li
-              v-for="{ description } in results.slice(1, 10)"
-              :key="description"
-              @click="addToList(description)"
+              v-for="result in results"
+              :key="result"
+              @click="addToList(result)"
               role="checkbox"
               :class="[
                 `flex items-center p-4 text-2xl uppercase mb-2 cursor-pointer last:mb-0 ${
-                  selectedResults.includes(description)
+                  selectedResults.includes(result)
                     ? 'bg-blue-900 bg-opacity-20'
                     : ''
                 }`,
               ]"
             >
               <svg
-                v-if="selectedResults.includes(description)"
+                v-if="selectedResults.includes(result)"
                 class="h-6 w-6 mr-4"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -222,7 +222,7 @@
                 />
               </svg>
 
-              <span>{{ description }}</span>
+              <span>{{ result }}</span>
             </li>
           </ul>
         </div>
@@ -346,6 +346,7 @@
 
 <script>
 import axios from "axios";
+import { blackList, whiteList } from "~/lib/words";
 
 export default {
   layout: "welcome",
@@ -363,11 +364,14 @@ export default {
       suggestedMedications: [],
       gCloudVisionUrl:
         "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBqHINyqX2rb2v7MddQ9fwDDE--fX-hnTE",
+      blackList: null,
+      whiteList: null,
     };
   },
   mounted() {
     this.hasAdvanced = this.isAdvancedUpload();
-    console.log(this.hasAdvanced);
+    this.blackList = blackList;
+    this.whiteList = whiteList;
   },
   methods: {
     loadFile(event) {
@@ -379,7 +383,6 @@ export default {
           .replace("data:", "")
           .replace(/^.+,/, "");
 
-        console.log("imgData", base64String);
         this.imgSrc = base64String;
       };
 
@@ -408,7 +411,7 @@ export default {
               features: [
                 {
                   type: "TEXT_DETECTION",
-                  maxResults: 10,
+                  maxResults: 20,
                 },
               ],
             },
@@ -421,18 +424,47 @@ export default {
             this.gCloudVisionUrl,
             requestBody
           );
-          this.results = predictionResults.data.responses[0].textAnnotations;
-          // let annotations = predictionResponse.labelAnnotations;
-          // let allLabelDescriptions = annotations.map((annotation) =>
-          //   annotation.description.toLowerCase()
-          // );
 
-          //Check if any of the prediction labels match the current emoji
+          this.results = [
+            ...predictionResults.data.responses[0].textAnnotations.map((r) =>
+              r.description.toLowerCase()
+            ),
+          ];
           console.log(this.results);
 
-          // allLabelDescriptions.forEach((description) => {
-          //   console.log(description);
-          // });
+          this.results.forEach((result, index) => {
+            this.results[index] = result
+              .replace('"', "")
+              .replace("(", "")
+              .replace(")", "")
+              .replace("'", "")
+              .replace("©", "")
+              .replace("®", "")
+              .replace("™", "");
+          });
+
+          const checkBlacklist = (result) => {
+            return this.blackList.indexOf(result) === -1;
+          };
+
+          const checkWhitelist = (result) => {
+            return this.whiteList.indexOf(result) !== -1;
+          };
+
+          const filtered = this.results
+            .filter(checkBlacklist)
+            .filter(checkWhitelist)
+            .reduce(
+              (unique, item) =>
+                unique.includes(item) ? unique : [...unique, item],
+              []
+            );
+
+          console.log("filtered", filtered);
+
+          // this.results = [...filtered1];
+
+          this.results = [...filtered];
 
           this.predictingImage = false;
         } catch (error) {

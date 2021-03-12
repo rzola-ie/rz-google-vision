@@ -15,6 +15,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      { hid: 'firebase', src: 'https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js' },
     ]
   },
 
@@ -24,6 +27,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/fireauth'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -50,6 +54,9 @@ export default {
   //   },
   // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
+  router: {
+    middleware: 'router-auth'
+  },
   build: {
   },
   server: {
