@@ -3,7 +3,8 @@
     class="relative h-screen pt-20 overflow-x-hidden bg-gradient-to-bl from-green-200 to-blue-200"
   >
     <div
-      class="fixed inset-x-0 top-0 z-50 grid items-center h-20 grid-cols-3 px-4 bg-white shadow-md md:px-10"
+      style="grid-template-columns: 1fr 5rem 1fr"
+      class="fixed inset-x-0 top-0 z-50 grid items-center h-20 px-4 bg-white shadow-md md:px-10"
     >
       <div class="col-start-2 justify-self-center">
         <nuxt-link to="/home">
@@ -21,15 +22,23 @@
         </nuxt-link>
       </div>
       <div class="col-start-3 text-blue-900 justify-self-end">
-        <div class="hidden md:block">
-          <nav>
+        <div class="hidden lg:block">
+          <nav class="flex items-center">
             <nuxt-link class="mr-4" to="/game">Emoji Game </nuxt-link>
             <nuxt-link class="mr-4" to="/labels">Labels</nuxt-link>
             <nuxt-link class="mr-4" to="/medications">Medications</nuxt-link>
-            <button @click="logout">
-              Log out
+            <button
+              class="flex items-center h-10 p-2 text-gray-900 rounded-full"
+              @click="logout"
+            >
+              <div class="w-8 h-8 overflow-hidden rounded-full">
+                <img
+                  :src="$store.state.user.photoURL"
+                  alt="account profile image"
+                />
+              </div>
               <svg
-                class="inline h-4 ml-2 2-4"
+                class="w-3 h-3 ml-2"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -39,13 +48,13 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  d="M19 9l-7 7-7-7"
                 />
               </svg>
             </button>
           </nav>
         </div>
-        <div class="md:hidden">
+        <div class="lg:hidden">
           <button @click="() => (open = !open)">
             <svg
               class="w-8 h-8"
@@ -109,6 +118,7 @@ export default {
   data() {
     return {
       open: false,
+      openAccountMenu: false,
     };
   },
   methods: {
