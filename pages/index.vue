@@ -4,10 +4,10 @@
   >
     <div class="">
       <video
-        muted
         loop
         playsinline
         autoplay
+        muted
         class="object-cover -z-1 transform -translate-y-36"
       >
         <source src="/logo.mp4" type="video/mp4" />
