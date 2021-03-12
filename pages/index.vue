@@ -14,7 +14,7 @@
         <source src="/logo.mp4" type="video/mp4" />
       </video>
     </div>
-    <div class="flex items-center bg-white z-10">
+    <div class="flex bg-white z-10 pt-10">
       <div class="w-full mx-auto">
         <h1
           class="text-center font-bold text-2xl md:text-3xl tracking-wide text-green-600 mb-0 md:mb-10"
