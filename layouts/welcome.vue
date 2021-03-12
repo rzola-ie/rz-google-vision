@@ -77,7 +77,7 @@
                 <h1
                   class="py-2 mb-4 text-lg font-semibold text-center border-b"
                 >
-                  {{ $store.state.user.displayName }}
+                  {{ $store.state.user ? $store.state.user.displayName : "" }}
                 </h1>
                 <button
                   @click="logout"
