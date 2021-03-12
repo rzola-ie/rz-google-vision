@@ -45,13 +45,13 @@
                 background-repeat: no-repeat;
                 background-position: 0.8rem 50%;
               "
-              class="w-full px-3 py-3 mx-auto mb-4 tracking-wide text-white bg-green-600 rounded-sm shadow-none pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 whitespace-nowrap"
+              class="w-full px-3 py-3 mx-auto mb-4 tracking-wide text-white bg-green-600 rounded-sm shadow-none pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 whitespace-nowrap hover:bg-green-700"
             >
               Sign in with Email
             </button>
 
             <button
-              class="w-full mb-4 bg-gray-200 rounded-sm shadow-none pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 md:mx-auto align-items whitespace-nowrap"
+              class="w-full mb-4 bg-gray-200 rounded-sm shadow-none pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 md:mx-auto align-items whitespace-nowrap hover:bg-gray-300"
               style="
                 background-image: url(/google-icon.svg);
                 background-size: 26px;
