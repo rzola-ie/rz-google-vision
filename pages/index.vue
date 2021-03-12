@@ -1,10 +1,10 @@
 <template>
   <div
     ref="content"
-    class="m-0 h-full grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1"
+    class="grid h-full grid-cols-1 grid-rows-2 m-0 md:grid-cols-2 md:grid-rows-1"
   >
     <div
-      class="max-h-full overflow-hidden bg-cover bg-center"
+      class="max-h-full overflow-hidden bg-center bg-cover"
       style="background-image: url(/cube.png)"
     >
       <video
@@ -13,72 +13,71 @@
         autoplay
         muted
         ref="video"
-        class="h-full w-full object-cover object-center -z-1 hidden md:block"
+        class="hidden object-cover object-center w-full h-full -z-1 md:block"
       >
         <source src="/logo.mp4" type="video/mp4" />
       </video>
     </div>
-    <div class="flex bg-white z-10 pt-10 md:flex-col md:justify-center">
+    <div class="z-10 flex pt-10 bg-white md:flex-col md:justify-center">
       <div class="w-full mx-auto">
         <h1
-          class="text-center font-bold text-2xl md:text-3xl tracking-wide text-green-600 mb-0 md:mb-10"
+          class="text-2xl font-bold tracking-wider text-center text-green-600 md:text-3xl"
         >
           WELCOME
         </h1>
         <div class="w-2/3 mx-auto text-lg">
-          <p class="text-base md:text-lg text-center text-gray-700">
+          <p class="text-base text-center text-gray-700 md:text-lg">
             Sign in... or don't
           </p>
-          <p class="mb-5 text-xs pb-2 text-center text-gray-700">
+          <p class="pb-2 mb-5 text-xs text-center text-gray-700">
             I'm not your mom
           </p>
 
-          <div v-show="!isUsingEmail">
+          <div v-show="!isUsingEmail" class="flex flex-col justify-center">
             <button
               @click="() => (isUsingEmail = true)"
-              class="btn bg-green-600 text-white w-full h-14 shadow-none mb-4 px-3 py-3 md:mb-4 md:py-4 md:w-2/3 mx-auto rounded-sm tracking-wide text-xl flex justify-between align-items"
+              style="
+                background-image: url(/envelope.svg);
+                background-size: 30px;
+                background-repeat: no-repeat;
+                background-position: 0.8rem 50%;
+              "
+              class="w-full px-3 py-3 mx-auto mb-4 text-lg tracking-wide text-white bg-green-600 rounded-sm shadow-none md:text-xl pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 whitespace-nowrap"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                class="h-7 w-7 stroke-current"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
               Sign in with Email
             </button>
 
             <button
-              class="btn bg-gray-200 h-14 mb-4 md:mb-4 md:py-4 md:w-2/3 mx-auto rounded-sm shadow-none w-full flex justify-between align-items text-xl"
-              style="color: #8d8d8d"
+              class="w-full mb-4 text-lg bg-gray-200 rounded-sm shadow-none md:text-xl pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 md:mx-auto align-items whitespace-nowrap"
+              style="
+                background-image: url(/google-icon.svg);
+                background-size: 26px;
+                background-repeat: no-repeat;
+                background-position: 0.8rem 50%;
+                color: #8d8d8d;
+              "
               @click="signinWithGoogle"
             >
-              <img class="h-full" src="/google-icon.svg" alt="" />
               Sign in with Google
             </button>
             <button
-              class="btn bg-black h-14 mb-4 md:mb-4 md:py-4 md:w-2/3 mx-auto rounded-sm shadow-none w-full flex justify-between align-items text-xl text-white"
-              type="button"
+              class="w-full mx-auto text-lg text-white bg-black rounded-sm shadow-none md:text-xl pl-14 btn h-14 md:py-4 md:w-2/3 whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-20"
+              style="
+                background-image: url(/apple-icon.svg);
+                background-size: 22px;
+                background-repeat: no-repeat;
+                background-position: 0.8rem 50%;
+              "
+              disabled
               @click="() => null"
             >
-              <img
-                class="h-full"
-                src="/apple-icon.svg"
-                alt="sign in with apple"
-              />
               Sign in with Apple
             </button>
           </div>
 
           <form
             v-show="isUsingEmail"
-            class="mx-auto w-full md:w-3/4"
+            class="w-full mx-auto md:w-3/4"
             @submit.prevent="signin"
           >
             <div class="relative">
@@ -89,7 +88,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  class="h-6 w-6 stroke-current"
+                  class="w-6 h-6 stroke-current"
                 >
                   <path
                     stroke-linecap="round"
@@ -101,26 +100,26 @@
               </div>
 
               <input
-                class="w-full h-10 border rounded-md border-gray-600 placeholder-gray-600 pl-12"
+                class="w-full h-10 pl-12 placeholder-gray-600 border border-gray-600 rounded-md"
                 type="text"
                 placeholder="Email"
                 v-model="email"
               />
             </div>
-            <div class="text-red-600 text-base mb-4"></div>
+            <div class="mb-4 text-base text-red-600"></div>
 
             <button
               type="submit"
-              class="btn bg-green-600 text-white w-full shadow-none px-3 py-3 md:py-4 rounded-sm tracking-wide text-md"
+              class="w-full px-3 py-3 tracking-wide text-white bg-green-600 rounded-sm shadow-none btn md:py-4 text-md"
             >
               Send my Sign In Link
             </button>
 
-            <div class="relative mt-6 mb-5 flex justify-center">
+            <div class="relative flex justify-center mt-6 mb-5">
               <div
-                class="absolute top-1/2 left-0 right-0 border border-green-600 -z-1"
+                class="absolute left-0 right-0 border border-green-600 top-1/2 -z-1"
               ></div>
-              <div class="text-center px-4 bg-white z-10">or</div>
+              <div class="z-10 px-4 text-center bg-white">or</div>
             </div>
 
             <button
