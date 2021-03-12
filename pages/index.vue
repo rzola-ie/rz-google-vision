@@ -189,14 +189,6 @@ export default {
       const actionCodeSettings = {
         url: `${location.origin}/authenticate`,
         handleCodeInApp: true,
-        iOS: {
-          bundleId: "com.example.ios",
-        },
-        android: {
-          packageName: "com.example.android",
-          installApp: true,
-          minimumVersion: "12",
-        },
       };
 
       try {
