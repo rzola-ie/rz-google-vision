@@ -31,9 +31,16 @@
               class="flex items-center h-10 p-2 text-gray-900 rounded-full"
               @click="logout"
             >
-              <div class="w-8 h-8 overflow-hidden rounded-full">
+              <div
+                class="w-8 h-8 overflow-hidden rounded-full"
+                v-if="$store.state.user"
+              >
                 <img
-                  :src="$store.state.user.photoURL"
+                  :src="
+                    $store.state.user
+                      ? $store.state.user.photoURL
+                      : '/avatar.svg'
+                  "
                   alt="account profile image"
                 />
               </div>
@@ -123,8 +130,8 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit("REMOVE_USER");
       this.open = false;
+      this.$store.commit("REMOVE_USER");
       this.$router.replace("/");
     },
   },

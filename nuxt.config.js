@@ -17,7 +17,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      { hid: 'firebase', src: 'https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js' },
+      // { hid: 'firebase', src: 'https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js' },
     ]
   },
 
@@ -27,7 +27,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/fireauth'
+    '~/plugins/fireauth.client'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -38,21 +38,9 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
   ],
-
   // Modules: https://go.nuxtjs.dev/config-modules
-  // modules: [
-  //   '@nuxtjs/axios',
-  //   '@nuxtjs/auth-next'
-  // ],
-  // auth: {
-  //   strategies: {
-  //     auth0: {
-  //       domain: "dev-bbknqhj4.us.auth0.com",
-  //       clientId: "zuXEMbUBl4dAdYUHg8HZhlETug8l82Wr",
-  //       audience: "/"
-  //     }
-  //   },
-  // },
+  modules: [
+  ],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   router: {
     middleware: 'router-auth'

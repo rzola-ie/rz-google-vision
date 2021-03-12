@@ -33,7 +33,10 @@
             I'm not your mom
           </p>
 
-          <div v-show="!isUsingEmail" class="flex flex-col justify-center">
+          <div
+            v-show="!isUsingEmail"
+            class="flex flex-col justify-center text-base md:text-base lg:text-lg"
+          >
             <button
               @click="() => (isUsingEmail = true)"
               style="
@@ -42,13 +45,13 @@
                 background-repeat: no-repeat;
                 background-position: 0.8rem 50%;
               "
-              class="w-full px-3 py-3 mx-auto mb-4 text-lg tracking-wide text-white bg-green-600 rounded-sm shadow-none md:text-xl pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 whitespace-nowrap"
+              class="w-full px-3 py-3 mx-auto mb-4 tracking-wide text-white bg-green-600 rounded-sm shadow-none pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 whitespace-nowrap"
             >
               Sign in with Email
             </button>
 
             <button
-              class="w-full mb-4 text-lg bg-gray-200 rounded-sm shadow-none md:text-xl pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 md:mx-auto align-items whitespace-nowrap"
+              class="w-full mb-4 bg-gray-200 rounded-sm shadow-none pl-14 btn h-14 md:mb-4 md:py-4 md:w-2/3 md:mx-auto align-items whitespace-nowrap"
               style="
                 background-image: url(/google-icon.svg);
                 background-size: 26px;
@@ -61,7 +64,7 @@
               Sign in with Google
             </button>
             <button
-              class="w-full mx-auto text-lg text-white bg-black rounded-sm shadow-none md:text-xl pl-14 btn h-14 md:py-4 md:w-2/3 whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-20"
+              class="w-full mx-auto text-white bg-black rounded-sm shadow-none pl-14 btn h-14 md:py-4 md:w-2/3 whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-20"
               style="
                 background-image: url(/apple-icon.svg);
                 background-size: 22px;
@@ -73,6 +76,9 @@
             >
               Sign in with Apple
             </button>
+            <p class="w-full mx-auto text-xs text-gray-600 md:w-2/3">
+              This costs money, so no Apple for you.
+            </p>
           </div>
 
           <form
