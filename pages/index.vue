@@ -13,12 +13,12 @@
         autoplay
         muted
         ref="video"
-        class="h-full w-full object-cover object-center -z-1"
+        class="h-full w-full object-cover object-center -z-1 hidden md:block"
       >
         <source src="/logo.mp4" type="video/mp4" />
       </video>
     </div>
-    <div class="flex bg-white z-10 pt-10">
+    <div class="flex bg-white z-10 pt-10 md:flex-col md:justify-center">
       <div class="w-full mx-auto">
         <h1
           class="text-center font-bold text-2xl md:text-3xl tracking-wide text-green-600 mb-0 md:mb-10"
@@ -36,7 +36,7 @@
           <div v-show="!isUsingEmail">
             <button
               @click="() => (isUsingEmail = true)"
-              class="btn bg-green-600 text-white w-full h-14 shadow-none mb-2 px-3 py-3 md:mb-4 md:py-4 rounded-sm tracking-wide text-md flex justify-between align-items"
+              class="btn bg-green-600 text-white w-full h-14 shadow-none mb-4 px-3 py-3 md:mb-4 md:py-4 md:w-2/3 mx-auto rounded-sm tracking-wide text-xl flex justify-between align-items"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -55,18 +55,24 @@
             </button>
 
             <button
-              class="mb-2 md:mb-4"
-              type="button"
+              class="btn bg-gray-200 h-14 mb-4 md:mb-4 md:py-4 md:w-2/3 mx-auto rounded-sm shadow-none w-full flex justify-between align-items text-xl"
+              style="color: #8d8d8d"
               @click="signinWithGoogle"
             >
-              <img class="w-full" src="/google.png" alt="sign in with google" />
+              <img class="h-full" src="/google-icon.svg" alt="" />
+              Sign in with Google
             </button>
             <button
-              class="h-14 bg-black rounded-sm"
+              class="btn bg-black h-14 mb-4 md:mb-4 md:py-4 md:w-2/3 mx-auto rounded-sm shadow-none w-full flex justify-between align-items text-xl text-white"
               type="button"
               @click="() => null"
             >
-              <img class="w-full" src="/apple.png" alt="sign in with apple" />
+              <img
+                class="h-full"
+                src="/apple-icon.svg"
+                alt="sign in with apple"
+              />
+              Sign in with Apple
             </button>
           </div>
 
@@ -141,8 +147,35 @@ export default {
       provider: null,
     };
   },
-  mounted() {
+
+  created() {
     this.provider = GoogleProvider;
+
+    auth
+      .getRedirectResult()
+      .then((result) => {
+        if (result.credential) {
+          /** @type {firebase.auth.OAuthCredential} */
+          var credential = result.credential;
+
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = credential.accessToken;
+          // ...
+        }
+        // The signed-in user info.
+        this.$store.commit("SET_USER", result.user);
+        this.$router.push("/home");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
   },
   methods: {
     async signin() {

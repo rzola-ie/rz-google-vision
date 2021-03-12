@@ -9,6 +9,7 @@ export const mutations = {
   },
   REMOVE_USER(state) {
     state.user = null
+    localStorage.removeItem('email');
   },
   ADD_MEDICATION(state, medication) {
     state.medications = [...state.medications, medication];
