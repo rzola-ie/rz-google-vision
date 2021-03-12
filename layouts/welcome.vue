@@ -1,16 +1,16 @@
 <template>
   <div
-    class="relative overflow-x-hidden pt-20 h-screen bg-gradient-to-bl from-green-200 to-blue-200"
+    class="relative h-screen pt-20 overflow-x-hidden bg-gradient-to-bl from-green-200 to-blue-200"
   >
     <div
-      class="fixed z-50 h-20 px-4 md:px-10 bg-white top-0 inset-x-0 shadow-md grid grid-cols-3 items-center"
+      class="fixed inset-x-0 top-0 z-50 grid items-center h-20 grid-cols-3 px-4 bg-white shadow-md md:px-10"
     >
       <div class="col-start-2 justify-self-center">
         <nuxt-link to="/home">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
-            class="h-12 w-12 text-blue-900 fill-current"
+            class="w-12 h-12 text-blue-900 fill-current"
           >
             <path
               fill-rule="evenodd"
@@ -20,18 +20,35 @@
           </svg>
         </nuxt-link>
       </div>
-      <div class="col-start-3 justify-self-end text-blue-900">
+      <div class="col-start-3 text-blue-900 justify-self-end">
         <div class="hidden md:block">
           <nav>
             <nuxt-link class="mr-4" to="/game">Emoji Game </nuxt-link>
             <nuxt-link class="mr-4" to="/labels">Labels</nuxt-link>
-            <nuxt-link to="/medications">Medications</nuxt-link>
+            <nuxt-link class="mr-4" to="/medications">Medications</nuxt-link>
+            <button @click="logout">
+              Log out
+              <svg
+                class="inline h-4 ml-2 2-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+            </button>
           </nav>
         </div>
         <div class="md:hidden">
           <button @click="() => (open = !open)">
             <svg
-              class="h-8 w-8"
+              class="w-8 h-8"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -49,7 +66,7 @@
       </div>
     </div>
     <Nuxt />
-    <footer class="py-7 px-4 bg-white text-gray-800">
+    <footer class="px-4 text-gray-800 bg-white py-7">
       <div class="mx-auto text-center">
         <a href="#">Privacy Policy</a> <span class="mx-3">|</span>
         <a href="tel:18882345678">1-888-234-5678</a>
@@ -72,7 +89,7 @@
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          class="h-6 w-6 stroke-current inline-block mr-2"
+          class="inline-block w-6 h-6 mr-2 stroke-current"
         >
           <path
             stroke-linecap="round"
