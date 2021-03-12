@@ -8,6 +8,7 @@
         playsinline
         autoplay
         muted
+        ref="video"
         class="object-cover -z-1 transform -translate-y-36"
       >
         <source src="/logo.mp4" type="video/mp4" />
@@ -108,6 +109,10 @@ export default {
     if (auth.isSignInWithEmailLink(url)) {
       auth.signInWithEmailLink(this.signInEmail, url);
     }
+  },
+  mounted() {
+    // this.$refs.video.src = "/logo.mp4";
+    this.$refs.video.play();
   },
   methods: {
     async signin() {
