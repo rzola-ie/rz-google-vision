@@ -9,7 +9,7 @@
         autoplay
         muted
         ref="video"
-        class="object-cover -z-1 transform -translate-y-36"
+        class="object-cover object-center -z-1 transform -translate-y-36"
       >
         <source src="/logo.mp4" type="video/mp4" />
       </video>
