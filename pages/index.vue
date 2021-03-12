@@ -2,7 +2,7 @@
   <div
     class="relative m-0 h-screen grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1"
   >
-    <div class="">
+    <div class="h-full">
       <video
         loop
         playsinline
