@@ -15,7 +15,8 @@ module.exports = {
         }
       },
       zIndex: {
-        '-1': "-1"
+        '-1': "-1",
+        50: '50'
       }
     },
     screens: {

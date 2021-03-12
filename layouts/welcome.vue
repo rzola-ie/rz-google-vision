@@ -1,11 +1,16 @@
 <template>
   <div
-    class="relative h-screen pt-20 overflow-x-hidden bg-gradient-to-bl from-green-200 to-blue-200"
+    class="h-screen pt-20 overflow-x-hidden bg-gradient-to-bl from-green-200 to-blue-200"
   >
     <div
       style="grid-template-columns: 1fr 5rem 1fr"
-      class="fixed inset-x-0 top-0 z-50 grid items-center h-20 px-4 bg-white shadow-md md:px-10"
+      class="fixed inset-x-0 top-0 z-30 grid items-center h-20 px-4 bg-white shadow-md md:px-10"
     >
+      <div
+        v-show="openAccountMenu"
+        class="fixed inset-0 z-40"
+        @click="() => (openAccountMenu = !openAccountMenu)"
+      ></div>
       <div class="col-start-2 justify-self-center">
         <nuxt-link to="/home">
           <svg
@@ -66,7 +71,7 @@
                 :class="[
                   `absolute right-0 w-32 overflow-hidden p-4 bg-white shadow-md top-full transform ${
                     openAccountMenu ? 'scale-1 opacity-1' : 'scale-0 opacity-0'
-                  } transition-all ease-in duration-150 origin-top-right`,
+                  } transition-all ease-in duration-150 origin-top-right z-50`,
                 ]"
               >
                 <h1
