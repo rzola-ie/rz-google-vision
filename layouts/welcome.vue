@@ -27,38 +27,54 @@
             <nuxt-link class="mr-4" to="/game">Emoji Game </nuxt-link>
             <nuxt-link class="mr-4" to="/labels">Labels</nuxt-link>
             <nuxt-link class="mr-4" to="/medications">Medications</nuxt-link>
-            <button
-              class="flex items-center h-10 p-2 text-gray-900 rounded-full"
-              @click="logout"
-            >
+            <div class="relative h-full">
+              <button
+                class="flex items-center h-10 p-2 text-gray-900 rounded-full"
+                @click="() => (openAccountMenu = !openAccountMenu)"
+              >
+                <div
+                  class="w-8 h-8 overflow-hidden rounded-full"
+                  v-if="$store.state.user"
+                >
+                  <img
+                    class="h-full"
+                    :src="
+                      $store.state.user
+                        ? $store.state.user.photoURL
+                        : '/avatar.svg'
+                    "
+                    alt="account profile image"
+                  />
+                </div>
+                <svg
+                  class="w-3 h-3 ml-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
               <div
-                class="w-8 h-8 overflow-hidden rounded-full"
-                v-if="$store.state.user"
+                :class="[
+                  `absolute right-0 w-32 overflow-hidden p-4 bg-white shadow-md top-full transform ${
+                    openAccountMenu ? 'scale-1 opacity-1' : 'scale-0 opacity-0'
+                  } transition-all ease-in duration-150 origin-top-right`,
+                ]"
               >
-                <img
-                  :src="
-                    $store.state.user
-                      ? $store.state.user.photoURL
-                      : '/avatar.svg'
-                  "
-                  alt="account profile image"
-                />
+                <h1 class="py-2 mb-4 text-lg font-semibold border-b">
+                  {{ $store.state.user.displayName }}
+                </h1>
+                <button @click="logout">log out</button>
               </div>
-              <svg
-                class="w-3 h-3 ml-2"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
+            </div>
           </nav>
         </div>
         <div class="lg:hidden">

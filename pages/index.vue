@@ -129,6 +129,7 @@
             </div>
 
             <button
+              type="button"
               @click="() => (isUsingEmail = false)"
               class="w-full text-sm text-green-600"
             >
