@@ -2,14 +2,14 @@
   <div
     class="relative m-0 h-screen grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1"
   >
-    <div class="h-full">
+    <div class="max-h-full overflow-hidden">
       <video
         loop
         playsinline
         autoplay
         muted
         ref="video"
-        class="object-cover object-center -z-1 transform -translate-y-36"
+        class="h-full w-full object-cover object-center -z-1"
       >
         <source src="/logo.mp4" type="video/mp4" />
       </video>
