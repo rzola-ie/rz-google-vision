@@ -17,7 +17,8 @@
     "core-js": "^3.8.3",
     "emoji.json": "^13.1.0",
     "firebase": "^8.3.0",
-    "nuxt": "^2.14.12"
+    "nuxt": "^2.14.12",
+    "vue-qrcode-reader": "^2.3.18"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^3.4.2",

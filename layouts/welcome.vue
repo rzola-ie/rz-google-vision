@@ -30,7 +30,6 @@
         <div class="hidden lg:block">
           <nav class="flex items-center">
             <nuxt-link class="mr-4" to="/game">Emoji Game </nuxt-link>
-            <nuxt-link class="mr-4" to="/labels">Labels</nuxt-link>
             <nuxt-link class="mr-4" to="/medications">Medications</nuxt-link>
             <div class="relative h-full">
               <button
@@ -121,22 +120,22 @@
       </div>
     </div>
     <Nuxt />
-    <footer class="px-4 text-gray-800 bg-white py-7">
+    <!-- <footer class="px-4 text-gray-800 bg-white py-7">
       <div class="mx-auto text-center">
         <a href="#">Privacy Policy</a> <span class="mx-3">|</span>
         <a href="tel:18882345678">1-888-234-5678</a>
       </div>
-    </footer>
+    </footer> -->
     <div
       :class="[
-        `absolute z-40 w-2/3 inset-y-0 top-0 pt-32 p-6 ${
+        `fixed z-40 w-2/3 inset-y-0 top-0 pt-32 p-6 ${
           open ? 'right-0' : '-right-2/3'
         } shadow-md bg-white`,
       ]"
+      @click="() => (open = !open)"
     >
-      <div class="mb-10 text-2xl" @click="() => (open = !open)">
-        <nuxt-link class="block" to="/game">Emoji Game</nuxt-link>
-        <nuxt-link class="block" to="/labels">Labels</nuxt-link>
+      <div class="mb-10 text-2xl">
+        <nuxt-link class="block mb-2" to="/game">Emoji Game</nuxt-link>
         <nuxt-link class="block" to="/medications">Medications</nuxt-link>
       </div>
       <button class="btn btn-blue" @click="logout">

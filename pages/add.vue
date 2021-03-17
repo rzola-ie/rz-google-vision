@@ -1,10 +1,10 @@
 <template>
   <div
-    style="min-height: calc(100% - 80px)"
-    class="relative p-4 md:pb-4 md:p-8 bg-white bg-opacity-70 text-blue-900 flex flex-col transition ease-in duration-150"
+    style="min-height: calc(100% - 0px)"
+    class="relative flex flex-col p-4 text-blue-900 transition duration-150 ease-in bg-white md:pb-4 md:p-8 bg-opacity-70"
   >
     <div class="relative mb-4 text-center">
-      <nuxt-link to="/medications" class="absolute left-0 top-0">
+      <nuxt-link to="/medications" class="absolute top-0 left-0">
         <svg
           class="w-6 h-6 stroke-current"
           xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@
           />
         </svg>
       </nuxt-link>
-      <h1 class="text-2xl text-blue-900 font-semibold text-center">
+      <h1 class="text-2xl font-semibold text-center text-blue-900">
         {{ captureOption === "photo" ? "Add Photo" : "Text Search" }}
       </h1>
     </div>
@@ -37,7 +37,7 @@
         ]"
       >
         <svg
-          class="mx-auto h-6 w-6 stroke-current"
+          class="w-6 h-6 mx-auto stroke-current"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -50,6 +50,7 @@
           />
         </svg>
       </button>
+
       <button
         @click="() => (captureOption = 'photo')"
         :disabled="searched"
@@ -58,11 +59,11 @@
             captureOption === 'photo'
               ? 'bg-blue-900 text-white'
               : 'bg-gray-300 text-blue-900'
-          } py-4 w-1/2 rounded-r-md disabled:opacity-50 disabled:cursor-not-allowed`,
+          } py-4 w-1/2 disabled:opacity-50 disabled:cursor-not-allowed`,
         ]"
       >
         <svg
-          class="mx-auto h-6 w-6 stroke-current"
+          class="w-6 h-6 mx-auto stroke-current"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -81,6 +82,32 @@
           />
         </svg>
       </button>
+
+      <button
+        @click="() => (captureOption = 'qrcode')"
+        :disabled="searched"
+        :class="[
+          `${
+            captureOption === 'qrcode'
+              ? 'bg-blue-900 text-white'
+              : 'bg-gray-300 text-blue-900'
+          } py-4 w-1/2 rounded-r-md disabled:opacity-50 disabled:cursor-not-allowed`,
+        ]"
+      >
+        <svg
+          class="w-6 h-6 mx-auto stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
+          />
+        </svg>
+      </button>
     </div>
     <!-- select buttons -->
 
@@ -88,7 +115,7 @@
       <div v-if="captureOption === 'photo'" class="flex flex-col flex-1">
         <form
           v-if="!imgPreview"
-          class="relative p-4 mb-4 col-span-2 w-full mx-auto bg-gray-200 text-gray-700 flex flex-1"
+          class="relative flex flex-1 w-full col-span-2 p-4 mx-auto mb-4 text-gray-700 bg-gray-200"
           @submit.prevent="onSubmit"
           enctype="multipart/form-data"
         >
@@ -99,7 +126,7 @@
             type="button"
           >
             <svg
-              class="h-6 w-6"
+              class="w-6 h-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -118,7 +145,7 @@
           >
             <div v-if="!imgSrc">
               <input
-                class="box__file hidden"
+                class="hidden box__file"
                 type="file"
                 name="files[]"
                 id="file"
@@ -126,13 +153,13 @@
                 @change="loadFile"
               />
               <label for="file" class="text-center cursor-pointer">
-                <div class="font-bold text-2xl">Choose a file</div>
+                <div class="text-2xl font-bold">Choose a file</div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  class="h-8 w-8 mx-auto mt-4"
+                  class="w-8 h-8 mx-auto mt-4"
                 >
                   <path
                     stroke-linecap="round"
@@ -147,10 +174,10 @@
         </form>
         <!-- image upload -->
 
-        <div v-else class="mb-4 flex-1 flex flex-col">
-          <div class="p-4 bg-gray-200 flex-1">
+        <div v-else class="flex flex-col flex-1 mb-4">
+          <div class="flex-1 p-4 bg-gray-200">
             <div
-              class="relative h-full p-4 border-2 border-gray-400 border-dashed flex items-center justify-center"
+              class="relative flex items-center justify-center h-full p-4 border-2 border-gray-400 border-dashed"
             >
               <img
                 v-if="imgPreview"
@@ -165,7 +192,7 @@
               />
               <h1
                 v-if="loading"
-                class="absolute top-50 left-0 right-0 transform -translate-y-1/2 font-bold text-2xl text-center z-10"
+                class="absolute left-0 right-0 z-10 text-2xl font-bold text-center transform -translate-y-1/2 top-50"
               >
                 Loading...
               </h1>
@@ -192,7 +219,7 @@
             >
               <svg
                 v-if="selectedResults.includes(result)"
-                class="h-6 w-6 mr-4"
+                class="w-6 h-6 mr-4"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -208,7 +235,7 @@
 
               <svg
                 v-else
-                class="h-6 w-6 mr-4"
+                class="w-6 h-6 mr-4"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -233,7 +260,7 @@
             <button
               v-if="results.length === 0"
               @click="onSubmit"
-              class="h-16 mb-4 w-full bg-blue-900 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md"
+              class="w-full h-16 mb-4 text-2xl font-semibold tracking-wider text-white bg-blue-900 rounded-md shadow-md"
             >
               Analyze
             </button>
@@ -241,7 +268,7 @@
             <button
               v-else
               @click="onFindMeds"
-              class="h-16 mb-4 w-full bg-blue-700 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md disabled:bg-gray-300 disabled:text-gray-700"
+              class="w-full h-16 mb-4 text-2xl font-semibold tracking-wider text-white bg-blue-700 rounded-md shadow-md disabled:bg-gray-300 disabled:text-gray-700"
               :disabled="selectedResults.length === 0"
             >
               Find Medicine
@@ -249,7 +276,7 @@
 
             <button
               @click="removeImage"
-              class="h-16 w-full rounded-md text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 shadow-md"
+              class="w-full h-16 text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 rounded-md shadow-md"
             >
               Retake
             </button>
@@ -258,12 +285,12 @@
       </div>
       <!-- photo search -->
 
-      <div v-else class="w-full">
+      <div v-else-if="captureOption === 'text'" class="w-full">
         <form action="" class="w-full">
           <div>
             <label class="text-sm" for="name">Name</label>
             <input
-              class="h-10 px-4 py-1 w-full shadow-sm"
+              class="w-full h-10 px-4 py-1 shadow-sm"
               type="text"
               name="name"
               id=""
@@ -271,12 +298,12 @@
             />
           </div>
 
-          <div class="my-8 text-center text-2xl">Or</div>
+          <div class="my-8 text-2xl text-center">Or</div>
 
           <div>
             <label class="text-sm" for="name">Imprint</label>
             <input
-              class="h-10 px-4 py-1 w-full shadow-sm"
+              class="w-full h-10 px-4 py-1 shadow-sm"
               type="text"
               name="name"
               id=""
@@ -285,21 +312,44 @@
         </form>
       </div>
       <!-- text search -->
+
+      <div v-else class="flex w-full">
+        <qrcode-stream v-if="!qrResult" @decode="onDecode"></qrcode-stream>
+        <div v-if="qrResult" class="flex-1">
+          <h1 class="text-2xl font-bold">Your medication is:</h1>
+          <p class="flex items-center font-semibold h-2/3">{{ qrResult }}</p>
+
+          <button
+            @click="onFindMeds"
+            class="w-full h-16 mb-4 text-2xl font-semibold tracking-wider text-white bg-blue-700 rounded-md shadow-md disabled:bg-gray-300 disabled:text-gray-700"
+            :disabled="!qrResult"
+          >
+            Find Medicine
+          </button>
+
+          <button
+            @click="() => (qrResult = null)"
+            class="w-full h-16 text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 rounded-md shadow-md"
+          >
+            Retake
+          </button>
+        </div>
+      </div>
     </div>
     <!-- capture options -->
 
-    <div v-else class="flex-1 flex flex-col">
-      <div class="mb-4 flex flex-col flex-1">
-        <div class="w-full flex flex-wrap mb-4 -mx-2">
+    <div v-else class="flex flex-col flex-1">
+      <div class="flex flex-col flex-1 mb-4">
+        <div class="flex flex-wrap w-full mb-4 -mx-2">
           <button
             v-for="item in selectedResults"
             :key="item"
-            class="h-10 px-4 py-1 m-2 bg-gray-300 rounded-md flex items-center uppercase"
+            class="flex items-center h-10 px-4 py-1 m-2 uppercase bg-gray-300 rounded-md"
             @click="removeSelectedItem(item)"
           >
             {{ item }}
             <svg
-              class="h-4 w-4 ml-4"
+              class="w-4 h-4 ml-4"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -315,9 +365,9 @@
           </button>
         </div>
 
-        <div class="flex-1 flex flex-col">
+        <div class="flex flex-col flex-1">
           <h2 class="text-gray-700">Select Medication</h2>
-          <div class="flex flex-1 items-center justify-center bg-gray-200">
+          <div class="flex items-center justify-center flex-1 bg-gray-200">
             <div
               v-if="suggestedMedications.length === 0"
               class="py-8 text-xl text-center"
@@ -335,7 +385,7 @@
       <div>
         <button
           @click="removeImage"
-          class="h-16 w-full rounded-md text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 shadow-md"
+          class="w-full h-16 text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 rounded-md shadow-md"
         >
           Retake
         </button>
@@ -366,6 +416,7 @@ export default {
         "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBqHINyqX2rb2v7MddQ9fwDDE--fX-hnTE",
       blackList: null,
       whiteList: null,
+      qrResult: null,
     };
   },
   mounted() {
@@ -507,6 +558,10 @@ export default {
         window.scrollTo(0, 0);
         console.log("bro");
       });
+    },
+    onDecode(decoded) {
+      console.log(decoded);
+      this.qrResult = decoded;
     },
   },
 };

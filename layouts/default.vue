@@ -26,7 +26,8 @@ html {
 
 body,
 html {
-  @apply h-screen box-border;
   min-height: 100vh;
+  overscroll-behavior: none;
+  @apply h-screen box-border;
 }
 </style>
