@@ -1,43 +1,44 @@
 <template>
-  <div class="h-full flex flex-col bg-white bg-opacity-70">
+  <div class="flex flex-col min-h-full pb-4 bg-white bg-opacity-70">
     <div class="flex-1">
       <div
-        class="relative my-4 pr-3 md:px-16 w-full grid grid-cols-6 md:grid-cols-12 justify-items-stretch gap-1 md:gap-5"
+        class="relative grid w-full grid-cols-6 gap-1 pr-3 my-4 md:px-16 md:grid-cols-12 justify-items-stretch md:gap-5"
       >
         <div class="col-span-1">
           <button
-            class="justify-self-auto text-blue-900 font-bold rounded-md w-full"
+            class="w-full font-bold text-blue-900 rounded-md justify-self-auto"
+            @click="goBack"
           >
             Back
           </button>
         </div>
-        <div class="col-span-5 md:col-span-11 text-center flex items-center">
+        <div class="flex items-center col-span-5 text-center md:col-span-11">
           <div
-            class="relative h-1 w-full bg-gray-400 rounded-full overflow-hidden shadow-md"
+            class="relative w-full h-1 overflow-hidden bg-gray-400 rounded-full shadow-md"
           >
             <div
-              class="absolute top-0 bottom-0 left-0 right-3/4 rounded-full bg-blue-900"
+              class="absolute top-0 bottom-0 left-0 bg-blue-900 rounded-full right-3/4"
             ></div>
           </div>
         </div>
       </div>
       <div class="px-6 md:px-16">
         <div class="mb-4">
-          <h1 class="text-2xl text-blue-900 font-semibold inline">
+          <h1 class="inline text-2xl font-semibold text-blue-900">
             Which medications are you taking currently?
           </h1>
-          <span class="text-sm text-gray-700 italic">List all that apply</span>
+          <span class="text-sm italic text-gray-700">List all that apply</span>
         </div>
         <div class="mb-4">
           <div
-            class="h-20 p-2 w-full mr-4 mb-4 bg-gray-300 rounded-md flex flex-col justify-center items-center"
+            class="flex flex-col items-center justify-center w-full h-20 p-2 mb-4 mr-4 bg-gray-300 rounded-md"
           >
             <nuxt-link
-              class="text-blue-900 text-center font-semibold text-lg"
+              class="text-lg font-semibold text-center text-blue-900"
               to="/add"
             >
               <svg
-                class="block h-8 w-8 stroke-current"
+                class="block w-8 h-8 stroke-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >
@@ -53,23 +54,53 @@
           </div>
           <ul class="">
             <li
-              class="relative h-20 w-full bg-gray-300 mb-4 last:mb-0 rounded-md overflow-hidden"
-              v-for="{ title } in medications"
-              :key="title"
+              class="relative w-full h-20 mb-4 overflow-hidden bg-gray-300 rounded-md last:mb-0"
+              v-for="({ name }, index) in medications"
+              :key="name"
             >
               <div
-                v-if="title"
+                v-if="name"
                 class="absolute inset-y-0 left-0 w-20 bg-blue-900"
-              ></div>
-              <div class="inline h-full p-4 ml-20 flex items-center text-2xl">
-                {{ title }}
+              >
+                <img
+                  src="/pill.png"
+                  alt="picture of medication"
+                  class="object-cover"
+                />
+              </div>
+              <button
+                v-if="name"
+                class="absolute top-2 right-2"
+                @click="onRemove(index)"
+              >
+                <svg
+                  class="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+              <div
+                class="flex items-center inline h-full p-4 ml-20 text-xl truncate"
+              >
+                <div class="w-full truncate">
+                  {{ name }}
+                </div>
               </div>
             </li>
           </ul>
           <div class="flex justify-center">
-            <button class="px-4 py-1 text-blue-900 font-bold">
+            <button class="px-4 py-1 font-bold text-blue-900">
               <svg
-                class="h-5 w-5 stroke-current inline-block"
+                class="inline-block w-5 h-5 stroke-current"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -87,8 +118,9 @@
         </div>
         <div>
           <button
-            :disabled="medications.length === 0"
-            class="h-16 w-full bg-blue-900 rounded-md text-2xl font-semibold tracking-wider text-white shadow-md disabled:bg-gray-300 disabled:text-gray-700"
+            class="w-full h-16 text-2xl font-semibold tracking-wider text-white bg-blue-900 rounded-md shadow-md disabled:bg-gray-300 disabled:text-gray-700"
+            :disabled="$store.state.medications.length < $store.state.numOfMeds"
+            @click="onSubmit"
           >
             Next
           </button>
@@ -107,15 +139,29 @@ export default {
     };
   },
   mounted() {
-    this.medications = [...this.$store.state.medications];
+    for (let i = 0; i < this.$store.state.numOfMeds; i++) {
+      this.medications.push({});
+    }
 
-    if (this.medications.length < 3) {
-      const length = this.medications.length;
-
-      for (let i = 0; i < 3 - length; i++) {
-        this.medications.push({});
+    if (this.$store.state.medications.length) {
+      for (let i = 0; i < this.$store.state.medications.length; i++) {
+        this.medications[i] = this.$store.state.medications[i];
       }
     }
+  },
+  methods: {
+    goBack() {
+      this.$router.push("/number");
+    },
+    onSubmit() {
+      if (this.medications.length >= 5) {
+        this.$router.push("/kickout");
+      }
+    },
+    onRemove(i) {
+      this.medications[i] = {};
+      this.$store.commit("REMOVE_MEDICATION", i);
+    },
   },
 };
 </script>

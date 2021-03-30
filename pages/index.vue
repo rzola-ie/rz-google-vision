@@ -64,20 +64,19 @@
               Sign in with Google
             </button>
             <button
-              class="w-full mx-auto text-white bg-black rounded-sm shadow-none pl-14 btn h-14 md:py-4 md:w-2/3 whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-20"
+              class="w-full mx-auto text-white bg-black rounded-sm shadow-none pl-14 btn h-14 md:py-4 md:w-2/3 whitespace-nowrap"
               style="
                 background-image: url(/apple-icon.svg);
                 background-size: 22px;
                 background-repeat: no-repeat;
                 background-position: 0.8rem 50%;
               "
-              disabled
               @click="() => null"
             >
               Sign in with Apple
             </button>
             <p class="w-full mx-auto text-xs text-gray-600 md:w-2/3">
-              This costs money, so no Apple for you.
+              This costs money, so no Apple yet.
             </p>
           </div>
 

@@ -1,6 +1,8 @@
 export const state = () => ({
   user: null,
-  medications: [{title: "Crestor OTC"}]
+  numOfMeds: null,
+  medications: [],
+  medSearchResults: []
 })
 
 export const mutations = {
@@ -11,10 +13,39 @@ export const mutations = {
     state.user = null
     localStorage.removeItem('email');
   },
+  ADD_MEDICATION_NUMBER(state, numOfMeds) {
+    state.numOfMeds = numOfMeds;
+  },
   ADD_MEDICATION(state, medication) {
     state.medications = [...state.medications, medication];
   },
   REMOVE_MEDICATION(state, medicationIndex) {
     state.medications.splice(medicationIndex, 1);
+  },
+  SET_MED_SEARCH_RESULTS() {}
+}
+
+export const actions = {
+  searchMeds() {
+    return new Promise((resolve,reject) => {
+      resolve([
+        {
+          name: 'Farxiga',
+          description: 'i forget what farxiga does'
+        },
+        {
+          name: 'Fauxiga',
+          description: 'knock off farxiga'
+        },
+        {
+          name: 'SeeFarga',
+          description: 'eye sight medication'
+        },
+        {
+          name: 'Crestor',
+          description: 'hey, how about that web app. pretty cool!'
+        }
+      ])
+    })
   }
 }

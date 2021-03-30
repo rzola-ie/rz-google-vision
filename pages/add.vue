@@ -59,7 +59,7 @@
             captureOption === 'photo'
               ? 'bg-blue-900 text-white'
               : 'bg-gray-300 text-blue-900'
-          } py-4 w-1/2 disabled:opacity-50 disabled:cursor-not-allowed`,
+          } py-4 w-1/2 disabled:opacity-50 rounded-r-md disabled:cursor-not-allowed`,
         ]"
       >
         <svg
@@ -82,36 +82,10 @@
           />
         </svg>
       </button>
-
-      <button
-        @click="() => (captureOption = 'qrcode')"
-        :disabled="searched"
-        :class="[
-          `${
-            captureOption === 'qrcode'
-              ? 'bg-blue-900 text-white'
-              : 'bg-gray-300 text-blue-900'
-          } py-4 w-1/2 rounded-r-md disabled:opacity-50 disabled:cursor-not-allowed`,
-        ]"
-      >
-        <svg
-          class="w-6 h-6 mx-auto stroke-current"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
-          />
-        </svg>
-      </button>
     </div>
     <!-- select buttons -->
 
-    <div v-if="!searched" class="flex flex-1 mb-4">
+    <div class="flex flex-col flex-1 mb-4">
       <div v-if="captureOption === 'photo'" class="flex flex-col flex-1">
         <form
           v-if="!imgPreview"
@@ -143,31 +117,41 @@
           <div
             class="flex items-center justify-center flex-1 text-gray-700 border-2 border-gray-400 border-dashed"
           >
-            <div v-if="!imgSrc">
+            <div v-if="!imgSrc" class="w-full h-full">
               <input
                 class="hidden box__file"
                 type="file"
                 name="files[]"
                 id="file"
-                accept="image/png, image/jpeg"
+                capture="environment"
+                accept="image/*"
                 @change="loadFile"
               />
-              <label for="file" class="text-center cursor-pointer">
-                <div class="text-2xl font-bold">Choose a file</div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="w-8 h-8 mx-auto mt-4"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-                  />
-                </svg>
+              <label
+                id="drag-drop-target"
+                for="file"
+                class="flex items-center justify-center w-full h-full text-center cursor-pointer"
+              >
+                <div>
+                  <div>
+                    <h2 class="text-2xl font-bold">Choose a file</h2>
+                    <p class="text-xl">or drag one here</p>
+                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    class="w-8 h-8 mx-auto mt-4"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                    />
+                  </svg>
+                </div>
               </label>
             </div>
           </div>
@@ -175,9 +159,9 @@
         <!-- image upload -->
 
         <div v-else class="flex flex-col flex-1 mb-4">
-          <div class="flex-1 p-4 bg-gray-200">
+          <div class="flex flex-1 p-4 bg-gray-200">
             <div
-              class="relative flex items-center justify-center h-full p-4 border-2 border-gray-400 border-dashed"
+              class="relative flex items-center justify-center flex-1 p-4 border-2 border-gray-400 border-dashed"
             >
               <img
                 v-if="imgPreview"
@@ -267,7 +251,7 @@
 
             <button
               v-else
-              @click="onFindMeds"
+              @click="getSearchResults"
               class="w-full h-16 mb-4 text-2xl font-semibold tracking-wider text-white bg-blue-700 rounded-md shadow-md disabled:bg-gray-300 disabled:text-gray-700"
               :disabled="selectedResults.length === 0"
             >
@@ -282,38 +266,127 @@
             </button>
           </div>
         </div>
+
+        <div v-if="searched" class="flex flex-col flex-1">
+          <div class="flex flex-col flex-1 mb-4">
+            <div class="flex flex-wrap w-full mb-4 -mx-2">
+              <button
+                v-for="item in searchResults"
+                :key="item"
+                class="flex items-center h-10 px-4 py-1 m-2 uppercase bg-gray-300 rounded-md"
+                @click="removeSelectedItem(item)"
+              >
+                {{ item }}
+                <svg
+                  class="w-4 h-4 ml-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div class="flex flex-col flex-1">
+              <h2 class="text-gray-700">Select Medication</h2>
+              <div class="flex items-center justify-center flex-1 bg-gray-200">
+                <div
+                  v-if="suggestedMedications.length === 0"
+                  class="py-8 text-xl text-center"
+                >
+                  <p>Your search returned no results.</p>
+                </div>
+                <div v-else>
+                  <div
+                    v-for="(med, index) in suggestedMedications"
+                    :key="index"
+                  >
+                    medicine {{ index }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button
+              @click="removeImage"
+              class="w-full h-16 text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 rounded-md shadow-md"
+            >
+              Retake
+            </button>
+          </div>
+        </div>
       </div>
       <!-- photo search -->
 
       <div v-else-if="captureOption === 'text'" class="w-full">
-        <form action="" class="w-full">
-          <div>
-            <label class="text-sm" for="name">Name</label>
-            <input
-              class="w-full h-10 px-4 py-1 shadow-sm"
-              type="text"
-              name="name"
-              id=""
-              placeholder="Search by name or brand"
+        <div class="mb-4">
+          <label class="text-sm" for="name">Medication</label>
+          <vue-simple-suggest
+            v-model="chosen"
+            display-attribute="name"
+            value-attribute="url"
+            :filter-by-query="true"
+            :list="getSuggestionList"
+          >
+          </vue-simple-suggest>
+        </div>
+
+        <div>
+          <button
+            class="w-full h-16 text-2xl btn btn-blue"
+            @click="getSearchResults"
+          >
+            Search
+          </button>
+        </div>
+
+        <div v-if="searched">
+          <div v-if="searchResults.length" class="w-full h-full mt-6">
+            <!-- <div
+              v-for="result in searchResults"
+              :key="result.name"
+              class="grid grid-rows-2 mb-4 overflow-hidden bg-white border border-gray-300 rounded-md last:mb-0"
+              @click="addMedication(result)"
+            >
+              <div class="w-full h-full">
+                <img
+                  src="/results-pill.png"
+                  alt="pill image"
+                  class="object-cover h-full"
+                />
+              </div>
+              <div class="flex flex-col w-full h-full p-4 mb-4">
+                <div class="flex-1 text-gray-800">
+                  <h2 class="text-xl font-bold">{{ result.name }}</h2>
+                  <p>{{ result.description }}</p>
+                </div>
+                <div>
+                  <button class="w-full btn btn-blue">Add</button>
+                </div>
+              </div>
+            </div> -->
+            <medication-result
+              v-for="result in searchResults"
+              :key="result.name"
+              :medication="result"
             />
           </div>
 
-          <div class="my-8 text-2xl text-center">Or</div>
-
-          <div>
-            <label class="text-sm" for="name">Imprint</label>
-            <input
-              class="w-full h-10 px-4 py-1 shadow-sm"
-              type="text"
-              name="name"
-              id=""
-            />
-          </div>
-        </form>
+          <div v-else>your search returned no results</div>
+        </div>
+        <!-- search results -->
       </div>
       <!-- text search -->
 
-      <div v-else class="flex w-full">
+      <!-- <div v-else class="flex w-full">
         <qrcode-stream v-if="!qrResult" @decode="onDecode"></qrcode-stream>
         <div v-if="qrResult" class="flex-1">
           <h1 class="text-2xl font-bold">Your medication is:</h1>
@@ -334,72 +407,25 @@
             Retake
           </button>
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- capture options -->
-
-    <div v-else class="flex flex-col flex-1">
-      <div class="flex flex-col flex-1 mb-4">
-        <div class="flex flex-wrap w-full mb-4 -mx-2">
-          <button
-            v-for="item in selectedResults"
-            :key="item"
-            class="flex items-center h-10 px-4 py-1 m-2 uppercase bg-gray-300 rounded-md"
-            @click="removeSelectedItem(item)"
-          >
-            {{ item }}
-            <svg
-              class="w-4 h-4 ml-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <div class="flex flex-col flex-1">
-          <h2 class="text-gray-700">Select Medication</h2>
-          <div class="flex items-center justify-center flex-1 bg-gray-200">
-            <div
-              v-if="suggestedMedications.length === 0"
-              class="py-8 text-xl text-center"
-            >
-              <p>Your search returned no results.</p>
-            </div>
-            <div v-else>
-              <div v-for="(med, index) in suggestedMedications" :key="index">
-                medicine {{ index }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <button
-          @click="removeImage"
-          class="w-full h-16 text-2xl font-semibold tracking-wider text-gray-700 border border-gray-700 rounded-md shadow-md"
-        >
-          Retake
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { blackList, whiteList } from "~/lib/words";
+import VueSimpleSuggest from "vue-simple-suggest";
+import "vue-simple-suggest/dist/styles.css";
+// import MedicationResult from "../components/MedicationResult.vue";
 
 export default {
   layout: "welcome",
+  components: {
+    VueSimpleSuggest,
+    // MedicationResult,
+  },
   data() {
     return {
       captureOption: "photo",
@@ -417,12 +443,44 @@ export default {
       blackList: null,
       whiteList: null,
       qrResult: null,
+      chosen: null,
+      text: null,
+      searchResults: [],
     };
   },
   mounted() {
     this.hasAdvanced = this.isAdvancedUpload();
     this.blackList = blackList;
     this.whiteList = whiteList;
+
+    const target = document.getElementById("drag-drop-target");
+    target.addEventListener("drop", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64String = reader.result
+          .replace("data:", "")
+          .replace(/^.+,/, "");
+
+        this.imgSrc = base64String;
+      };
+
+      reader.readAsDataURL(e.dataTransfer.files[0]);
+      this.imgPreview = URL.createObjectURL(e.dataTransfer.files[0]);
+      this.selected = true;
+
+      console.log(e.dataTransfer.files);
+    });
+
+    target.addEventListener("dragover", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      e.dataTransfer.dropEffect = "copy";
+    });
   },
   methods: {
     loadFile(event) {
@@ -562,6 +620,22 @@ export default {
     onDecode(decoded) {
       console.log(decoded);
       this.qrResult = decoded;
+    },
+    getSuggestionList() {
+      return this.whiteList;
+    },
+    addMedication(newMed) {
+      this.$store.commit("ADD_MEDICATION", newMed);
+      this.$router.push("/medications");
+    },
+    async getSearchResults() {
+      this.searched = true;
+      try {
+        this.searchResults = await this.$store.dispatch("searchMeds");
+        console.log(this.searchResults);
+      } catch (e) {
+        console.error("oh no");
+      }
     },
   },
 };

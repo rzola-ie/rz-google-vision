@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="pt-0 h-full md:flex md:justify-center md:items-center">
-    <div class="flex justify-center items-center" v-if="!instructions">
-      <div class="bg-white p-10 rounded-md shadow-lg">
-        <h1 class="text-2xl md:text-3xl text-blue-900 font-bold">
+  <div id="app" class="h-full pt-0 md:flex md:justify-center md:items-center">
+    <div class="flex items-center justify-center" v-if="!instructions">
+      <div class="p-10 bg-white rounded-md shadow-lg">
+        <h1 class="text-2xl font-bold text-blue-900 md:text-3xl">
           Play the Emoji Game!
         </h1>
         <p class="text-xl text-blue-900">Instructions</p>
@@ -38,10 +38,10 @@
     </div>
     <!-- The emoji game -->
     <div class="container mt-5" v-else>
-      <div class="grid grid-cols-3 gap-10 items-center">
+      <div class="grid items-center grid-cols-4 gap-10">
         <div class="">
           <select
-            class="h-12 w-full rounded-md shadow-md"
+            class="w-full h-12 rounded-md shadow-md"
             v-model="selectedSource"
             @change="getStream()"
           >
@@ -61,16 +61,19 @@
         <div class="text-2xl text-blue-900 justify-self-center">
           Total Score: {{ totalScore }}
         </div>
+        <div class="text-2xl text-blue-900 justify-self-center">
+          Image Quality: {{ brightness }}
+        </div>
       </div>
       <div class="my-6" v-if="gameOver">
         <button class="btn btn-blue" @click="startNewGame()">
           Start New Game
         </button>
       </div>
-      <div class="row my-6" v-else>
+      <div class="my-6 row" v-else>
         <div class="col-md-6">
           <button
-            class="btn btn-green w-48"
+            class="w-48 btn btn-green"
             :disabled="inPlay"
             @click="playGame()"
           >
@@ -79,7 +82,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                class="w-6 h-6 stroke-current inline-block mr-2"
+                class="inline-block w-6 h-6 mr-2 stroke-current"
               >
                 <path
                   stroke-linecap="round"
@@ -99,7 +102,7 @@
           </button>
           &nbsp;
           <button
-            class="btn btn-red w-48"
+            class="w-48 btn btn-red"
             :disabled="!inPlay"
             @click="skipEmoji()"
           >
@@ -108,7 +111,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                class="w-6 h-6 mr-2 inline-block stroke-current"
+                class="inline-block w-6 h-6 mr-2 stroke-current"
               >
                 <path
                   stroke-linecap="round"
@@ -131,12 +134,12 @@
           </div>
           <div class="mb-6">
             <button
-              class="btn rounded-none rounded-b-md w-full bg-blue-500 text-blue-100 flex justify-center items-center"
+              class="flex items-center justify-center w-full text-blue-100 bg-blue-500 rounded-none btn rounded-b-md"
               @click="captureImage()"
             >
               <div>
                 <svg
-                  class="h-6 w-6 mr-2 stroke-current inline-block"
+                  class="inline-block w-6 h-6 mr-2 stroke-current"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -172,7 +175,7 @@
               />
               <div class="">
                 <button
-                  class="btn btn-green rounded-none rounded-b-md w-48"
+                  class="w-48 rounded-none btn btn-green rounded-b-md"
                   @click="predictImage()"
                   :disabled="predictingImage"
                 >
@@ -181,7 +184,7 @@
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      class="w-6 h-6 mr-2 stroke-current inline-block"
+                      class="inline-block w-6 h-6 mr-2 stroke-current"
                     >
                       <path
                         stroke-linecap="round"
@@ -198,7 +201,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <p class="currentEmoji w-48 text-center">
+              <p class="w-48 text-center currentEmoji">
                 {{ currentEmoji.char }}
               </p>
             </div>
@@ -240,6 +243,7 @@ export default {
       pointsDecrement: 5,
       inPlay: false,
       gameOver: false,
+      brightness: 0,
       modal: {
         show: false,
         header: "My header",
@@ -443,7 +447,7 @@ export default {
         "Game Over",
         `<p>You could not complete the task before the time ran out.</p>
         <p>Your total score is <span class="font-bold">${this.totalScore}</span></p>
-        <p class="my-6 font-bold text-xl">Thanks for playing!</p>`
+        <p class="my-6 text-xl font-bold">Thanks for playing!</p>`
       );
     },
     startNewGame() {
@@ -464,6 +468,10 @@ export default {
       max = Math.floor(max);
 
       return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    getImageLightness(imgSrc, callback) {
+      let canvas = document.getElementById("canvas1");
+      let ctx = canvas.getContext("2d");
     },
   },
 };

@@ -136,7 +136,7 @@
     >
       <div class="mb-10 text-2xl">
         <nuxt-link class="block mb-2" to="/game">Emoji Game</nuxt-link>
-        <nuxt-link class="block" to="/medications">Medications</nuxt-link>
+        <nuxt-link class="block" to="/number">Medications</nuxt-link>
       </div>
       <button class="btn btn-blue" @click="logout">
         <svg

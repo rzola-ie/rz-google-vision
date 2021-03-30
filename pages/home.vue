@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="pt-6 h-full flex justify-center items-center">
-    <div class="flex justify-center items-center">
-      <div class="bg-white p-10 rounded-md shadow-lg">
-        <h1 class="text-3xl text-center text-blue-900 font-bold">Hi</h1>
+  <div id="app" class="flex items-center justify-center h-full pt-6">
+    <div class="flex items-center justify-center">
+      <div class="p-10 bg-white rounded-md shadow-lg">
+        <h1 class="text-3xl font-bold text-center text-blue-900">Hi</h1>
         <p class="text-sm text-center text-blue-900">
           You're really going places...
         </p>
@@ -11,7 +11,7 @@
             <nuxt-link to="/game">
               Play the Emoji Game
               <svg
-                class="h-6 w-6 inline"
+                class="inline w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -30,7 +30,7 @@
             <nuxt-link to="/labels"
               >Scan some labels
               <svg
-                class="h-6 w-6 inline"
+                class="inline w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -46,10 +46,10 @@
             </nuxt-link>
           </li>
           <li class="mb-4">
-            <nuxt-link to="/medications"
+            <nuxt-link to="/number"
               >Medications
               <svg
-                class="h-6 w-6 inline"
+                class="inline w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
