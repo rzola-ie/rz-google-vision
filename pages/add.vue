@@ -454,12 +454,12 @@ export default {
     this.whiteList = whiteList;
 
     const target = document.getElementById("drag-drop-target");
+
     target.addEventListener("drop", (e) => {
       e.stopPropagation();
       e.preventDefault();
 
       const reader = new FileReader();
-
       reader.onloadend = () => {
         const base64String = reader.result
           .replace("data:", "")

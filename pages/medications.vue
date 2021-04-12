@@ -30,74 +30,44 @@
           <span class="text-sm italic text-gray-700">List all that apply</span>
         </div>
         <div class="mb-4">
-          <div
-            class="flex flex-col items-center justify-center w-full h-20 p-2 mb-4 mr-4 bg-gray-300 rounded-md"
-          >
-            <nuxt-link
-              class="text-lg font-semibold text-center text-blue-900"
-              to="/add"
-            >
-              <svg
-                class="block w-8 h-8 stroke-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-              Add
-            </nuxt-link>
-          </div>
           <ul class="">
-            <li
-              class="relative w-full h-20 mb-4 overflow-hidden bg-gray-300 rounded-md last:mb-0"
+            <medication-slot
               v-for="({ name }, index) in medications"
-              :key="name"
-            >
-              <div
-                v-if="name"
-                class="absolute inset-y-0 left-0 w-20 bg-blue-900"
-              >
-                <img
-                  src="/pill.png"
-                  alt="picture of medication"
-                  class="object-cover"
-                />
-              </div>
-              <button
-                v-if="name"
-                class="absolute top-2 right-2"
-                @click="onRemove(index)"
-              >
-                <svg
-                  class="w-5 h-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-              <div
-                class="flex items-center inline h-full p-4 ml-20 text-xl truncate"
-              >
-                <div class="w-full truncate">
-                  {{ name }}
-                </div>
-              </div>
-            </li>
+              :name="name"
+              :index="index"
+              @remove="onRemove(index)"
+              :key="index"
+            />
           </ul>
-          <div class="flex justify-center">
+          <div class="flex flex-col justify-center">
+            <div
+              :class="`${
+                complete
+                  ? 'opacity-100 pointer-events-auto'
+                  : 'opacity-0 pointer-events-none'
+              } transition duration-250 ease-in-out `"
+            >
+              <p>Need to add more?</p>
+              <button
+                class="w-full h-16 text-2xl font-semibold tracking-wider text-white bg-blue-500 rounded-md shadow-md disabled:bg-gray-300 disabled:text-gray-700"
+              >
+                <nuxt-link class="text-lg font-semibold" to="/add">
+                  <svg
+                    class="inline-block w-8 h-8 mr-5 stroke-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  Add Another Medication
+                </nuxt-link>
+              </button>
+            </div>
             <button class="px-4 py-1 font-bold text-blue-900">
               <svg
                 class="inline-block w-5 h-5 stroke-current"
@@ -136,6 +106,7 @@ export default {
   data() {
     return {
       medications: [],
+      complete: false,
     };
   },
   mounted() {
@@ -149,6 +120,9 @@ export default {
       }
     }
   },
+  beforeUpdate() {
+    this.complete = this.medications.every((element) => !!element.name);
+  },
   methods: {
     goBack() {
       this.$router.push("/number");
@@ -159,8 +133,12 @@ export default {
       }
     },
     onRemove(i) {
-      this.medications[i] = {};
-      this.$store.commit("REMOVE_MEDICATION", i);
+      if (this.medications.length - 1 < this.$store.state.numOfMeds) {
+        this.medications[i] = { name: null, description: null };
+        this.$store.commit("REMOVE_MEDICATION", i);
+      } else {
+        this.medications.splice(i, 1);
+      }
     },
   },
 };
