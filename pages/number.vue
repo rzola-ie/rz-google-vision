@@ -1,8 +1,9 @@
 <template>
-  <div class="flex flex-col h-full bg-white bg-opacity-70">
-    <div class="flex flex-col flex-1 px-12 py-36">
+  <div class="flex flex-col h-full text-gray-600 bg-white rounded-t-lg">
+    <survey-progress backTo="/home" value="25" />
+    <div class="flex flex-col flex-1 px-6 pb-12 pt-36">
       <div class="flex flex-col flex-1">
-        <p class="-mx-6 text-2xl">
+        <p class="font-serif text-2xl">
           How many prescription medications do you currently take?
         </p>
         <div class="flex justify-center">
@@ -24,66 +25,41 @@
             More Info
           </button>
         </div>
-        <div
-          class="grid w-full h-20 grid-cols-3 gap-2 p-2 text-5xl border border-gray-400 rounded-md"
-        >
-          <button
-            class="w-full h-full bg-gray-400 rounded-md"
-            :disabled="this.number === 0"
-            @click="decrement"
-          >
-            <svg
-              class="mx-auto w-7 h-7"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 12H4"
-              />
-            </svg>
-          </button>
-          <input
-            class="w-full h-full text-center bg-gray-100"
-            type="text"
-            name=""
-            id=""
+        <div class="w-full h-20">
+          <select
+            name="med-number"
+            class="w-full p-2 px-4 border border-gray-400 rounded-md"
+            @change="onChange($event)"
             v-model="number"
-          />
-          <button
-            class="w-full h-full bg-gray-400 rounded-md"
-            @click="increment"
           >
-            <svg
-              class="w-8 h-8 mx-auto"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-          </button>
+            <optgroup style="font-size: 2rem">
+              <option value="0">0 - no medications</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 or more</option>
+            </optgroup>
+          </select>
         </div>
       </div>
-      <button class="h-16 -mx-6 text-2xl btn btn-blue" @click="onSubmit">
-        Continue
-      </button>
+      <div>
+        <button
+          class="w-full h-16 text-2xl text-white btn"
+          style="background-color: #95a2b8"
+          @click="onSubmit"
+        >
+          Continue
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import SurveyProgress from "../components/SurveyProgress.vue";
 export default {
+  components: { SurveyProgress },
   layout: "welcome",
   data() {
     return {
@@ -102,18 +78,36 @@ export default {
     decrement() {
       this.number === 0 ? 0 : this.number--;
     },
+    onChange(event) {
+      this.number = event.target.value;
+    },
     onSubmit() {
       this.$store.commit("ADD_MEDICATION_NUMBER", this.number);
 
-      if (this.number < 5) {
-        this.$router.push("/medications");
-      } else {
-        this.$router.push("/kickout");
+      switch (+this.number) {
+        case 0:
+          this.$router.push("/next-question");
+          break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+          this.$router.push("/medications");
+          break;
+        default:
+          this.$router.push("/kickout");
       }
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+select {
+  font-size: 2rem;
+}
+
+optgroup {
+  font-size: 1rem;
+}
 </style>
