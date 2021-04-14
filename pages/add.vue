@@ -1,7 +1,7 @@
 <template>
   <div
-    style="min-height: calc(100% - 0px)"
-    class="relative flex flex-col p-4 text-blue-900 transition duration-150 ease-in bg-white md:pb-4 md:p-8 bg-opacity-70"
+    style="min-height: calc(100% - 0px); color: #95a2b8"
+    class="relative flex flex-col p-4 transition duration-150 ease-in bg-white md:pb-4 md:p-8 bg-opacity-70"
   >
     <div class="relative mb-4 text-center">
       <nuxt-link to="/medications" class="absolute top-0 left-0">
@@ -28,12 +28,13 @@
       <button
         @click="() => (captureOption = 'text')"
         :disabled="searched"
+        :style="`${
+          captureOption === 'text'
+            ? 'background-color: #95a2b8; color: #F4F4F4;'
+            : 'background-color: #F4F4F4; color: #95a2b8;'
+        }`"
         :class="[
-          `${
-            captureOption === 'text'
-              ? 'bg-blue-900 text-white'
-              : 'bg-gray-300 text-blue-900'
-          } py-4 w-1/2 rounded-l-md disabled:opacity-50 disabled:cursor-not-allowed`,
+          `py-4 w-1/2 rounded-l-md disabled:opacity-50 disabled:cursor-not-allowed`,
         ]"
       >
         <svg
@@ -54,12 +55,13 @@
       <button
         @click="() => (captureOption = 'photo')"
         :disabled="searched"
+        :style="`${
+          captureOption === 'photo'
+            ? 'background-color: #95a2b8; color: #F4F4F4;'
+            : 'background-color: #F4F4F4; color: #95a2b8;'
+        }`"
         :class="[
-          `${
-            captureOption === 'photo'
-              ? 'bg-blue-900 text-white'
-              : 'bg-gray-300 text-blue-900'
-          } py-4 w-1/2 disabled:opacity-50 rounded-r-md disabled:cursor-not-allowed`,
+          ` py-4 w-1/2 disabled:opacity-50 rounded-r-md disabled:cursor-not-allowed`,
         ]"
       >
         <svg
@@ -244,7 +246,8 @@
             <button
               v-if="results.length === 0"
               @click="onSubmit"
-              class="w-full h-16 mb-4 text-2xl font-semibold tracking-wider text-white bg-blue-900 rounded-md shadow-md"
+              style="background-color: #95a2b8"
+              class="w-full h-16 mb-4 text-2xl font-semibold tracking-wider text-white rounded-md shadow-md"
             >
               Analyze
             </button>
@@ -252,7 +255,8 @@
             <button
               v-else
               @click="getSearchResults"
-              class="w-full h-16 mb-4 text-2xl font-semibold tracking-wider text-white bg-blue-700 rounded-md shadow-md disabled:bg-gray-300 disabled:text-gray-700"
+              style="background-color: #95a2b8"
+              class="w-full h-16 mb-4 text-2xl font-semibold tracking-wider text-white rounded-md shadow-md disabled:bg-gray-300 disabled:text-gray-700"
               :disabled="selectedResults.length === 0"
             >
               Find Medicine
@@ -341,7 +345,8 @@
 
         <div>
           <button
-            class="w-full h-16 text-2xl btn btn-blue"
+            style="background-color: #95a2b8"
+            class="w-full h-16 text-2xl text-white btn"
             @click="getSearchResults"
           >
             Search
