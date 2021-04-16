@@ -3,7 +3,7 @@
     <div class="flex items-center justify-center">
       <div class="p-10 bg-white rounded-md shadow-lg">
         <h1 class="text-3xl font-bold text-center text-blue-900">Hi</h1>
-        <p class="text-sm text-center text-blue-900">Health!</p>
+        <p class="text-center text-blue-900">Health!</p>
         <ul class="my-6 text-xl text-blue-700">
           <li class="mb-4">
             <nuxt-link to="/number"
