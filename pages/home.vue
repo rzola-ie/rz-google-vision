@@ -3,51 +3,11 @@
     <div class="flex items-center justify-center">
       <div class="p-10 bg-white rounded-md shadow-lg">
         <h1 class="text-3xl font-bold text-center text-blue-900">Hi</h1>
-        <p class="text-sm text-center text-blue-900">
-          You're really going places...
-        </p>
+        <p class="text-sm text-center text-blue-900">Health!</p>
         <ul class="my-6 text-xl text-blue-700">
           <li class="mb-4">
-            <nuxt-link to="/game">
-              Play the Emoji Game
-              <svg
-                class="inline w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 5l7 7-7 7M5 5l7 7-7 7"
-                />
-              </svg>
-            </nuxt-link>
-          </li>
-          <li class="mb-4">
-            <nuxt-link to="/labels"
-              >Scan some labels
-              <svg
-                class="inline w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 5l7 7-7 7M5 5l7 7-7 7"
-                />
-              </svg>
-            </nuxt-link>
-          </li>
-          <li class="mb-4">
             <nuxt-link to="/number"
-              >Medications
+              >Begin Assessment
               <svg
                 class="inline w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
