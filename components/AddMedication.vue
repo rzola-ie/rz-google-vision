@@ -114,8 +114,7 @@
                     stroke-linejoin="round"
                     stroke-width="2"
                     stroke="white"
-                    transform-origin="center"
-                    transform="scale(0.6)"
+                    style="transform-origin: center; transform: scale(0.6)"
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
