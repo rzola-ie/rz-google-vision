@@ -2,6 +2,11 @@
   <div
     class="relative flex flex-col min-h-full overflow-hidden bg-white rounded-t-lg"
   >
+    <div
+      v-if="isFocused"
+      @click="onDismissFocus"
+      class="absolute top-0 bottom-0 left-0 right-0 z-10 w-full h-full inset-x-full inset-y-full"
+    ></div>
     <div class="flex flex-col flex-1">
       <survey-progress backTo="/number" value="50" />
       <div class="flex flex-col flex-1 px-6 pb-12 md:px-16">
@@ -16,7 +21,7 @@
               medications
             </span>
             are you currently taking?
-            <span class="text-sm italic text-gray-700"
+            <span class="font-sans text-sm italic text-gray-700"
               >List all that apply
             </span>
           </h1>
@@ -98,21 +103,22 @@
       </div>
     </div>
     <div
-      :style="`${
+      :style="`
+        height: calc(100% - 1rem);
+      ${
         isAddingMed
           ? 'box-shadow: 0px -4px 10px rgb(0 0 0 / 20%);'
           : 'box-shadow: none;'
       }`"
-      :class="`absolute w-full h-full p-4 mt-4 bg-white shadow-lg rounded-t-lg ${
+      :class="`absolute w-full p-4 mt-4 bg-white shadow-lg rounded-t-lg ${
         isAddingMed ? 'top-0' : 'top-full'
-      } transition-all duration-500 ease-in-out`"
+      } transition-all duration-500 ease-in-out flex flex-col`"
     >
-      <div class="flex justify-end w-full" style="color: #95a2b8">
-        <button @click="() => (isAddingMed = false)" class="text-xs font-bold">
-          CANCEL
-        </button>
-      </div>
-      <add-medication />
+      <add-medication
+        ref="addMed"
+        @on-focus="onInputFocus"
+        @cancel-add="() => (isAddingMed = false)"
+      />
     </div>
   </div>
 </template>
@@ -129,6 +135,7 @@ export default {
       complete: false,
       next: -1,
       isAddingMed: false,
+      isFocused: false,
     };
   },
   mounted() {
@@ -163,7 +170,14 @@ export default {
       console.log("flippy flip");
       this.isAddingMed = true;
     },
-    onDismissNewMed() {},
+    onInputFocus() {
+      this.isFocused = true;
+      console.log("cool");
+    },
+    onDismissFocus() {
+      this.$refs.addMed.onBlur();
+      this.isFocused = false;
+    },
     onRemove(i) {
       if (this.medications.length - 1 < this.$store.state.numOfMeds) {
         this.medications[i] = {};
