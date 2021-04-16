@@ -85,8 +85,10 @@
                     width="10"
                     stroke="white"
                     stroke-width="1.5"
-                    transform-origin="center"
-                    transform="rotate(-45) scale(0.8)"
+                    style="
+                      transform-origin: center;
+                      transform: rotate(-45deg) scale(0.8);
+                    "
                   />
                 </svg>
                 <span>{{ item }}</span>
