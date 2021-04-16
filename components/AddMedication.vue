@@ -9,10 +9,6 @@
       Add Medication
     </h1>
     <div class="relative z-20">
-      <div
-        v-if="hasFocus"
-        class="absolute top-0 bottom-0 left-0 right-0 w-full h-full inset-x-full inset-y-full"
-      ></div>
       <div class="relative w-full">
         <input
           type="text"
@@ -21,7 +17,12 @@
           @focus="onFocus"
           v-model="searchTerm"
           autocomplete="off"
-          class="w-full h-12 px-12 text-2xl border border-gray-500 rounded-full outline-none"
+          :style="`${
+            hasFocus
+              ? 'border-radius: 1.5rem 1.5rem 0 0; border-bottom: none;'
+              : 'border-radius: 1.5rem'
+          }`"
+          class="w-full h-12 px-12 text-2xl border border-gray-500 outline-none"
         />
 
         <form
@@ -56,7 +57,7 @@
         <div
           v-if="hasFocus"
           style="max-height: 350px"
-          class="px-4 py-2 -mx-4 overflow-y-scroll"
+          class="px-4 py-2 overflow-y-scroll border border-t-0 border-gray-500 shadow-md"
         >
           <ul v-if="!searchTerm">
             <p class="font-bold">Try Searching</p>
