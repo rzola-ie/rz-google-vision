@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center p-4" style="color: #95a2b8">
+  <div class="flex items-center p-4 text-ie-gray-500">
     <nuxt-link :to="backTo" class="mr-4 text-xs font-bold">BACK</nuxt-link>
     <div class="w-full overflow-hidden rounded-full">
       <progress

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen pt-16 overflow-x-hidden bg-gray-400">
+  <div class="h-screen pt-16 overflow-x-hidden bg-ie-gray-500">
     <div
       style="grid-template-columns: 1fr 5rem 1fr"
       class="fixed inset-x-0 top-0 z-30 grid items-center h-16 px-4 md:px-10"
@@ -15,8 +15,6 @@
       <div class="col-start-3 text-white justify-self-end">
         <div class="hidden lg:block">
           <nav class="flex items-center">
-            <nuxt-link class="mr-4" to="/game">Emoji Game </nuxt-link>
-            <nuxt-link class="mr-4" to="/medications">Medications</nuxt-link>
             <div class="relative h-full">
               <button
                 class="flex items-center h-10 p-2 text-gray-900 rounded-full"

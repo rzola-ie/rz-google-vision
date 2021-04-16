@@ -1,20 +1,29 @@
 <template>
-  <div class="flex flex-col min-h-full bg-white rounded-t-lg">
+  <div
+    class="relative flex flex-col min-h-full overflow-hidden bg-white rounded-t-lg"
+  >
     <div class="flex flex-col flex-1">
       <survey-progress backTo="/number" value="50" />
       <div class="flex flex-col flex-1 px-6 pb-12 md:px-16">
-        <div class="flex flex-col items-center mb-4">
-          <div class="inline-block">
-            <h1 class="inline font-serif text-xl text-gray-700">
-              Which medications are you taking currently?
-            </h1>
+        <div class="flex flex-col items-center">
+          <h1 class="inline-block mx-auto font-serif text-xl text-gray-700">
+            Which
+            <span v-if="medications.length === 1"> medication </span>
+            <span v-else>
+              <span class="text-3xl text-blue-900">{{
+                medications.length
+              }}</span>
+              medications
+            </span>
+            are you currently taking?
             <span class="text-sm italic text-gray-700"
-              >List all that apply</span
-            >
-          </div>
-          <button class="px-4 py-1 mx-auto font-bold text-blue-900">
+              >List all that apply
+            </span>
+          </h1>
+
+          <button class="px-4 py-2 mx-auto my-2 font-bold text-blue-900">
             <svg
-              class="inline-block w-5 h-5 stroke-current"
+              class="inline-block w-5 h-5 mr-1 stroke-current"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -38,6 +47,7 @@
               :index="index"
               :next="next"
               @remove="onRemove(index)"
+              @add-medication="() => (isAddingMed = true)"
               :key="index"
             />
           </ul>
@@ -87,19 +97,38 @@
         </div>
       </div>
     </div>
+    <div
+      :style="`${
+        isAddingMed
+          ? 'box-shadow: 0px -4px 10px rgb(0 0 0 / 20%);'
+          : 'box-shadow: none;'
+      }`"
+      :class="`absolute w-full h-full p-4 mt-4 bg-white shadow-lg rounded-t-lg ${
+        isAddingMed ? 'top-0' : 'top-full'
+      } transition-all duration-500 ease-in-out`"
+    >
+      <div class="flex justify-end w-full" style="color: #95a2b8">
+        <button @click="() => (isAddingMed = false)" class="text-xs font-bold">
+          CANCEL
+        </button>
+      </div>
+      <add-medication />
+    </div>
   </div>
 </template>
 
 <script>
+import AddMedication from "../components/AddMedication.vue";
 import SurveyProgress from "../components/SurveyProgress.vue";
 export default {
-  components: { SurveyProgress },
+  components: { SurveyProgress, AddMedication },
   layout: "welcome",
   data() {
     return {
       medications: [],
       complete: false,
       next: -1,
+      isAddingMed: false,
     };
   },
   mounted() {
@@ -130,6 +159,11 @@ export default {
         this.$router.push("/next-question");
       }
     },
+    onAdd() {
+      console.log("flippy flip");
+      this.isAddingMed = true;
+    },
+    onDismissNewMed() {},
     onRemove(i) {
       if (this.medications.length - 1 < this.$store.state.numOfMeds) {
         this.medications[i] = {};

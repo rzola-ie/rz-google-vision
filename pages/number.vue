@@ -44,11 +44,7 @@
         </div>
       </div>
       <div>
-        <button
-          class="w-full h-16 text-2xl text-white btn"
-          style="background-color: #95a2b8"
-          @click="onSubmit"
-        >
+        <button class="w-full h-16 text-2xl btn btn-gray" @click="onSubmit">
           Continue
         </button>
       </div>

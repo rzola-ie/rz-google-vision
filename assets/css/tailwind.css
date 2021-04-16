@@ -22,6 +22,10 @@
     @apply text-green-100 bg-green-600 hover:bg-green-700;
   }
 
+  .btn-gray {
+    @apply text-white bg-ie-gray-500 hover:bg-ie-gray-500;
+  }
+
   .med-slot {
     @apply relative w-full h-20 mb-4 overflow-hidden rounded-md shadow-lg;
     color: #5273A1;

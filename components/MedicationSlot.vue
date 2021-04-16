@@ -41,24 +41,23 @@
         pointer-events: ${isDisabled ? 'none' : 'auto'};
         opacity: ${isDisabled ? 0.6 : 1};
         border: 1px solid ${isDisabled ? '#f1f7ff' : '#58739E'}`"
-      class="w-full h-full px-5 text-left rounded-md disabled:border disabled:border-red-500"
+      class="w-full h-full px-5 text-xl font-semibold text-left rounded-md disabled:border disabled:border-red-500"
       :disabled="isDisabled"
+      @click="$emit('add-medication')"
     >
-      <nuxt-link class="text-lg font-semibold text-center" to="/add">
-        <svg
-          class="inline-block w-8 h-8 mr-5 stroke-current"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          />
-        </svg>
-        Add Medication
-      </nuxt-link>
+      <svg
+        class="inline-block w-8 h-8 mr-5 stroke-current"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+        />
+      </svg>
+      Add Medication
     </button>
   </li>
 </template>
