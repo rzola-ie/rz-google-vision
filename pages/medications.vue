@@ -9,9 +9,9 @@
     ></div>
     <div class="flex flex-col flex-1">
       <survey-progress backTo="/number" value="50" />
-      <div class="flex flex-col flex-1 px-6 pb-12 md:px-16">
+      <div class="flex flex-col flex-1 max-w-2xl px-6 pb-12 mx-auto md:px-16">
         <div class="flex flex-col items-center">
-          <h1 class="inline-block mx-auto font-serif text-xl text-gray-700">
+          <h1 class="inline-block mx-auto font-serif text-2xl text-gray-700">
             Which
             <span v-if="medications.length === 1"> medication </span>
             <span v-else>

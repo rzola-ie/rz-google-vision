@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col h-full text-gray-700">
+  <div class="flex flex-col w-full h-full max-w-2xl mx-auto text-gray-700">
     <div class="flex justify-end w-full px-4 pt-4" style="color: #95a2b8">
       <button @click="onCancel" class="text-xs font-bold">CANCEL</button>
     </div>
-    <div class="relative h-full">
+    <div class="relative w-full h-full mx-auto">
       <h1
         class="inline-block w-full mx-auto mb-4 font-serif text-xl text-center"
       >
@@ -144,7 +144,7 @@
         </div>
         <div
           v-if="searched && searchResults.length"
-          class="px-4 pb-12 overflow-y-scroll"
+          class="px-4 pb-12 overflow-y-scroll max-w-7xl"
           style="height: calc(100% - 5rem)"
         >
           <medication-result
@@ -157,7 +157,7 @@
         <!-- search results -->
         <div
           v-else-if="searched && loading"
-          class="p-4 text-3xl font-bold text-center"
+          class="w-full p-4 text-3xl font-bold text-center"
         >
           loading...
         </div>
@@ -350,10 +350,10 @@ export default {
       this.$emit("dismiss-add");
     },
     selectTerm(item) {
+      this.$emit("on-blur");
       this.searchResults = [];
       this.searchTerm = item.charAt(0).toUpperCase() + item.slice(1);
       this.hasFocus = false;
-      this.$emit("on-blur");
 
       this.getSearchResults();
     },
@@ -486,7 +486,8 @@ export default {
       }
     },
     onSubmitSelected() {
-      this.searchTerm = this.selectedResults.join(" ");
+      this.searchTerm = [...this.selectedResults].join(" ");
+      this.selectedResults = [];
       this.hasPhoto = false;
       this.photoSrc = null;
       this.photoURL = null;
