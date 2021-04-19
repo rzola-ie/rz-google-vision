@@ -204,7 +204,7 @@
               </button>
             </div>
             <div>
-              <ul v-if="googleResults.length" class="mt-4">
+              <ul v-if="searched && googleResults.length" class="mt-4">
                 <li
                   v-for="result in googleResults"
                   :key="result"
@@ -253,7 +253,7 @@
                   <span>{{ result }}</span>
                 </li>
               </ul>
-              <ul v-else class="mt-4">
+              <ul v-else-if="searched && loading" class="mt-4">
                 <li
                   class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
                 ></li>
@@ -264,6 +264,7 @@
                   class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
                 ></li>
               </ul>
+              <div v-else>No search results, dummy</div>
 
               <button
                 v-if="googleResults.length"
