@@ -26,26 +26,34 @@ export const mutations = {
 }
 
 export const actions = {
-  searchMeds() {
-    return new Promise((resolve,reject) => {
-      resolve([
-        {
-          name: 'Farxiga',
-          description: 'i forget what farxiga does'
-        },
-        {
-          name: 'Fauxiga',
-          description: 'knock off farxiga'
-        },
-        {
-          name: 'SeeFarga',
-          description: 'eye sight medication'
-        },
-        {
-          name: 'Crestor',
-          description: 'hey, how about that web app. pretty cool!'
-        }
-      ])
+  searchMeds(_, term) {
+    return new Promise((resolve) => {
+      setTimeout(() =>
+        resolve([
+          {
+            name: 'Farxiga',
+            description: 'i forget what farxiga does'
+          },
+          {
+            name: 'Fauxiga',
+            description: 'knock off farxiga'
+          },
+          {
+            name: 'SeeFarga',
+            description: 'eye sight medication'
+          },
+          {
+            name: 'Crestor',
+            description: 'hey, how about that web app. pretty cool!'
+          },
+          {
+            name: 'Bevespi',
+            description: 'not a clue...'
+          }
+        ].filter(item => item.name.includes(term))
+        ),
+        1000
+      )
     })
   }
 }

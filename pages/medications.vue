@@ -110,14 +110,14 @@
           ? 'box-shadow: 0px -4px 10px rgb(0 0 0 / 20%);'
           : 'box-shadow: none;'
       }`"
-      :class="`absolute w-full p-4 mt-4 bg-white shadow-lg rounded-t-lg ${
+      :class="`absolute w-full mt-4 bg-white shadow-lg rounded-t-lg ${
         isAddingMed ? 'top-0' : 'top-full'
       } transition-all duration-500 ease-in-out flex flex-col`"
     >
       <add-medication
         ref="addMed"
         @on-focus="onInputFocus"
-        @cancel-add="() => (isAddingMed = false)"
+        @dismiss-add="() => (isAddingMed = false)"
       />
     </div>
   </div>
@@ -152,6 +152,12 @@ export default {
     this.next = this.medications.findIndex((element) => !element.name);
   },
   beforeUpdate() {
+    if (this.$store.state.medications.length) {
+      for (let i = 0; i < this.$store.state.medications.length; i++) {
+        this.medications[i] = this.$store.state.medications[i];
+      }
+    }
+
     this.complete = this.medications.every((element) => !!element.name);
     this.next = this.medications.findIndex((element) => !element.name);
   },
@@ -172,7 +178,6 @@ export default {
     },
     onInputFocus() {
       this.isFocused = true;
-      console.log("cool");
     },
     onDismissFocus() {
       this.$refs.addMed.onBlur();

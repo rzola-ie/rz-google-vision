@@ -1,8 +1,8 @@
 <template>
   <li
-    :class="`med-slot last:mb-0 ${
-      name ? 'border border-gray-500 rounded-md' : 'border-none'
-    }`"
+    :class="`med-slot last:mb-0 border ${
+      name ? 'border-gray-500' : 'border-blue-900'
+    } rounded-md`"
   >
     <div v-if="name" style="background-color: #f6f7f9">
       <div class="absolute inset-y-0 left-0 w-20 bg-blue-900">
@@ -36,13 +36,8 @@
     </div>
     <button
       v-else
-      :style="`
-        background-color: #f1f7ff;
-        pointer-events: ${isDisabled ? 'none' : 'auto'};
-        opacity: ${isDisabled ? 0.6 : 1};
-        border: 1px solid ${isDisabled ? '#f1f7ff' : '#58739E'}`"
-      class="w-full h-full px-5 text-xl font-semibold text-left rounded-md disabled:border disabled:border-red-500"
-      :disabled="isDisabled"
+      style="background-color: #f1f7ff"
+      class="w-full h-full px-5 text-xl font-semibold text-left rounded-md outline-none"
       @click="$emit('add-medication')"
     >
       <svg
@@ -82,22 +77,10 @@ export default {
       type: String,
       required: false,
     },
-    next: {
-      type: Number,
-      required: true,
-    },
-  },
-  mounted() {
-    console.log(this.next, this.index);
-    this.isDisabled = !this.name && this.next !== this.index;
   },
   methods: {
     remove() {
       this.$emit("remove");
-
-      this.$nextTick(() => {
-        this.isDisabled = !this.name && this.next !== this.index;
-      });
     },
   },
 };
