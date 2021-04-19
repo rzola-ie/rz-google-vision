@@ -204,7 +204,22 @@
               </button>
             </div>
             <div>
-              <ul v-if="searched && googleResults.length" class="mt-4">
+              <ul v-if="googleSearched && loading" class="mt-4">
+                <li
+                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
+                ></li>
+                <li
+                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
+                ></li>
+                <li
+                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
+                ></li>
+              </ul>
+              <!-- loading -->
+              <ul
+                v-else-if="googleSearched && googleResults.length"
+                class="mt-4"
+              >
                 <li
                   v-for="result in googleResults"
                   :key="result"
@@ -253,19 +268,10 @@
                   <span>{{ result }}</span>
                 </li>
               </ul>
-              <ul v-else-if="searched && loading" class="mt-4">
-                <li
-                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
-                ></li>
-                <li
-                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
-                ></li>
-                <li
-                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
-                ></li>
-              </ul>
-              <div v-else>No search results, dummy</div>
+              <!-- results -->
 
+              <div v-else>No search results, dummy</div>
+              <!-- no results -->
               <button
                 v-if="googleResults.length"
                 class="w-full btn btn-gray"
@@ -299,6 +305,7 @@ export default {
       blackList: [],
       whiteList: [],
       searched: false,
+      googleSearched: false,
       searchResults: [],
       hasPhoto: false,
       photoSrc: null,
@@ -341,6 +348,7 @@ export default {
       this.searchTerm = null;
       this.hasFocus = false;
       this.searched = false;
+      this.googleSearched = false;
       this.predictingImage = false;
       this.searchResults = [];
       this.hasPhoto = false;
@@ -401,6 +409,7 @@ export default {
     },
     async sendToGoogleVision(photoSrc) {
       this.loading = true;
+      this.googleSearched = true;
 
       if (photoSrc) {
         let requestBody = {
@@ -498,6 +507,8 @@ export default {
     onClearPhoto() {
       this.hasPhoto = false;
       this.photoURL = null;
+      this.googleSearched = false;
+      this.googleResults = [];
     },
   },
 };
