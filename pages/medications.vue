@@ -71,7 +71,10 @@
                 style="background-color: #d7ecf6"
                 class="w-full h-16 text-2xl font-semibold tracking-wider text-gray-700 rounded-md shadow-md"
               >
-                <nuxt-link class="text-lg font-semibold" to="/add">
+                <button
+                  class="text-lg font-semibold"
+                  @click="() => (isAddingMed = true)"
+                >
                   <svg
                     class="inline-block w-8 h-8 mr-5 stroke-current"
                     xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +88,7 @@
                     />
                   </svg>
                   Add Another Medication
-                </nuxt-link>
+                </button>
               </button>
             </div>
           </div>
