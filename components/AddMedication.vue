@@ -3,14 +3,14 @@
     <div class="flex justify-end w-full px-4 pt-4" style="color: #95a2b8">
       <button @click="onCancel" class="text-xs font-bold">CANCEL</button>
     </div>
-    <div class="relative z-20 h-full">
+    <div class="relative h-full">
       <h1
         class="inline-block w-full mx-auto mb-4 font-serif text-xl text-center"
       >
         Add Medication
       </h1>
-      <div :class="`relative z-20 h-full ${!hasPhoto ? 'pt-16' : 'pt-0'}`">
-        <div v-if="!hasPhoto" class="absolute top-0 w-full px-4">
+      <div :class="`relative h-full ${!hasPhoto ? 'pt-16' : 'pt-0'}`">
+        <div v-if="!hasPhoto" class="absolute top-0 z-40 w-full px-4">
           <input
             type="text"
             name=""
@@ -170,10 +170,10 @@
         <!-- no results -->
         <div v-else class="p-4">
           <div v-if="hasPhoto" class="relative">
-            <div class="relative">
+            <div class="relative mb-4">
               <img
                 :style="`${loading ? 'filter: blur(1rem) brightness(.5)' : ''}`"
-                class="mx-auto"
+                class="mx-auto mb-4"
                 :src="photoURL"
                 alt=""
               />
@@ -204,7 +204,7 @@
               </button>
             </div>
             <div>
-              <ul v-if="googleResults.length">
+              <ul v-if="googleResults.length" class="mt-4">
                 <li
                   v-for="result in googleResults"
                   :key="result"
@@ -253,11 +253,23 @@
                   <span>{{ result }}</span>
                 </li>
               </ul>
-              <ul v-else>
-                <li></li>
+              <ul v-else class="mt-4">
+                <li
+                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
+                ></li>
+                <li
+                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
+                ></li>
+                <li
+                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
+                ></li>
               </ul>
 
-              <button class="w-full btn btn-gray" @click="onSubmitSelected">
+              <button
+                v-if="googleResults.length"
+                class="w-full btn btn-gray"
+                @click="onSubmitSelected"
+              >
                 Search Term
               </button>
             </div>
@@ -314,15 +326,15 @@ export default {
       console.log("derp derp derp", this.hasFocus);
       this.$emit("on-focus");
     },
-    onBlur: function () {
+    onBlur() {
       this.hasFocus = false;
       console.log("blur blur blur", this.hasFocus);
     },
     onAddMed() {
-      this.$emit("dismiss-add");
       this.searchResults = [];
       this.searchTerm = null;
       this.searched = false;
+      this.$emit("dismiss-add");
     },
     onCancel() {
       this.searchTerm = null;
@@ -341,6 +353,7 @@ export default {
       this.searchResults = [];
       this.searchTerm = item.charAt(0).toUpperCase() + item.slice(1);
       this.hasFocus = false;
+      this.$emit("on-blur");
 
       this.getSearchResults();
     },
@@ -367,6 +380,7 @@ export default {
       // clear previous search
       this.hasFocus = false;
       this.searchResults = [];
+      this.googleResults = [];
       this.searched = false;
 
       // prepare image for preview

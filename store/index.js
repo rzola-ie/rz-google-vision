@@ -52,7 +52,7 @@ export const actions = {
           }
         ].filter(item => item.name.includes(term))
         ),
-        1000
+        1500
       )
     })
   }
