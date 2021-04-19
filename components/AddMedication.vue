@@ -282,7 +282,7 @@
             </div>
           </div>
           <div v-else>
-            <img class="mx-auto" src="/photos.png" alt="" />
+            <img class="w-full mx-auto" src="/photos.png" alt="" />
           </div>
         </div>
         <!-- photo search results -->
