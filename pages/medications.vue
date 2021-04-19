@@ -5,7 +5,7 @@
     <div
       v-if="isFocused"
       @click="onDismissFocus"
-      class="absolute top-0 bottom-0 left-0 right-0 z-30 w-full h-full bg-blue-400 inset-x-full inset-y-full"
+      class="absolute top-0 bottom-0 left-0 right-0 z-30 w-full h-full bg-transparent inset-x-full inset-y-full"
     ></div>
     <div class="flex flex-col flex-1">
       <survey-progress backTo="/number" value="50" />
