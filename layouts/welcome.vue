@@ -142,6 +142,18 @@
   </div>
 </template>
 
+<style scoped>
+html {
+  height: -webkit-fill-available;
+}
+
+body {
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
+}
+</style>
+
 <script>
 export default {
   data() {

@@ -15,19 +15,19 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  height: -webkit-fill-available;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: inherit;
   margin: 0;
 }
 
-body,
-html {
+body {
   min-height: 100vh;
-  overscroll-behavior: none;
-  @apply h-screen box-border;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
 }
 </style>
