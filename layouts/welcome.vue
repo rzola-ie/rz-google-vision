@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen pt-16 overflow-x-hidden bg-ie-gray-500">
+  <div id="welcome" class="pt-16 overflow-x-hidden bg-ie-gray-500">
     <div
       style="grid-template-columns: 1fr 5rem 1fr"
       class="fixed inset-x-0 top-0 z-30 grid items-center h-16 px-4 md:px-10"
@@ -169,6 +169,12 @@ html {
   min-height: -webkit-fill-available;
   overscroll-behavior: none;
   @apply box-border;
+}
+
+#welcome {
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
 }
 </style>
 
