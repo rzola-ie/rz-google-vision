@@ -209,7 +209,7 @@ export default {
 
 <style scoped>
 #medications {
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc((var(--vh, 1vh) * 100) - 4rem);
+  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  min-height: calc((var(--vh, 1vh) * 100) - 4rem);
 }
 </style>
