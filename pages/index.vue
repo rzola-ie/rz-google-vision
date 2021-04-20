@@ -5,7 +5,7 @@
     class="grid grid-cols-1 grid-rows-2 m-0 md:grid-cols-2 md:grid-rows-1"
   >
     <div
-      class="max-h-full overflow-hidden bg-center bg-cover"
+      class="overflow-hidden bg-center bg-cover"
       style="background-image: url(/cube.png)"
     >
       <video

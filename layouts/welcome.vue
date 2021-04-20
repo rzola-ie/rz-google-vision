@@ -1,21 +1,9 @@
 <template>
-  <div class="h-screen overflow-x-hidden bg-ie-gray-500">
+  <div class="flex flex-col h-screen overflow-x-hidden bg-ie-gray-500">
     <ark-header />
     <Nuxt />
   </div>
 </template>
-
-<style scoped>
-html {
-  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  min-height: calc(var(--vh, 1vh) * 100);
-}
-
-body {
-  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  min-height: calc(var(--vh, 1vh) * 100);
-}
-</style>
 
 <script>
 import ArkHeader from "../components/ArkHeader.vue";
@@ -30,3 +18,15 @@ export default {
 };
 </script>
 
+<style scoped>
+html {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+body {
+  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  min-height: calc(var(--vh, 1vh) * 100);
+  overflow: hidden;
+}
+</style>

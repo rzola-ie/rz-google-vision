@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="flex items-center justify-center">
+  <div id="home" class="flex items-center justify-center flex-1">
     <div class="flex items-center justify-center">
       <div class="p-10 bg-white rounded-md shadow-lg">
         <h1 class="text-3xl font-bold text-center text-blue-900">Hi</h1>
@@ -34,9 +34,3 @@ export default {
   layout: "welcome",
 };
 </script>
-
-<style scoped>
-#home {
-  min-height: calc(100% - 4rem);
-}
-</style>
