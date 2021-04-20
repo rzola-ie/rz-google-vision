@@ -1,5 +1,5 @@
 <template>
-  <div id="welcome" class="pt-16 overflow-x-hidden bg-ie-gray-500">
+  <div class="h-screen pt-16 overflow-x-hidden bg-ie-gray-500">
     <div
       style="grid-template-columns: 1fr 5rem 1fr"
       class="fixed inset-x-0 top-0 z-30 grid items-center h-16 px-4 md:px-10"
@@ -141,42 +141,6 @@
     </div>
   </div>
 </template>
-
-<style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-body,
-html {
-  min-height: 100vh;
-  /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
-  overscroll-behavior: none;
-  @apply box-border;
-}
-
-#welcome {
-  min-height: 100vh;
-  /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
-}
-</style>
 
 <script>
 export default {
