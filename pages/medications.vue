@@ -1,7 +1,7 @@
 <template>
   <div
     id="medications"
-    class="relative flex flex-col flex-1 overflow-hidden bg-white rounded-t-lg"
+    class="relative flex flex-col flex-1 overflow-y-scroll bg-white rounded-t-lg"
   >
     <div
       v-if="isFocused"
