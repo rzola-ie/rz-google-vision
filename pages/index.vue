@@ -1,7 +1,8 @@
 <template>
   <div
     ref="content"
-    class="grid h-full grid-cols-1 grid-rows-2 m-0 md:grid-cols-2 md:grid-rows-1"
+    id="content"
+    class="grid grid-cols-1 grid-rows-2 m-0 md:grid-cols-2 md:grid-rows-1"
   >
     <div
       class="max-h-full overflow-hidden bg-center bg-cover"
@@ -207,9 +208,8 @@ export default {
 </script>
 
 <style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-@apply min-h-screen flex justify-center items-center text-center mx-auto;
+#content {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
 }
-*/
 </style>
