@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="flex items-center justify-center h-full">
+  <div id="home" class="flex items-center justify-center">
     <div class="flex items-center justify-center">
       <div class="p-10 bg-white rounded-md shadow-lg">
         <h1 class="text-3xl font-bold text-center text-blue-900">Hi</h1>
@@ -35,5 +35,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+#home {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc((var(--vh, 1vh) * 100) - 4rem);
+}
 </style>

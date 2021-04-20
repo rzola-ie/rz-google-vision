@@ -1,7 +1,7 @@
 <template>
   <div
     id="medications"
-    class="relative flex flex-col mt-16 overflow-hidden bg-white rounded-t-lg"
+    class="relative flex flex-col overflow-hidden bg-white rounded-t-lg"
   >
     <div
       v-if="isFocused"
@@ -209,6 +209,7 @@ export default {
 
 <style scoped>
 #medications {
-  min-height: calc(100vh - 4rem);
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc((var(--vh, 1vh) * 100) - 4rem);
 }
 </style>

@@ -2,7 +2,7 @@
   <div>
     <div
       style="grid-template-columns: 1fr 5rem 1fr"
-      class="fixed inset-x-0 top-0 z-30 grid items-center h-16 px-4 md:px-10"
+      class="z-30 grid items-center h-16 px-4 md:px-10"
     >
       <div
         v-show="openAccountMenu"
