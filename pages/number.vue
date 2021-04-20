@@ -6,8 +6,8 @@
         <p class="font-serif text-2xl">
           How many prescription medications do you currently take?
         </p>
-        <div class="flex justify-center">
-          <button class="px-5 py-2 mb-6 font-bold">
+        <div class="flex justify-center mb-24">
+          <button class="px-5 py-2 font-bold">
             <svg
               class="inline-block w-5 h-5 stroke-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -100,8 +100,7 @@ export default {
 
 <style scoped>
 #number {
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc((var(--vh, 1vh) * 100) - 4rem);
+  min-height: calc(100% - 4rem);
 }
 
 select {

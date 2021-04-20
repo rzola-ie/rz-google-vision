@@ -37,7 +37,6 @@ export default {
 
 <style scoped>
 #home {
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc((var(--vh, 1vh) * 100) - 4rem);
+  min-height: calc(100% - 4rem);
 }
 </style>

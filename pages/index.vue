@@ -209,7 +209,6 @@ export default {
 
 <style>
 #content {
-  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  min-height: calc(var(--vh, 1vh) * 100);
+  min-height: 100%;
 }
 </style>
