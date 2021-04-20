@@ -44,7 +44,7 @@
             More Info
           </button>
         </div>
-        <div class="flex-1 mb-8">
+        <div class="mb-8">
           <ul class="">
             <medication-slot
               v-for="({ name, description }, index) in medications"
