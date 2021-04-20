@@ -27,6 +27,8 @@ html {
 body,
 html {
   min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
   overscroll-behavior: none;
   @apply h-screen box-border;
 }

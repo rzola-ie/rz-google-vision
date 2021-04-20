@@ -1,15 +1,15 @@
 <template>
-  <div class="flex flex-col w-full h-full max-w-2xl mx-auto text-gray-700">
+  <div class="flex flex-col w-full max-w-2xl mx-auto text-gray-700">
     <div class="flex justify-end w-full px-4 pt-4" style="color: #95a2b8">
       <button @click="onCancel" class="text-xs font-bold">CANCEL</button>
     </div>
-    <div class="relative w-full h-full mx-auto">
-      <h1
-        class="inline-block w-full mx-auto mb-4 font-serif text-xl text-center"
-      >
+    <div class="w-full mx-auto">
+      <h1 class="mx-auto mb-4 font-serif text-xl text-center">
         Add Medication
       </h1>
-      <div :class="`relative h-full ${!hasPhoto ? 'pt-16' : 'pt-0'}`">
+      <div
+        :class="`relative ${!hasPhoto ? 'pt-16 overflow-y-scroll' : 'pt-0'}`"
+      >
         <div v-if="!hasPhoto" class="absolute top-0 z-40 w-full px-4">
           <input
             type="text"
@@ -168,8 +168,8 @@
           lol what is that?
         </div>
         <!-- no results -->
-        <div v-else class="p-4">
-          <div v-if="hasPhoto" class="relative">
+        <div v-else class="p-4 overflow-y-scroll">
+          <div v-if="hasPhoto">
             <div class="relative mb-4">
               <img
                 :style="`${loading ? 'filter: blur(1rem) brightness(.5)' : ''}`"
