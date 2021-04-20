@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen overflow-x-hidden bg-ie-gray-500">
+  <div class="flex flex-col h-screen overflow-hidden bg-ie-gray-500">
     <ark-header />
     <Nuxt />
   </div>
