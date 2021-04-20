@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col h-full text-gray-600 bg-white rounded-t-lg">
+  <div
+    id="number"
+    class="flex flex-col mt-16 text-gray-600 bg-white rounded-t-lg"
+  >
     <survey-progress backTo="/home" value="25" />
     <div class="flex flex-col flex-1 max-w-2xl px-6 pb-12 mx-auto md:px-16">
       <div class="flex flex-col flex-1">
@@ -99,6 +102,10 @@ export default {
 </script>
 
 <style scoped>
+#number {
+  min-height: calc(100vh - 4rem);
+}
+
 select {
   font-size: 2rem;
 }

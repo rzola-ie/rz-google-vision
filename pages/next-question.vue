@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col h-full text-gray-600 bg-white rounded-t-lg">
+  <div
+    id="next"
+    class="flex flex-col mt-16 text-gray-600 bg-white rounded-t-lg"
+  >
     <survey-progress
       :backTo="numOfMeds > 0 ? '/medications' : '/number'"
       value="75"
@@ -25,5 +28,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+#next {
+  min-height: calc(100vh - 4rem);
+}
 </style>

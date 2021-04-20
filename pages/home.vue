@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="flex items-center justify-center h-full pt-6">
+  <div id="home" class="flex items-center justify-center h-full">
     <div class="flex items-center justify-center">
       <div class="p-10 bg-white rounded-md shadow-lg">
         <h1 class="text-3xl font-bold text-center text-blue-900">Hi</h1>
