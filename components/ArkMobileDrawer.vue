@@ -2,7 +2,7 @@
   <div
     :class="`fixed inset-0 overflow-hidden bg-black bg-opacity-50 ${
       open ? 'opacity-1 pointer-events-auto' : 'opacity-0 pointer-events-none'
-    } transition-opacity ease-in-out duration-200`"
+    } transition-opacity ease-in-out duration-200 z-50`"
     @click="$emit('closed')"
   >
     <div
