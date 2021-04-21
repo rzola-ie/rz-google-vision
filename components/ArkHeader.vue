@@ -17,7 +17,7 @@
           <nav class="flex items-center">
             <div class="relative h-full">
               <button
-                class="flex items-center h-10 p-2 text-gray-900 rounded-full"
+                class="flex items-center h-10 p-2 rounded-full"
                 @click="() => (openAccountMenu = !openAccountMenu)"
               >
                 <div
