@@ -9,7 +9,7 @@
       class="absolute top-0 bottom-0 left-0 right-0 z-30 w-full h-full bg-transparent inset-x-full inset-y-full"
     ></div>
     <div class="flex flex-col flex-1">
-      <survey-progress backTo="/number" value="50" />
+      <ark-progress backTo="/number" value="50" />
       <div class="flex flex-col flex-1 max-w-2xl px-6 pb-12 mx-auto md:px-16">
         <div class="flex flex-col items-center">
           <h1 class="inline-block mx-auto font-serif text-2xl text-gray-700">
@@ -27,26 +27,11 @@
             </span>
           </h1>
 
-          <button class="px-4 py-2 mx-auto my-2 font-bold text-blue-900">
-            <svg
-              class="inline-block w-5 h-5 mr-1 stroke-current"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            More Info
-          </button>
+          <ark-more-info-button />
         </div>
-        <div class="mb-8">
+        <div class="my-8">
           <ul class="">
-            <medication-slot
+            <ark-medication-slot
               v-for="({ name, description }, index) in medications"
               :name="name"
               :description="description"
@@ -118,7 +103,7 @@
         isAddingMed ? 'top-0' : 'top-full'
       } transition-all duration-500 ease-in-out flex flex-col`"
     >
-      <add-medication
+      <ark-add-medication
         ref="addMed"
         @on-focus="onInputFocus"
         @on-blur="isFocused = false"
@@ -134,10 +119,10 @@
 </template>
 
 <script>
-import AddMedication from "../components/AddMedication.vue";
-import SurveyProgress from "../components/SurveyProgress.vue";
+import ArkAddMedication from "../components/ArkAddMedication.vue";
+import ArkProgress from "../components/ArkProgress.vue";
 export default {
-  components: { SurveyProgress, AddMedication },
+  components: { ArkProgress, ArkAddMedication },
   layout: "welcome",
   data() {
     return {

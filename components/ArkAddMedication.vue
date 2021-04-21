@@ -175,7 +175,8 @@
                 :style="`${loading ? 'filter: blur(1rem) brightness(.5)' : ''}`"
                 class="mx-auto mb-4"
                 :src="photoURL"
-                alt=""
+                alt="preview image"
+                ref="previewImg"
               />
               <div
                 :class="`absolute inset-0 flex items-center justify-center text-4xl font-bold text-white ${
@@ -313,8 +314,7 @@ export default {
       loading: false,
       googleResults: [],
       selectedResults: [],
-      gCloudVisionUrl:
-        "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBqHINyqX2rb2v7MddQ9fwDDE--fX-hnTE",
+      gCloudVisionUrl: `https://vision.googleapis.com/v1/images:annotate?key=${process.env.googleVisionKey}`,
     };
   },
   computed: {
@@ -406,82 +406,88 @@ export default {
       await reader.readAsDataURL(event.target.files[0]);
       this.photoURL = URL.createObjectURL(event.target.files[0]);
       this.hasPhoto = true;
+
+      // save for later
+      // this.$refs.previewImg.onload = () => {
+      //   URL.revokeObjectURL(event.target.files[0]);
+      // };
     },
     async sendToGoogleVision(photoSrc) {
       this.loading = true;
       this.googleSearched = true;
 
-      if (photoSrc) {
-        let requestBody = {
-          requests: [
-            {
-              image: {
-                content: photoSrc,
-              },
-              features: [
-                {
-                  type: "TEXT_DETECTION",
-                  maxResults: 20,
-                },
-              ],
+      if (!photoSrc) {
+        console.warn("You have not captured an image");
+        this.loading = false;
+        return;
+      }
+
+      let requestBody = {
+        requests: [
+          {
+            image: {
+              content: photoSrc,
             },
-          ],
+            features: [
+              {
+                type: "TEXT_DETECTION",
+                maxResults: 20,
+              },
+            ],
+          },
+        ],
+      };
+
+      try {
+        let predictionResults = await axios.post(
+          this.gCloudVisionUrl,
+          requestBody
+        );
+
+        this.googleResults = [
+          ...predictionResults.data.responses[0].textAnnotations.map((r) =>
+            r.description.toLowerCase()
+          ),
+        ];
+
+        this.googleResults.forEach((result, index) => {
+          this.googleResults[index] = result
+            .replace('"', "")
+            .replace("(", "")
+            .replace(")", "")
+            .replace("'", "")
+            .replace("©", "")
+            .replace("®", "")
+            .replace("™", "");
+        });
+
+        const checkBlacklist = (result) => {
+          return this.blackList.indexOf(result) === -1;
         };
 
-        try {
-          let predictionResults = await axios.post(
-            this.gCloudVisionUrl,
-            requestBody
+        const checkWhitelist = (result) => {
+          return this.whiteList.indexOf(result) !== -1;
+        };
+
+        const filtered = this.googleResults
+          .filter(checkBlacklist)
+          .filter(checkWhitelist)
+          .reduce(
+            (unique, item) =>
+              unique.includes(item) ? unique : [...unique, item],
+            []
           );
 
-          this.googleResults = [
-            ...predictionResults.data.responses[0].textAnnotations.map((r) =>
-              r.description.toLowerCase()
-            ),
-          ];
+        console.log("filtered", filtered);
 
-          this.googleResults.forEach((result, index) => {
-            this.googleResults[index] = result
-              .replace('"', "")
-              .replace("(", "")
-              .replace(")", "")
-              .replace("'", "")
-              .replace("©", "")
-              .replace("®", "")
-              .replace("™", "");
-          });
+        this.googleResults = [...filtered];
 
-          const checkBlacklist = (result) => {
-            return this.blackList.indexOf(result) === -1;
-          };
+        console.log(this.googleResults);
 
-          const checkWhitelist = (result) => {
-            return this.whiteList.indexOf(result) !== -1;
-          };
-
-          const filtered = this.googleResults
-            .filter(checkBlacklist)
-            .filter(checkWhitelist)
-            .reduce(
-              (unique, item) =>
-                unique.includes(item) ? unique : [...unique, item],
-              []
-            );
-
-          console.log("filtered", filtered);
-
-          this.googleResults = [...filtered];
-
-          console.log(this.googleResults);
-
-          this.predictingImage = false;
-        } catch (error) {
-          console.error(error);
-        } finally {
-          this.loading = false;
-        }
-      } else {
-        console.error("You have not captured an image");
+        this.predictingImage = false;
+      } catch (error) {
+        console.error(error);
+      } finally {
         this.loading = false;
       }
     },
@@ -506,9 +512,10 @@ export default {
     },
     onClearPhoto() {
       this.hasPhoto = false;
+      this.photoSrc = null;
       this.photoURL = null;
-      this.googleSearched = false;
       this.googleResults = [];
+      this.googleSearched = false;
     },
   },
 };

@@ -1,3 +1,7 @@
+/*  =============================
+    THIS PAGE IS NO LONGER USED
+    ============================= */
+
 <template>
   <div
     style="min-height: calc(100% - 0px); color: #95a2b8"
@@ -421,14 +425,12 @@
 <script>
 import axios from "axios";
 import { blackList, whiteList } from "~/lib/words";
-import VueSimpleSuggest from "vue-simple-suggest";
-import "vue-simple-suggest/dist/styles.css";
+
 // import MedicationResult from "../components/MedicationResult.vue";
 
 export default {
   layout: "welcome",
   components: {
-    VueSimpleSuggest,
     // MedicationResult,
   },
   data() {

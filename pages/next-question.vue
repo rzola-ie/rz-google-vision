@@ -3,10 +3,7 @@
     id="next"
     class="flex flex-col flex-1 text-gray-600 bg-white rounded-t-lg"
   >
-    <survey-progress
-      :backTo="numOfMeds > 0 ? '/medications' : '/number'"
-      value="75"
-    />
+    <ark-progress :backTo="backLink" value="75" />
     <div class="p-6 pt-0 mx-auto max-w-7xl">
       <h1 class="inline font-serif text-xl text-gray-700">
         This is the next question!
@@ -16,13 +13,16 @@
 </template>
 
 <script>
-import SurveyProgress from "../components/SurveyProgress.vue";
+import ArkProgress from "../components/ArkProgress.vue";
 export default {
-  components: { SurveyProgress },
+  components: { ArkProgress },
   layout: "welcome",
   computed: {
     numOfMeds() {
       return this.$store.state.numOfMeds;
+    },
+    backLink() {
+      return numOfMeds > 0 ? "/medications" : "/number";
     },
   },
 };

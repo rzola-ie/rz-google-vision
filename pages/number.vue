@@ -3,51 +3,21 @@
     id="number"
     class="flex flex-col flex-1 overflow-hidden text-gray-600 bg-white rounded-t-lg"
   >
-    <survey-progress backTo="/home" value="25" />
+    <ark-progress backTo="/home" value="25" />
     <div class="flex flex-col max-w-2xl px-6 mx-auto md:px-16">
       <div class="flex flex-col mb-36">
         <p class="font-serif text-2xl">
           How many prescription medications do you currently take?
         </p>
         <div class="flex justify-center mb-24">
-          <button class="px-5 py-2 font-bold">
-            <svg
-              class="inline-block w-5 h-5 stroke-current"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            More Info
-          </button>
+          <ark-more-info-button @click.native="onMoreInfo" />
         </div>
         <div class="w-full h-20">
-          <select
-            name="med-number"
-            class="w-full p-2 px-4 border border-gray-400 rounded-md"
-            @change="onChange($event)"
-            v-model="number"
-          >
-            <optgroup style="font-size: 2rem">
-              <option value="0">0 - no medications</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5 or more</option>
-            </optgroup>
-          </select>
+          <ark-med-number v-model="number" @change="number = $event" />
         </div>
       </div>
       <div>
-        <button class="w-full h-16 text-2xl btn btn-gray" @click="onSubmit">
+        <button class="btn btn-main btn-gray" @click="onSubmit">
           Continue
         </button>
       </div>
@@ -56,9 +26,11 @@
 </template>
 
 <script>
-import SurveyProgress from "../components/SurveyProgress.vue";
+import ArkMedNumber from "../components/ArkMedNumber.vue";
+import ArkMoreInfo from "../components/ArkMoreInfoButton.vue";
+import ArkProgress from "../components/ArkProgress.vue";
 export default {
-  components: { SurveyProgress },
+  components: { ArkProgress, ArkMedNumber, ArkMoreInfo },
   layout: "welcome",
   data() {
     return {
@@ -97,16 +69,9 @@ export default {
           this.$router.push("/kickout");
       }
     },
+    onMoreInfo() {
+      console.log("more info");
+    },
   },
 };
 </script>
-
-<style scoped>
-select {
-  font-size: 2rem;
-}
-
-optgroup {
-  font-size: 1rem;
-}
-</style>

@@ -7,7 +7,11 @@
 
 @layer components {
   .btn {
-    @apply font-semibold py-3 px-5 rounded-md shadow-md transition ease-in duration-200
+    @apply px-5 py-3 text-2xl font-semibold transition duration-200 ease-in rounded-md shadow-md;
+  }
+
+  .btn-main {
+    @apply w-full h-16;
   }
 
   .btn-blue {
