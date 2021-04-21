@@ -5,22 +5,19 @@
   >
     <ark-progress backTo="/home" value="25" />
     <div class="flex flex-col max-w-2xl px-6 mx-auto md:px-16">
-      <div class="flex flex-col mb-36">
-        <p class="font-serif text-2xl">
-          How many prescription medications do you currently take?
-        </p>
-        <div class="flex justify-center mb-24">
-          <ark-more-info-button @click.native="onMoreInfo" />
-        </div>
-        <div class="w-full h-20">
-          <ark-med-number v-model="number" @change="number = $event" />
-        </div>
-      </div>
-      <div>
-        <button class="btn btn-main btn-gray" @click="onSubmit">
-          Continue
-        </button>
-      </div>
+      <h1 class="font-serif text-2xl">
+        How many prescription medications do you currently take?
+      </h1>
+
+      <ark-more-info-button @click.native="onMoreInfo" />
+
+      <ark-med-number
+        class="mt-24 mb-36"
+        v-model="number"
+        @change="number = $event"
+      />
+
+      <button class="btn btn-main btn-gray" @click="onSubmit">Continue</button>
     </div>
   </div>
 </template>
@@ -43,15 +40,6 @@ export default {
       : (this.number = 0);
   },
   methods: {
-    increment() {
-      this.number <= 19 ? this.number++ : this.number;
-    },
-    decrement() {
-      this.number === 0 ? 0 : this.number--;
-    },
-    onChange(event) {
-      this.number = event.target.value;
-    },
     onSubmit() {
       this.$store.commit("ADD_MEDICATION_NUMBER", this.number);
 
