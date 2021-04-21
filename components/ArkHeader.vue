@@ -4,14 +4,6 @@
       style="grid-template-columns: 1fr 5rem 1fr"
       class="z-30 grid items-center h-16 px-4 md:px-10"
     >
-      <div
-        v-show="openAccountMenu"
-        class="fixed inset-0 z-40"
-        @click="() => (openAccountMenu = !openAccountMenu)"
-      >
-        x
-      </div>
-
       <div class="col-start-3 text-white justify-self-end">
         <div class="hidden lg:block">
           <nav class="flex items-center">
