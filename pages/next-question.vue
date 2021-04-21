@@ -22,7 +22,7 @@ export default {
       return this.$store.state.numOfMeds;
     },
     backLink() {
-      return numOfMeds > 0 ? "/medications" : "/number";
+      return this.numOfMeds > 0 ? "/medications" : "/number";
     },
   },
 };
