@@ -5,10 +5,14 @@
     } rounded-md`"
   >
     <div v-if="name" style="background-color: #f6f7f9">
-      <div class="absolute inset-y-0 left-0 w-20 bg-blue-900">
-        <img src="/pill.png" alt="picture of medication" class="object-cover" />
+      <div class="absolute inset-y-0 left-0 bg-blue-900">
+        <img
+          src="/pill.png"
+          alt="picture of medication"
+          class="object-cover h-full"
+        />
       </div>
-      <button class="absolute top-2 right-2" @click="remove">
+      <button class="absolute top-2 right-2" @click="$emit('remove')">
         <svg
           class="w-5 h-5"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,14 +28,13 @@
           />
         </svg>
       </button>
-      <div
-        class="flex flex-col justify-center h-full p-4 ml-20 font-serif text-2xl truncate"
-        style="color: #5e6a7c"
-      >
-        <div class="w-full truncate">
+      <div class="p-4 pl-24 font-serif text-2xl" style="color: #5e6a7c">
+        <h2 class="truncate">
           {{ name }}
-        </div>
-        <div class="text-xs">{{ description }}</div>
+        </h2>
+        <p class="text-xs truncate">
+          {{ description }}
+        </p>
       </div>
     </div>
     <button
@@ -76,11 +79,6 @@ export default {
     description: {
       type: String,
       required: false,
-    },
-  },
-  methods: {
-    remove() {
-      this.$emit("remove");
     },
   },
 };

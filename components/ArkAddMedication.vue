@@ -4,9 +4,7 @@
       <button @click="onCancel" class="text-xs font-bold">CANCEL</button>
     </div>
     <div class="w-full mx-auto">
-      <h1 class="mx-auto mb-4 font-serif text-xl text-center">
-        Add Medication
-      </h1>
+      <h1 class="mb-4 font-serif text-xl text-center">Add Medication</h1>
       <div
         :class="`relative ${!hasPhoto ? 'pt-16 overflow-y-scroll' : 'pt-0'}`"
       >

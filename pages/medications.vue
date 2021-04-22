@@ -11,7 +11,9 @@
       ></div>
       <div class="flex flex-col flex-1">
         <ark-progress backTo="/number" value="50" />
-        <div class="flex flex-col flex-1 max-w-2xl px-6 pb-12 mx-auto md:px-16">
+        <div
+          class="flex flex-col flex-1 w-full max-w-2xl px-6 pb-12 mx-auto md:px-16"
+        >
           <div class="flex flex-col items-center">
             <h1 class="inline-block mx-auto font-serif text-2xl text-gray-700">
               Which
@@ -31,7 +33,7 @@
             <ark-more-info-button />
           </div>
           <div class="my-8">
-            <ul class="">
+            <ul>
               <ark-medication-slot
                 v-for="({ name, description }, index) in medications"
                 :name="name"

@@ -44,7 +44,7 @@ export const actions = {
           },
           {
             name: 'Crestor',
-            description: 'hey, how about that web app. pretty cool!'
+            description: 'how about that web app? pretty cool!'
           },
           {
             name: 'Bevespi',
