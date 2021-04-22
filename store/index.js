@@ -32,15 +32,15 @@ export const actions = {
         resolve([
           {
             name: 'Farxiga',
-            description: 'I forget what farxiga does'
+            description: 'I forget what farxiga does.'
           },
           {
             name: 'Fauxiga',
-            description: 'Knock off farxiga'
+            description: 'Knock off farxiga.'
           },
           {
             name: 'SeeFarga',
-            description: 'Eye sight medication'
+            description: 'Eye sight medication.'
           },
           {
             name: 'Crestor',
@@ -57,7 +57,23 @@ export const actions = {
           {
             name: 'Advil',
             description: 'Pass a couple this way.'
-          }
+          },
+          {
+            name: 'Simvastatin',
+            description: 'A statin to treat cholesterol.'
+          },
+          {
+            name: 'Cyclosporine',
+            description: 'A medicine for your immune system.'
+          },
+          {
+            name: 'Tacrolimus',
+            description: 'A medicine for your immune system.'
+          },
+          {
+            name: 'Sildenafil',
+            description: 'A medicine to treat erectile disfunction.'
+          },
         ].filter(item => item.name.includes(term))
         ),
         1500

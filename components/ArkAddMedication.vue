@@ -57,7 +57,7 @@
           <div
             v-if="hasFocus"
             style="max-height: 350px"
-            class="px-4 py-2 overflow-y-scroll bg-white border border-t-0 border-gray-500 shadow-md"
+            class="p-2 overflow-y-scroll bg-white border border-t-0 border-gray-500 rounded-b-sm shadow-md"
           >
             <ul v-if="!searchTerm">
               <p class="font-bold">Try Searching</p>
@@ -67,14 +67,14 @@
                 class="p-2"
               >
                 <button
-                  class="w-full h-full text-xl text-left"
-                  @click="selectTerm(item)"
+                  class="flex w-full h-full text-base text-left"
+                  @click="selectTerm(item.name)"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    class="inline w-8 h-8 mr-4"
+                    class="w-6 h-6 mr-2"
                   >
                     <circle
                       cx="12"
@@ -98,7 +98,11 @@
                       "
                     />
                   </svg>
-                  <span>{{ item }}</span>
+                  <div class="flex-1">
+                    <span class="font-semibold text-blue-900">
+                      {{ item.name }}</span
+                    >&nbsp;<span>({{ item.description }})</span>
+                  </div>
                 </button>
               </li>
             </ul>
@@ -106,17 +110,19 @@
               <li
                 v-for="(item, index) in filteredArray"
                 :key="index"
-                class="p-2"
+                class="relative"
               >
                 <button
-                  class="w-full h-full text-xl text-left"
+                  :class="`w-full h-full text-xl text-left p-2 rounded-sm ${
+                    suggested(item) ? 'bg-blue-100' : 'bg-transparent'
+                  }`"
                   @click="selectTerm(item)"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    class="inline w-8 h-8 mr-4"
+                    class="inline w-6 h-6 mr-2"
                   >
                     <circle
                       cx="12"
@@ -134,8 +140,15 @@
                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
-                  <span class="capitalize">{{ item }}</span>
+                  <span class="capitalize">{{ item }}</span
+                  ><span v-if="suggested(item)">*</span>
                 </button>
+                <div
+                  v-if="suggested(item)"
+                  class="absolute text-xs italic text-blue-600 top-2 right-2"
+                >
+                  Contraindication
+                </div>
               </li>
             </ul>
           </div>
@@ -300,7 +313,25 @@ export default {
       searchTerm: null,
       hasFocus: false,
       predictingImage: false,
-      initialSuggested: ["Crestor", "Farxiga", "Warfrin"],
+      initialSuggested: [
+        { name: "Simvastatin", description: "a statin to treat cholesterol" },
+        {
+          name: "Cyclosporine",
+          description: "a medicine for your immune system",
+        },
+        {
+          name: "Tacrolimus",
+          description: "a medicine for your immune system",
+        },
+        {
+          name: "Sildenafil",
+          description: "a medicine to treat erectile disfunction",
+        },
+        {
+          name: "CYP3A Inhibitors",
+          description: "such as diltiazem, itraconazole, and clarithromycin",
+        },
+      ],
       blackList: [],
       whiteList: [],
       searched: false,
@@ -317,9 +348,21 @@ export default {
   },
   computed: {
     filteredArray() {
-      return this.whiteList.filter((str) => {
-        return str.includes(this.searchTerm.toLowerCase());
-      });
+      let initials = [];
+      this.initialSuggested.forEach(({ name }) =>
+        initials.push(name.toLowerCase())
+      );
+
+      let sorted = [...initials, ...this.whiteList];
+      let uniqueSorted = [...new Set([...initials, ...this.whiteList])];
+
+      return uniqueSorted
+        .sort((a, b) => {
+          return a.indexOf(this.searchTerm[0]) - b.indexOf(this.searchTerm[0]);
+        })
+        .filter((str) => {
+          return str.includes(this.searchTerm.toLowerCase());
+        });
     },
   },
   mounted() {
@@ -327,6 +370,15 @@ export default {
     this.blackList = [...blackList];
   },
   methods: {
+    suggested(itemName) {
+      let initials = [];
+      this.initialSuggested.forEach(({ name }) =>
+        initials.push(name.toLowerCase())
+      );
+      console.log(itemName, initials.includes(itemName));
+
+      return initials.includes(itemName);
+    },
     onFocus() {
       this.hasFocus = true;
       console.log("derp derp derp", this.hasFocus);
