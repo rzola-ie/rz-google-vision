@@ -1,7 +1,7 @@
 <template>
   <div
     id="medications"
-    class="relative flex flex-col flex-1 overflow-y-scroll bg-white rounded-t-lg"
+    class="relative flex flex-col flex-1 overflow-hidden bg-white rounded-t-lg"
   >
     <div
       v-if="isFocused"
@@ -29,7 +29,7 @@
 
           <ark-more-info-button />
         </div>
-        <div class="my-8">
+        <div class="h-full my-8 overflow-y-scroll">
           <ul class="">
             <ark-medication-slot
               v-for="({ name, description }, index) in medications"
