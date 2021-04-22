@@ -32,23 +32,31 @@ export const actions = {
         resolve([
           {
             name: 'Farxiga',
-            description: 'i forget what farxiga does'
+            description: 'I forget what farxiga does'
           },
           {
             name: 'Fauxiga',
-            description: 'knock off farxiga'
+            description: 'Knock off farxiga'
           },
           {
             name: 'SeeFarga',
-            description: 'eye sight medication'
+            description: 'Eye sight medication'
           },
           {
             name: 'Crestor',
-            description: 'how about that web app? pretty cool!'
+            description: 'How about that web app? pretty cool!'
           },
           {
             name: 'Bevespi',
-            description: 'not a clue...'
+            description: 'Nope, not a clue...'
+          },
+          {
+            name: 'Warfrin',
+            description: 'Something with blood pressure.'
+          },
+          {
+            name: 'Advil',
+            description: 'Pass a couple this way.'
           }
         ].filter(item => item.name.includes(term))
         ),
