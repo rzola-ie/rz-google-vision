@@ -1,170 +1,28 @@
 <template>
-  <div class="flex flex-col w-full max-w-2xl mx-auto text-gray-700">
+  <div class="flex flex-col w-full h-full max-w-2xl mx-auto text-gray-700">
     <div class="flex justify-end w-full px-4 pt-4" style="color: #95a2b8">
       <button @click="onCancel" class="text-xs font-bold">CANCEL</button>
     </div>
-    <div class="w-full mx-auto">
+    <div class="w-full h-full mx-auto">
       <h1 class="mb-4 font-serif text-xl text-center">Add Medication</h1>
       <div
-        :class="`relative ${!hasPhoto ? 'pt-16 overflow-y-scroll' : 'pt-0'}`"
+        :class="`h-full relative ${
+          !hasPhoto ? 'pt-16 pb-8 overflow-y-scroll' : 'pt-0'
+        }`"
       >
-        <div v-if="!hasPhoto" class="absolute top-0 z-40 w-full px-4">
-          <input
-            type="text"
-            name=""
-            id="text-search"
-            @focus="onFocus"
-            v-model="searchTerm"
-            autocomplete="off"
-            :style="`${
-              hasFocus
-                ? 'border-radius: 1.5rem 1.5rem 0 0; border-bottom: none;'
-                : 'border-radius: 1.5rem'
-            }`"
-            class="w-full h-12 px-12 text-2xl uppercase border border-gray-500 outline-none"
-          />
+        <ark-medication-search
+          class="absolute top-0 z-40"
+          ref="medicationSearch"
+          @on-focus="$emit('on-focus')"
+          @on-blur="$emit('on-blur')"
+          @term-selected="selectTerm"
+        />
+        <!-- search input -->
 
-          <form
-            class="absolute top-0 flex items-center justify-center w-12 h-12 right-4 text-ie-gray-900"
-            @submit.prevent="onSubmit"
-            enctype="multipart/form-data"
-          >
-            <input
-              class="hidden"
-              type="file"
-              name="files[]"
-              id="file"
-              capture="environment"
-              accept="image/*"
-              @change="onPhotoUpload($event)"
-            />
-            <label id="drag-drop-target" for="file" class="cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                class="w-8 h-8 mx-auto stroke-current"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-            </label>
-          </form>
-          <div
-            v-if="hasFocus"
-            style="max-height: 350px"
-            class="p-2 overflow-y-scroll bg-white border border-t-0 border-gray-500 rounded-b-sm shadow-md"
-          >
-            <ul v-if="!searchTerm">
-              <p class="font-bold">Try Searching</p>
-              <li
-                v-for="(item, index) in initialSuggested"
-                :key="index"
-                class="p-2"
-              >
-                <button
-                  class="flex w-full h-full text-base text-left"
-                  @click="selectTerm(item.name)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    class="w-6 h-6 mr-2"
-                  >
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="12"
-                      stroke="none"
-                      fill="#97A2B6"
-                    />
-                    <rect
-                      x="7"
-                      y="2"
-                      rx="5"
-                      ry="5"
-                      height="20"
-                      width="10"
-                      stroke="white"
-                      stroke-width="1.5"
-                      style="
-                        transform-origin: center;
-                        transform: rotate(-45deg) scale(0.8);
-                      "
-                    />
-                  </svg>
-                  <div class="flex-1">
-                    <span class="font-semibold text-blue-900">
-                      {{ item.name }}</span
-                    >&nbsp;<span>({{ item.description }})</span>
-                  </div>
-                </button>
-              </li>
-            </ul>
-            <ul v-else>
-              <li
-                v-for="(item, index) in filteredArray"
-                :key="index"
-                class="relative"
-              >
-                <button
-                  :class="`w-full h-full text-xl text-left p-2 rounded-sm ${
-                    suggested(item) ? 'bg-blue-100' : 'bg-transparent'
-                  }`"
-                  @click="selectTerm(item)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    class="inline w-6 h-6 mr-2"
-                  >
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="12"
-                      stroke="none"
-                      fill="#97A2B6"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      stroke="white"
-                      style="transform-origin: center; transform: scale(0.6)"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                  <span class="capitalize">{{ item }}</span
-                  ><span v-if="suggested(item)">*</span>
-                </button>
-                <div
-                  v-if="suggested(item)"
-                  class="absolute text-xs italic text-blue-600 top-2 right-2"
-                >
-                  Contraindication
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div
+        <ark-medication-result-list
           v-if="searched && searchResults.length"
-          class="px-4 pb-12 overflow-y-scroll max-w-7xl"
-          style="height: calc(100% - 5rem)"
-        >
-          <medication-result
-            v-for="result in searchResults"
-            :key="result.name"
-            :medication="result"
-            @add-med="onAddMed"
-          />
-        </div>
+          :searcResults="searchResults"
+        />
         <!-- search results -->
         <div
           v-else-if="searched && loading"
@@ -304,14 +162,13 @@
 </template>
 
 <script>
-import { blackList, whiteList } from "~/lib/words";
-import axios from "axios";
+import ArkMedicationResultList from "./ArkMedicationResultList.vue";
+import ArkMedicationSearch from "./ArkMedicationSearch.vue";
 
 export default {
+  components: { ArkMedicationSearch, ArkMedicationResultList },
   data() {
     return {
-      searchTerm: null,
-      hasFocus: false,
       predictingImage: false,
       initialSuggested: [
         { name: "Simvastatin", description: "a statin to treat cholesterol" },
@@ -365,28 +222,10 @@ export default {
         });
     },
   },
-  mounted() {
-    this.whiteList = [...whiteList];
-    this.blackList = [...blackList];
-  },
-  methods: {
-    suggested(itemName) {
-      let initials = [];
-      this.initialSuggested.forEach(({ name }) =>
-        initials.push(name.toLowerCase())
-      );
-      console.log(itemName, initials.includes(itemName));
 
-      return initials.includes(itemName);
-    },
-    onFocus() {
-      this.hasFocus = true;
-      console.log("derp derp derp", this.hasFocus);
-      this.$emit("on-focus");
-    },
+  methods: {
     onBlur() {
-      this.hasFocus = false;
-      console.log("blur blur blur", this.hasFocus);
+      this.$refs.medicationSearch.onBlur();
     },
     onAddMed() {
       this.searchResults = [];
@@ -408,11 +247,10 @@ export default {
       this.selectedResults = [];
       this.$emit("dismiss-add");
     },
-    selectTerm(item) {
+    selectTerm(value) {
       this.$emit("on-blur");
       this.searchResults = [];
-      this.searchTerm = item.charAt(0).toUpperCase() + item.slice(1);
-      this.hasFocus = false;
+      this.searchTerm = value;
 
       this.getSearchResults();
     },
@@ -570,12 +408,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-#text-search {
-  background-image: url("/icn-search.svg");
-  background-repeat: no-repeat;
-  background-size: 28px;
-  background-position: 10px 10px;
-}
-</style>

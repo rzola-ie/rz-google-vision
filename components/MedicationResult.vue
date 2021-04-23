@@ -1,12 +1,13 @@
 <template>
   <div
+    style="max-height: 320px"
     class="grid grid-rows-2 mb-4 overflow-hidden bg-white border border-gray-300 rounded-md shadow-md last:mb-0"
   >
-    <div class="w-full h-full bg-gray-100">
+    <div class="w-full h-full overflow-hidden bg-gray-100">
       <img
-        src="/results-pill.png"
+        :src="medication.imgUrl ? medication.imgUrl : '/results-pill.png'"
         alt="pill image"
-        class="object-cover h-full mx-auto"
+        class="object-cover w-full mx-auto"
       />
     </div>
     <div class="flex flex-col w-full h-full p-4">
