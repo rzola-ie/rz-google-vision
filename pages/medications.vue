@@ -12,7 +12,11 @@
       <div class="flex flex-col h-full">
         <ark-progress backTo="/number" value="50" />
         <div
-          class="flex flex-col w-full h-full max-w-2xl pb-12 mx-auto overflow-x-hidden overflow-y-scroll md:px-16"
+          :class="`flex flex-col w-full h-full max-w-2xl pb-16 mx-auto md:px-16 ${
+            isAddingMed
+              ? 'overflow-hidden'
+              : 'overflow-x-hidden overflow-y-scroll'
+          }`"
         >
           <div class="flex flex-col items-center px-6 mb-4">
             <h1 class="mx-auto font-serif text-2xl text-gray-700">

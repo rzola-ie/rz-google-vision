@@ -27,8 +27,28 @@
         <!-- search results -->
         <div
           v-else-if="searched && loading"
-          class="w-full p-4 text-3xl font-bold text-center"
+          class="flex flex-col items-center justify-center w-full h-full text-3xl font-semibold text-center"
         >
+          <svg
+            class="w-24 h-24 mx-auto mb-4 text-ie-gray-900 animate-spin"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
           loading...
         </div>
         <div
@@ -38,7 +58,7 @@
           lol what is that?
         </div>
         <!-- no results -->
-        <div v-else class="p-4 overflow-y-scroll">
+        <div v-else class="overflow-y-scroll">
           <div v-if="hasPhoto">
             <div class="relative mb-4">
               <img
@@ -152,7 +172,7 @@
               </button>
             </div>
           </div>
-          <div v-else>
+          <div v-else class="px-4">
             <img class="w-full mx-auto" src="/photos.png" alt="" />
           </div>
         </div>
@@ -171,27 +191,6 @@ export default {
   data() {
     return {
       predictingImage: false,
-      initialSuggested: [
-        { name: "Simvastatin", description: "a statin to treat cholesterol" },
-        {
-          name: "Cyclosporine",
-          description: "a medicine for your immune system",
-        },
-        {
-          name: "Tacrolimus",
-          description: "a medicine for your immune system",
-        },
-        {
-          name: "Sildenafil",
-          description: "a medicine to treat erectile disfunction",
-        },
-        {
-          name: "CYP3A Inhibitors",
-          description: "such as diltiazem, itraconazole, and clarithromycin",
-        },
-      ],
-      blackList: [],
-      whiteList: [],
       searched: false,
       googleSearched: false,
       searchResults: [],
@@ -204,39 +203,20 @@ export default {
       gCloudVisionUrl: `https://vision.googleapis.com/v1/images:annotate?key=${process.env.googleVisionKey}`,
     };
   },
-  computed: {
-    filteredArray() {
-      let initials = [];
-      this.initialSuggested.forEach(({ name }) =>
-        initials.push(name.toLowerCase())
-      );
-
-      let sorted = [...initials, ...this.whiteList];
-      let uniqueSorted = [...new Set([...initials, ...this.whiteList])];
-
-      return uniqueSorted
-        .sort((a, b) => {
-          return a.indexOf(this.searchTerm[0]) - b.indexOf(this.searchTerm[0]);
-        })
-        .filter((str) => {
-          return str.includes(this.searchTerm.toLowerCase());
-        });
-    },
-  },
-
   methods: {
     onBlur() {
       this.$refs.medicationSearch.onBlur();
     },
     onAddMed() {
       this.searchResults = [];
-      this.searchTerm = null;
+
       this.$refs.medicationSearch.onClearSearch();
       this.searched = false;
       this.$emit("dismiss-add");
     },
     onCancel() {
-      this.searchTerm = null;
+      this.$refs.medicationSearch.onClearSearch();
+      this.$refs.medicationSearch.onBlur();
       this.hasFocus = false;
       this.searched = false;
       this.googleSearched = false;
