@@ -12,7 +12,7 @@
       <div class="flex flex-col h-full">
         <ark-progress backTo="/number" value="50" />
         <div
-          class="flex flex-col w-full h-full max-w-2xl pb-12 mx-auto md:px-16"
+          class="flex flex-col w-full h-full max-w-2xl pb-12 mx-auto overflow-x-hidden overflow-y-scroll md:px-16"
         >
           <div class="flex flex-col items-center px-6 mb-4">
             <h1 class="mx-auto font-serif text-2xl text-gray-700">
@@ -32,9 +32,7 @@
 
             <ark-more-info-button class="mx-auto" />
           </div>
-          <div
-            class="flex-1 w-full h-full px-6 pb-6 overflow-x-hidden overflow-y-scroll"
-          >
+          <div class="flex-1 w-full h-full px-6">
             <div>
               <ul>
                 <ark-medication-slot
@@ -48,37 +46,36 @@
                   :key="index"
                 />
               </ul>
-              <div class="flex flex-col justify-center">
-                <div
-                  :class="`${
-                    complete
-                      ? 'pointer-events-auto transform translate-x-0 opacity-100'
-                      : 'pointer-events-none transform translate-x-full opacity-0'
-                  } transition duration-500 ease-in-out `"
+
+              <div
+                :class="`${
+                  complete
+                    ? 'pointer-events-auto transform translate-x-0 opacity-100'
+                    : 'pointer-events-none transform translate-x-full opacity-0'
+                } transition duration-500 ease-in-out flex flex-col justify-center mb-6`"
+              >
+                <p :class="complete ? 'opacity-100' : 'opacity-0'">
+                  Need to add more?
+                </p>
+                <button
+                  style="background-color: #d7ecf6"
+                  class="text-lg font-semibold tracking-wider text-gray-700 rounded-md shadow-md btn-main"
+                  @click="() => (isAddingMed = true)"
                 >
-                  <p :class="complete ? 'opacity-100' : 'opacity-0'">
-                    Need to add more?
-                  </p>
-                  <button
-                    style="background-color: #d7ecf6"
-                    class="text-lg font-semibold tracking-wider text-gray-700 rounded-md shadow-md btn-main"
-                    @click="() => (isAddingMed = true)"
+                  <svg
+                    class="inline-block w-6 h-6 mr-2 stroke-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      class="inline-block w-8 h-8 mr-5 stroke-current"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                      />
-                    </svg>
-                    Add Another Medication
-                  </button>
-                </div>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  Add Another Medication
+                </button>
               </div>
             </div>
             <div>

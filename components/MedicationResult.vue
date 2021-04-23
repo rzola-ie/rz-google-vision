@@ -29,7 +29,6 @@ export default {
   props: ["medication"],
   methods: {
     addMedication(newMed) {
-      console.log("blern");
       this.$store.commit("ADD_MEDICATION", newMed);
       this.$router.push("/medications");
       this.$emit("add-med");

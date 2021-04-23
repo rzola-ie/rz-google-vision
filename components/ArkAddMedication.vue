@@ -21,7 +21,8 @@
 
         <ark-medication-result-list
           v-if="searched && searchResults.length"
-          :searcResults="searchResults"
+          :searchResults="searchResults"
+          @add-med="onAddMed"
         />
         <!-- search results -->
         <div
@@ -230,6 +231,7 @@ export default {
     onAddMed() {
       this.searchResults = [];
       this.searchTerm = null;
+      this.$refs.medicationSearch.onClearSearch();
       this.searched = false;
       this.$emit("dismiss-add");
     },

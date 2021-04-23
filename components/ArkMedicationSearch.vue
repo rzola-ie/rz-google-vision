@@ -180,6 +180,9 @@ export default {
     onBlur() {
       this.hasFocus = false;
     },
+    onClearSearch() {
+      this.searchTerm = null;
+    },
     selectTerm(item) {
       this.searchTerm = item.charAt(0).toUpperCase() + item.slice(1);
       this.$emit("term-selected", this.searchTerm);
