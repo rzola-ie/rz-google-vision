@@ -10,7 +10,7 @@
       <h1 class="mb-4 font-serif text-xl text-center">Add Medication</h1>
       <div
         :class="`relative h-full ${
-          hasPhoto ? 'pt-0' : 'pt-16 '
+          hasPhoto ? 'pt-0' : 'pt-16'
         } overflow-y-scroll`"
       >
         <ark-medication-search
