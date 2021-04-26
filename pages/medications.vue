@@ -38,7 +38,7 @@
           </div>
           <div class="flex-1 w-full h-full px-6">
             <div>
-              <ul>
+              <ul class="mb-4">
                 <ark-medication-slot
                   v-for="({ name, description }, index) in medications"
                   :name="name"
