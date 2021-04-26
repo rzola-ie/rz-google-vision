@@ -10,7 +10,7 @@
       />
     </div>
     <div class="flex flex-col w-full p-4">
-      <div class="text-gray-800">
+      <div class="mb-2 text-gray-800">
         <h2 class="text-xl font-bold">{{ medication.name }}</h2>
         <p>{{ medication.description }}</p>
       </div>
