@@ -261,14 +261,17 @@
 
               <div v-else>No search results, dummy</div>
               <!-- no results -->
-              <div v-if="googleResults.length" class="px-4">
+              <div class="px-4 pb-8">
                 <button
+                  v-if="googleResults.length"
                   class="mb-2 btn btn-main btn-gray"
                   @click="onSubmitSelected"
                 >
                   Search Term
                 </button>
+
                 <button
+                  v-if="!loading"
                   class="border-2 border-ie-gray-500 btn btn-main text-ie-gray-500"
                   @click="onClearPhoto"
                 >
