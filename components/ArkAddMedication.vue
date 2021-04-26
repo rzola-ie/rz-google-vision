@@ -3,19 +3,24 @@
     <div class="flex justify-end w-full px-4 pt-4" style="color: #95a2b8">
       <button @click="onCancel" class="text-xs font-bold">CANCEL</button>
     </div>
-    <div class="w-full h-full mx-auto">
+    <div
+      class="flex flex-col flex-1 w-full mx-auto"
+      style="height: calc(100% - 32px)"
+    >
       <h1 class="mb-4 font-serif text-xl text-center">Add Medication</h1>
       <div
-        :class="`h-full relative ${
-          !hasPhoto ? 'pt-16 pb-8 overflow-y-scroll' : 'pt-0'
-        }`"
+        :class="`relative h-full pt-16 ${
+          hasPhoto ? 'pt-0' : ''
+        } overflow-y-scroll`"
       >
         <ark-medication-search
           class="absolute top-0 z-40"
           ref="medicationSearch"
+          :hasPhoto="hasPhoto"
           @on-focus="$emit('on-focus')"
           @on-blur="$emit('on-blur')"
           @term-selected="selectTerm"
+          @photo-added="onPhotoUpload($event)"
         />
         <!-- search input -->
 
@@ -92,24 +97,83 @@
           lol what is that?
         </div>
         <!-- no results -->
-        <div v-else class="overflow-y-scroll">
+        <div v-else>
           <div v-if="hasPhoto">
-            <div class="relative mb-4">
-              <img
-                :style="`${loading ? 'filter: blur(1rem) brightness(.5)' : ''}`"
-                class="mx-auto mb-4"
-                :src="photoURL"
-                alt="preview image"
-                ref="previewImg"
-              />
-              <div
-                :class="`absolute inset-0 flex items-center justify-center text-4xl font-bold text-white ${
-                  loading ? '' : 'hidden'
-                }`"
-              >
-                LOADING...
+            <div>
+              <div class="flex w-full h-40 p-4">
+                <div class="relative w-1/3 h-full mr-2">
+                  <div
+                    class="w-full h-full overflow-hidden bg-center bg-no-repeat bg-contain border bg-ie-gray-200"
+                    :style="`background-image: url(${photoURL}); ${
+                      loading ? 'filter: blur(1rem) brightness(.2)' : ''
+                    }`"
+                  >
+                    <!-- <img
+                      :style="`${
+                        loading ? 'filter: blur(1rem) brightness(.5)' : ''
+                      }`"
+                      class="object-scale-down"
+                      :src="photoURL"
+                      alt="preview image"
+                      ref="previewImg"
+                    /> -->
+                  </div>
+
+                  <div
+                    :class="`absolute inset-0 flex items-center justify-center text-4xl font-bold text-white ${
+                      loading ? '' : 'hidden'
+                    }`"
+                  >
+                    <svg
+                      class="w-24 h-24 mx-auto animate-spin"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"
+                      ></circle>
+                      <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+                <div v-if="loading">
+                  <p>Your photo is being processed</p>
+                </div>
+                <div v-else class="flex-1">
+                  <h2 class="text-xl font-semibold leading-none">
+                    Your photo has been successfully processed
+                  </h2>
+                  <p class="my-2 leading-none">
+                    Select the appropriate words below to search
+                  </p>
+                  <button class="flex items-center text-lg font-semibold">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5 mr-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Photo Tips
+                  </button>
+                </div>
               </div>
-              <button
+              <!-- <button
                 @click="onClearPhoto"
                 class="absolute w-6 h-6 top-2 right-2"
               >
@@ -126,10 +190,10 @@
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
-              </button>
+              </button> -->
             </div>
             <div>
-              <ul v-if="googleSearched && loading" class="mt-4">
+              <ul v-if="googleSearched && loading">
                 <li
                   class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
                 ></li>
@@ -143,7 +207,7 @@
               <!-- loading -->
               <ul
                 v-else-if="googleSearched && googleResults.length"
-                class="mt-4"
+                class="px-4 mb-4"
               >
                 <li
                   v-for="result in googleResults"
@@ -197,18 +261,27 @@
 
               <div v-else>No search results, dummy</div>
               <!-- no results -->
-              <button
-                v-if="googleResults.length"
-                class="w-full btn btn-gray"
-                @click="onSubmitSelected"
-              >
-                Search Term
-              </button>
+              <div v-if="googleResults.length" class="px-4">
+                <button
+                  class="mb-2 btn btn-main btn-gray"
+                  @click="onSubmitSelected"
+                >
+                  Search Term
+                </button>
+                <button
+                  class="border-2 border-ie-gray-500 btn btn-main text-ie-gray-500"
+                  @click="onClearPhoto"
+                >
+                  Re-Select
+                </button>
+              </div>
             </div>
           </div>
+
           <div v-else class="px-4">
             <img class="w-full mx-auto" src="/photos.png" alt="" />
           </div>
+          <!-- default view - carousel -->
         </div>
         <!-- photo search results -->
       </div>
@@ -217,8 +290,11 @@
 </template>
 
 <script>
+import axios from "axios";
 import ArkMedicationResultList from "./ArkMedicationResultList.vue";
 import ArkMedicationSearch from "./ArkMedicationSearch.vue";
+
+import { blackList, whiteList, contras } from "~/lib/words";
 
 export default {
   components: { ArkMedicationSearch, ArkMedicationResultList },
@@ -236,6 +312,11 @@ export default {
       selectedResults: [],
       gCloudVisionUrl: `https://vision.googleapis.com/v1/images:annotate?key=${process.env.googleVisionKey}`,
     };
+  },
+  mounted() {
+    this.initialSuggested = [...contras];
+    this.whiteList = [...whiteList];
+    this.blackList = [...blackList];
   },
   methods: {
     onBlur() {
@@ -262,32 +343,6 @@ export default {
       this.googleResults = [];
       this.selectedResults = [];
       this.$emit("dismiss-add");
-    },
-    selectTerm(value) {
-      this.$emit("on-blur");
-      this.searchResults = [];
-      this.searchTerm = value;
-
-      this.getSearchResults();
-    },
-    addMedication(newMed) {
-      this.$store.commit("ADD_MEDICATION", newMed);
-      this.$router.push("/medications");
-    },
-    async getSearchResults() {
-      this.searched = true;
-      this.loading = true;
-      try {
-        this.searchResults = await this.$store.dispatch(
-          "searchMeds",
-          this.searchTerm
-        );
-        console.log(this.searchResults);
-      } catch (e) {
-        console.error("oh no");
-      } finally {
-        this.loading = false;
-      }
     },
     async onPhotoUpload(event) {
       // clear previous search
@@ -413,6 +468,29 @@ export default {
       this.photoURL = null;
       this.googleResults = [];
       this.selectTerm(this.searchTerm);
+    },
+    selectTerm(value) {
+      this.$emit("on-blur");
+      this.searchResults = [];
+      this.searchTerm = value;
+
+      this.getSearchResults();
+    },
+    async getSearchResults() {
+      this.searched = true;
+      this.loading = true;
+      console.log("doin the search", this.searchTerm);
+      try {
+        this.searchResults = await this.$store.dispatch(
+          "searchMeds",
+          this.searchTerm
+        );
+        console.log(this.searchResults);
+      } catch (e) {
+        console.error("oh no");
+      } finally {
+        this.loading = false;
+      }
     },
     onClearPhoto() {
       this.hasPhoto = false;

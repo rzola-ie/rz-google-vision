@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!hasPhoto" class="w-full px-4">
+  <div v-if="!hasPhoto" class="w-full px-4 bg-white">
     <input
       type="text"
       name=""
@@ -27,7 +27,7 @@
         id="file"
         capture="environment"
         accept="image/*"
-        @change="onPhotoUpload($event)"
+        @change="$emit('photo-added', $event)"
       />
       <label id="drag-drop-target" for="file" class="cursor-pointer">
         <svg
@@ -135,10 +135,10 @@ import { blackList, whiteList, contras } from "~/lib/words";
 import axios from "axios";
 
 export default {
+  props: ["hasPhoto"],
   data() {
     return {
       hasFocus: false,
-      hasPhoto: false,
       searchTerm: null,
       blackList: [],
       whiteList: [],

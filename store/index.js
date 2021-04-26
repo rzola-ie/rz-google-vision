@@ -27,6 +27,7 @@ export const mutations = {
 
 export const actions = {
   searchMeds(_, term) {
+    console.log('the term is ', term)
     return new Promise((resolve) => {
       setTimeout(() =>
         resolve([
@@ -36,14 +37,14 @@ export const actions = {
             imgUrl: 'https://www.drugs.com/images/pills/mtm/003106210_PB.jpg'
           },
           {
-            name: 'Crestor 5',
-            description: 'How about that web app? pretty cool!',
-            imgUrl: 'https://www.drugs.com/images/pills/nlm/548685341.jpg'
+            name: 'Calquence',
+            description: 'Blocks the action of certain enzymes in the body, which can interfere with the growth and spread of cancer cells',
+            imgUrl: 'https://www.drugs.com/images/pills/fio/ASZ05120/calquence.JPG'
           },
           {
-            name: 'Crestor 10',
+            name: 'Crestor',
             description: 'How about that web app? pretty cool!',
-            imgUrl: 'https://www.drugs.com/images/pills/mtm/003100751_PB.jpg'
+            imgUrl: 'https://www.drugs.com/images/pills/nlm/548685341.jpg'
           },
           {
             name: 'Bevespi',
@@ -80,7 +81,7 @@ export const actions = {
             description: 'A medicine to treat erectile disfunction.',
             imgUrl: ''
           },
-        ].filter(item => item.name.includes(term))
+        ].filter(item => item.name.toLowerCase().includes(term.toLowerCase()))
         ),
         1500
       )

@@ -81,6 +81,7 @@
                   Add Another Medication
                 </button>
               </div>
+              <!-- add more section -->
             </div>
             <div>
               <button
@@ -108,7 +109,7 @@
           ? 'height: calc(100% - 1rem); box-shadow: 0px -4px 10px rgb(0 0 0 / 20%);'
           : 'height: 0; box-shadow: none;'
       }`"
-      :class="`absolute w-full mt-4 bg-white shadow-lg rounded-t-lg ${
+      :class="`absolute h-full w-full mt-4 bg-white shadow-lg rounded-t-lg ${
         isAddingMed ? 'top-0' : 'top-full'
       } transition-all duration-500 ease-in-out flex flex-col`"
     >
