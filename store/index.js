@@ -32,51 +32,61 @@ export const actions = {
       setTimeout(() =>
         resolve([
           {
+            id: '',
             name: 'Farxiga',
-            description: 'I forget what farxiga does.',
+            description: 'An oral diabetes medicine that helps control blood sugar levels.',
             imgUrl: 'https://www.drugs.com/images/pills/mtm/003106210_PB.jpg'
           },
           {
+            id: '',
             name: 'Calquence',
             description: 'Blocks the action of certain enzymes in the body, which can interfere with the growth and spread of cancer cells',
             imgUrl: 'https://www.drugs.com/images/pills/fio/ASZ05120/calquence.JPG'
           },
           {
+            id: '',
             name: 'Crestor',
             description: 'How about that web app? pretty cool!',
             imgUrl: 'https://www.drugs.com/images/pills/nlm/548685341.jpg'
           },
           {
+            id: '',
             name: 'Bevespi',
             description: 'an inhalation aerosol used to...',
             imgUrl: 'https://qtxasset.com/styles/breakpoint_sm_default_480px_w/s3/2016-04/Bevespi.jpg?LOgW3SVM6VuATrorjb2QvFCMvrYMpN3x&itok=U13FB9i-'
           },
           {
+            id: '',
             name: 'Warfarin',
             description: 'Something with blood pressure.',
             imgUrl: 'https://www.drugs.com/images/pills/nlm/516724027.jpg'
           },
           {
+            id: '',
             name: 'Advil',
             description: 'Pass a couple this way.',
             imgUrl: ''
           },
           {
+            id: '',
             name: 'Simvastatin',
             description: 'A statin to treat cholesterol.',
             imgUrl: ''
           },
           {
+            id: '',
             name: 'Cyclosporine',
             description: 'A medicine for your immune system.',
             imgUrl: ''
           },
           {
+            id: '',
             name: 'Tacrolimus',
             description: 'A medicine for your immune system.',
             imgUrl: ''
           },
           {
+            id: '',
             name: 'Sildenafil',
             description: 'A medicine to treat erectile disfunction.',
             imgUrl: ''

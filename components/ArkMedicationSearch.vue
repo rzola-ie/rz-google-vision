@@ -25,7 +25,6 @@
         type="file"
         name="files[]"
         id="file"
-        capture="environment"
         accept="image/*"
         @change="$emit('photo-added', $event)"
       />

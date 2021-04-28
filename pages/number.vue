@@ -4,7 +4,9 @@
     class="flex flex-col flex-1 overflow-hidden text-gray-600 bg-white rounded-t-lg"
   >
     <ark-progress backTo="/home" value="25" />
-    <div class="flex flex-col max-w-2xl px-6 mx-auto md:px-16">
+    <div
+      class="flex flex-col h-full max-w-2xl px-6 pb-8 mx-auto overflow-scroll md:px-16"
+    >
       <h1 class="font-serif text-2xl">
         How many prescription medications do you currently take?
       </h1>

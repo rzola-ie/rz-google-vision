@@ -2,7 +2,7 @@
   <div
     ref="content"
     id="content"
-    class="grid grid-cols-1 grid-rows-2 m-0 md:grid-cols-2 md:grid-rows-1"
+    class="grid h-full grid-cols-1 grid-rows-2 m-0 md:grid-cols-2 md:grid-rows-1"
   >
     <div
       class="overflow-hidden bg-center bg-cover"
@@ -22,18 +22,11 @@
     <div class="z-10 flex pt-10 bg-white md:flex-col md:justify-center">
       <div class="w-full mx-auto">
         <h1
-          class="text-2xl font-bold tracking-wider text-center text-green-600 md:text-3xl"
+          class="mb-8 text-2xl font-bold tracking-wider text-center text-green-600 md:text-3xl"
         >
           WELCOME
         </h1>
         <div class="w-2/3 mx-auto text-lg">
-          <p class="text-base text-center text-gray-700 md:text-lg">
-            Sign in... or don't
-          </p>
-          <p class="pb-2 mb-5 text-xs text-center text-gray-700">
-            I'm not your mom
-          </p>
-
           <div
             v-show="!isUsingEmail"
             class="flex flex-col justify-center text-base md:text-base lg:text-lg"
