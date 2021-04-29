@@ -86,7 +86,7 @@
             <div>
               <button
                 style="background-color: #97a2b6"
-                class="w-full h-16 text-2xl font-semibold tracking-wider text-white rounded-md shadow-md disabled:opacity-50 disabled:text-gray-700"
+                class="tracking-wider btn btn-main btn-gray"
                 :disabled="
                   $store.state.medications.length < $store.state.numOfMeds
                 "
@@ -101,18 +101,7 @@
     </div>
     <!-- added medications -->
 
-    <div
-      :style="`
-        
-      ${
-        isAddingMed
-          ? 'height: calc(100% - 1rem); box-shadow: 0px -4px 10px rgb(0 0 0 / 20%);'
-          : 'height: 0; box-shadow: none;'
-      }`"
-      :class="`absolute h-full w-full mt-4 bg-white shadow-lg rounded-t-lg ${
-        isAddingMed ? 'top-0' : 'top-full'
-      } transition-all duration-500 ease-in-out flex flex-col`"
-    >
+    <ark-slide-up-page :isVisible="isAddingMed">
       <ark-add-medication
         ref="addMed"
         @on-focus="onInputFocus"
@@ -124,7 +113,7 @@
           }
         "
       />
-    </div>
+    </ark-slide-up-page>
     <!-- add new medication -->
   </div>
 </template>
@@ -132,8 +121,9 @@
 <script>
 import ArkAddMedication from "../components/ArkAddMedication.vue";
 import ArkProgress from "../components/ArkProgress.vue";
+import ArkSlideUpPage from "../components/ArkSlideUpPage.vue";
 export default {
-  components: { ArkProgress, ArkAddMedication },
+  components: { ArkProgress, ArkAddMedication, ArkSlideUpPage },
   layout: "welcome",
   data() {
     return {
@@ -174,9 +164,30 @@ export default {
     onSubmit() {
       if (this.medications.length >= 5) {
         this.$router.push("/kickout");
-      } else {
-        this.$router.push("/next-question");
+        return;
       }
+
+      this.$router.push("next-question");
+
+      // construct ID array
+      // let drugIds = [];
+      // this.medications.forEach((medication) => {
+      //   drugIds.push(medication.id);
+      // });
+
+      // this.$store
+      //   .dispatch("checkDrugToDrugInteractions", {
+      //     drugIds,
+      //   })
+      //   .then(({ data }) => {
+      //     if (data.DDIScreenResponse.DDIScreenResults.length) {
+      //       this.$router.push("/kickout");
+      //       return;
+      //     }
+
+      //     this.$router.push("next-question");
+      //   })
+      //   .catch((error) => console.error(error));
     },
     onAdd() {
       console.log("flippy flip");

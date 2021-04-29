@@ -7,7 +7,7 @@
 
 @layer components {
   .btn {
-    @apply px-5 py-3 text-2xl font-semibold transition duration-200 ease-in rounded-md shadow-md;
+    @apply px-5 py-3 text-2xl font-semibold transition duration-200 ease-in rounded-md shadow-md disabled:opacity-50 disabled:text-gray-700;
   }
 
   .btn-main {

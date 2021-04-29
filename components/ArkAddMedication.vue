@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col w-full h-full max-w-2xl mx-auto text-gray-700">
+  <div
+    class="relative flex flex-col w-full h-full max-w-2xl mx-auto text-gray-700"
+  >
     <div class="flex justify-end w-full px-4 pt-4" style="color: #95a2b8">
       <button @click="onCancel" class="text-xs font-bold">CANCEL</button>
     </div>
@@ -60,235 +62,53 @@
           v-else-if="searched && searchResults.length === 0"
           class="flex flex-col items-center justify-center w-full h-full text-3xl font-semibold text-center text-ie-gray-700"
         >
-          <svg fill="none" class="w-24 h-24 mx-auto mb-4">
-            <path
-              d="M36 28.024A18.05 18.05 0 0025.022 39M59.999 28.024A18.05 18.05 0 0170.975 39"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-            <ellipse
-              cx="37.5"
-              cy="43.5"
-              rx="4.5"
-              ry="7.5"
-              fill="currentColor"
-            ></ellipse>
-            <ellipse
-              cx="58.5"
-              cy="43.5"
-              rx="4.5"
-              ry="7.5"
-              fill="currentColor"
-            ></ellipse>
-            <path
-              d="M24.673 75.42a9.003 9.003 0 008.879 5.563m-8.88-5.562A8.973 8.973 0 0124 72c0-7.97 9-18 9-18s9 10.03 9 18a9 9 0 01-8.448 8.983m-8.88-5.562C16.919 68.817 12 58.983 12 48c0-19.882 16.118-36 36-36s36 16.118 36 36-16.118 36-36 36a35.877 35.877 0 01-14.448-3.017"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-            <path
-              d="M41.997 71.75A14.94 14.94 0 0148 70.5c2.399 0 4.658.56 6.661 1.556a3 3 0 003.999-4.066 12 12 0 00-10.662-6.49 11.955 11.955 0 00-7.974 3.032c1.11 2.37 1.917 4.876 1.972 7.217z"
-              fill="currentColor"
-            ></path>
-          </svg>
-          lol what is that?
+          <img
+            src="/icn/icn-no-results.svg"
+            alt="sad face no results"
+            class="w-24 h-24 mx-auto mb-4"
+          />
+          lol what even is that?
         </div>
         <!-- no results -->
         <div v-else>
           <div v-if="hasPhoto">
-            <div>
-              <div class="flex w-full h-40 p-4">
-                <div class="relative w-1/3 h-full mr-2">
-                  <div
-                    class="w-full h-full overflow-hidden bg-center bg-no-repeat bg-contain border bg-ie-gray-200"
-                    :style="`background-image: url(${photoURL}); ${
-                      loading ? 'filter: blur(1rem) brightness(.2)' : ''
-                    }`"
-                  >
-                    <!-- <img
-                      :style="`${
-                        loading ? 'filter: blur(1rem) brightness(.5)' : ''
-                      }`"
-                      class="object-scale-down"
-                      :src="photoURL"
-                      alt="preview image"
-                      ref="previewImg"
-                    /> -->
-                  </div>
+            <ark-google-image-preview
+              :loading="loading"
+              :photoURL="photoURL"
+              @show-photo-tips="onShowPhotoTips"
+            />
 
-                  <div
-                    :class="`absolute inset-0 flex items-center justify-center text-4xl font-bold text-white ${
-                      loading ? '' : 'hidden'
-                    }`"
-                  >
-                    <svg
-                      class="w-24 h-24 mx-auto animate-spin"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        class="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        stroke-width="4"
-                      ></circle>
-                      <path
-                        class="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div v-if="loading">
-                  <p>Your photo is being processed</p>
-                </div>
-                <div v-else class="flex-1">
-                  <h2 class="text-xl font-semibold leading-none">
-                    Your photo has been successfully processed
-                  </h2>
-                  <p class="my-2 leading-none">
-                    Select the appropriate words below to search
-                  </p>
-                  <button class="flex items-center text-lg font-semibold">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-5 h-5 mr-2"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    Photo Tips
-                  </button>
-                </div>
-              </div>
-              <!-- <button
-                @click="onClearPhoto"
-                class="absolute w-6 h-6 top-2 right-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button> -->
-            </div>
-            <div>
-              <ul v-if="googleSearched && loading">
-                <li
-                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
-                ></li>
-                <li
-                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
-                ></li>
-                <li
-                  class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"
-                ></li>
-              </ul>
-              <!-- loading -->
-              <ul
-                v-else-if="googleSearched && googleResults.length"
-                class="px-4 mb-4"
-              >
-                <li
-                  v-for="result in googleResults"
-                  :key="result"
-                  @click="addToList(result)"
-                  role="checkbox"
-                  :class="[
-                    `flex items-center p-4 text-2xl uppercase mb-2 cursor-pointer last:mb-0 ${
-                      selectedResults.includes(result)
-                        ? 'bg-blue-900 bg-opacity-20'
-                        : ''
-                    }`,
-                  ]"
-                >
-                  <svg
-                    v-if="selectedResults.includes(result)"
-                    class="w-6 h-6 mr-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-
-                  <svg
-                    v-else
-                    class="w-6 h-6 mr-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M21 12 a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-
-                  <span>{{ result }}</span>
-                </li>
-              </ul>
-              <!-- results -->
-
-              <div v-else>No search results, dummy</div>
-              <!-- no results -->
-              <div class="px-4 pb-8">
-                <button
-                  v-if="googleResults.length"
-                  class="mb-2 btn btn-main btn-gray"
-                  @click="onSubmitSelected"
-                >
-                  Search Term
-                </button>
-
-                <button
-                  v-if="!loading"
-                  class="border-2 border-ie-gray-500 btn btn-main text-ie-gray-500"
-                  @click="onClearPhoto"
-                >
-                  Re-Select
-                </button>
-              </div>
-            </div>
+            <ark-google-search-list
+              :googleSearched="googleSearched"
+              :loading="loading"
+              :googleResults="googleResults"
+              @clear-photo="onClearPhoto"
+              @submit-selected="onSubmitSelected"
+              ref="googleSearchList"
+            />
           </div>
 
           <div v-else class="px-4">
             <img class="w-full mx-auto" src="/photos.png" alt="" />
           </div>
-          <!-- default view - carousel -->
+          <!-- default view - photo tips carousel -->
         </div>
         <!-- photo search results -->
       </div>
     </div>
+
+    <ark-slide-up-page :isVisible="showPhotoTips" class="p-4">
+      <div class="flex justify-end w-full mb-4" style="color: #95a2b8">
+        <button @click="onDismissPhotoTips" class="text-xs font-bold">
+          DISMISS
+        </button>
+      </div>
+      <div class="w-full h-full p-4 border border-ie-gray-400 bg-ie-gray-200">
+        <h1 class="text-2xl font-semibold text-center text-ie-gray-700">
+          PHOTO TIPS HERE
+        </h1>
+      </div>
+    </ark-slide-up-page>
   </div>
 </template>
 
@@ -298,9 +118,16 @@ import ArkMedicationResultList from "./ArkMedicationResultList.vue";
 import ArkMedicationSearch from "./ArkMedicationSearch.vue";
 
 import { blackList, whiteList, contras } from "~/lib/words";
+import ArkGoogleSearchList from "./ArkGoogleSearchList.vue";
+import ArkSlideUpPage from "./ArkSlideUpPage.vue";
 
 export default {
-  components: { ArkMedicationSearch, ArkMedicationResultList },
+  components: {
+    ArkMedicationSearch,
+    ArkMedicationResultList,
+    ArkGoogleSearchList,
+    ArkSlideUpPage,
+  },
   data() {
     return {
       predictingImage: false,
@@ -312,8 +139,8 @@ export default {
       photoURL: null,
       loading: false,
       googleResults: [],
-      selectedResults: [],
-      gCloudVisionUrl: `https://vision.googleapis.com/v1/images:annotate?key=${process.env.googleVisionKey}`,
+      showPhotoTips: false,
+      gCloudVisionUrl: `https://vision.googleapis.com/v1/images:annotate?key=${process.env.google_vision_key}`,
     };
   },
   mounted() {
@@ -440,11 +267,7 @@ export default {
             []
           );
 
-        console.log("filtered", filtered);
-
         this.googleResults = [...filtered];
-
-        console.log(this.googleResults);
 
         this.predictingImage = false;
       } catch (error) {
@@ -453,19 +276,9 @@ export default {
         this.loading = false;
       }
     },
-    addToList(term) {
-      console.log(term);
-      console.log(this.selectedResults);
-      if (this.selectedResults.includes(term)) {
-        const termIndex = this.selectedResults.indexOf(term);
-        this.selectedResults.splice(termIndex, 1);
-      } else {
-        this.selectedResults.push(term);
-      }
-    },
-    onSubmitSelected() {
-      this.searchTerm = [...this.selectedResults].join(" ");
-      this.selectedResults = [];
+    onSubmitSelected(selectedResults) {
+      this.searchTerm = [...selectedResults].join(" ");
+      this.$refs.googleSearchList.onClearResults();
       this.hasPhoto = false;
       this.photoSrc = null;
       this.photoURL = null;
@@ -482,13 +295,12 @@ export default {
     async getSearchResults() {
       this.searched = true;
       this.loading = true;
-      console.log("doin the search", this.searchTerm);
+
       try {
         this.searchResults = await this.$store.dispatch(
           "searchMeds",
           this.searchTerm
         );
-        console.log(this.searchResults);
       } catch (e) {
         console.error("oh no");
       } finally {
@@ -501,6 +313,13 @@ export default {
       this.photoURL = null;
       this.googleResults = [];
       this.googleSearched = false;
+    },
+    onShowPhotoTips() {
+      console.log("got any more of them photo tips?");
+      this.showPhotoTips = true;
+    },
+    onDismissPhotoTips() {
+      this.showPhotoTips = false;
     },
   },
 };

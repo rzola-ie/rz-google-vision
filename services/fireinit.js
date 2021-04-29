@@ -4,14 +4,14 @@ import 'firebase/firestore'
 import 'firebase/database'
 
 var config = {
-  apiKey: "AIzaSyBBPxj3UVp3sT9D4nyyGWD_Xn7lKOxZhpE",
-  authDomain: "rzauthtest-8394d.firebaseapp.com",
-  databaseURL: "https://rzauthtest-8394d.firebaseio.com",
-  projectId: "rzauthtest-8394d",
-  storageBucket: "rzauthtest-8394d.appspot.com",
-  messagingSenderId: "229483524369",
-  appId: "1:229483524369:web:b0f6713e6a581141ec1cb0",
-  measurementId: "G-G13Y4HGWWE"
+  apiKey: process.env.fb_api_key,
+  authDomain: process.env.fb_auth_domain,
+  databaseURL: process.env.fb_db_url,
+  projectId: process.env.fb_project_id,
+  storageBucket: process.env.fb_storage_bucket,
+  messagingSenderId: process.env.fb_messaging_sender_id,
+  appId: process.env.fb_app_id,
+  measurementId: process.env.fb_measurement_id
 };
 
 !firebase.apps.length ? firebase.initializeApp(config) : ''

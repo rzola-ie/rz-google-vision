@@ -40,13 +40,37 @@ export default {
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios'
   ],
+axios: {
+    baseURL: process.env.API_HOST
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   router: {
     middleware: 'router-auth'
   },
   env: {
-    googleVisionKey: process.env.GOOGLE_VISION_KEY
+    google_vision_key: process.env.GOOGLE_VISION_KEY,
+    fb_api_key: process.env.GOOGLE_FIREBASE_API_KEY,
+    fb_auth_domain: process.env.GOOGLE_FIREBASE_AUTH_DOMAIN,
+    fb_db_url: process.env.GOOGLE_FIREBASE_DB_URL,
+    fb_project_id: process.env.GOOGLE_FIREBASE_PROJECT_ID,
+    fb_storage_bucket: process.env.GOOGLE_FIREBASE_STORAGE_BUCKET,
+    fb_messaging_sender_id: process.env.GOOGLE_FIREBASE_MESSAGING_SENDER_ID,
+    fb_app_id: process.env.GOOGLE_FIREBASE_APP_ID,
+    fb_measurement_id: process.env.GOOGLE_FIREBASE_MEASUREMENT_ID
+  },
+  publicRuntimeConfig: {
+    firebase: {
+      key: 'AIzaSyBBPxj3UVp3sT9D4nyyGWD_Xn7lKOxZhpE',
+      authDomain: 'rzauthtest-8394d.firebaseapp.com',
+      dbUrl: 'https://rzauthtest-8394d.firebaseio.com',
+      projectId: 'rzauthtest-8394d',
+      storageBucket: 'rzauthtest-8394d.appspot.com',
+      messagingSenderId: '229483524369',
+      appId: '1:229483524369:web:b0f6713e6a581141ec1cb0',
+      measurementId: 'G-G13Y4HGWWE',
+    },
   },
   build: {
   },
