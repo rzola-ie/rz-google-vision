@@ -10,7 +10,7 @@
         border-radius: 3rem 0 0 0;
         box-shadow: 0px -4px 10px rgb(0 0 0 / 20%);
       "
-      class="w-full h-full max-w-2xl p-5 mx-auto overflow-y-scroll text-white bg-ie-gray-600"
+      class="w-full h-full max-w-2xl p-5 overflow-x-hidden overflow-y-scroll text-white bg-ie-gray-600"
     >
       <h1 class="font-serif text-2xl">
         Before providing your blood pressure numbers, please review the
@@ -23,11 +23,11 @@
         <ark-more-info-button text-color="text-white" class="my-2" />
       </div>
 
-      <div class="flex gap-4 text-xl font-bold">
-        <button class="flex-1 py-4 border-2 rounded-md border-ie-gray-300">
+      <div class="grid grid-cols-2 gap-4">
+        <button class="py-4 font-bold border-2 rounded-md border-ie-gray-300">
           Don't show again
         </button>
-        <button class="flex-1 py-4 rounded-md bg-ie-gray-500">
+        <button class="py-4 font-bold rounded-md bg-ie-gray-500">
           <nuxt-link to="bp-input">Continue</nuxt-link>
         </button>
       </div>

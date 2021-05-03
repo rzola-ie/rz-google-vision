@@ -4,7 +4,7 @@
     style="background-color: #7081a3"
   >
     <img class="mb-2 rounded-md" :src="slideImage" alt="placeholder" />
-    <div class="flex items-center justify-center flex-1">
+    <div class="">
       <slot />
     </div>
   </div>
