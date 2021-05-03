@@ -4,9 +4,8 @@
     style="background-color: #7081a3"
   >
     <img class="mb-2 rounded-md" :src="slideImage" alt="placeholder" />
-    <div class="">
-      <slot />
-    </div>
+
+    <slot />
   </div>
 </template>
 

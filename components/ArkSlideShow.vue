@@ -2,7 +2,7 @@
   <div class="w-full has-slider">
     <div class="slider" id="slider">
       <div
-        class="w-full text-2xl slider-panel"
+        class="w-full text-xl slider-panel"
         v-for="(slide, index) in slides"
         :key="index"
       >
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="slider-pagination">
-      <div class="active"></div>
+      <div class="is-active"></div>
       <div></div>
       <div></div>
       <div></div>
@@ -83,7 +83,7 @@ export default {
     slider.activeSlide = 0;
 
     // 3. Slide counter
-    slider.slideCount = 6;
+    slider.slideCount = 7;
 
     // 4. Initialization + event listener
     slider.init = function (selector) {
@@ -105,8 +105,14 @@ export default {
       }
 
       // 4d. Set up HammerJS
-      var sliderManager = new Hammer.Manager(slider.sliderEl);
+      var sliderManager = new Hammer.Manager(slider.sliderEl, {
+        touchAction: "auto",
+      });
       sliderManager.add(new Hammer.Pan({ threshold: 0, pointers: 0 }));
+      sliderManager.on("swipe", function (ev) {
+        var targetLi = this;
+        animateLisMob(targetLi);
+      });
       sliderManager.on("pan", function (e) {
         // 4e. Calculate pixel movements into 1:1 screen percents so gestures track with motion
         var percentage =
@@ -183,7 +189,6 @@ export default {
   position: absolute;
   text-align: center;
   width: 100%;
-  z-index: 9999;
 }
 .slider-pagination div {
   border-radius: 50%;
@@ -217,7 +222,7 @@ export default {
 
 .has-slider {
   position: relative;
-
+  touch-action: pan-y !important;
   width: 100%;
 }
 </style>

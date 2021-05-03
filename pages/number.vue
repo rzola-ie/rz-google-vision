@@ -5,7 +5,7 @@
   >
     <ark-progress backTo="/home" value="25" />
     <div
-      class="flex flex-col h-full max-w-2xl px-6 pb-8 mx-auto overflow-scroll md:px-16"
+      class="flex flex-col flex-1 max-w-2xl px-6 pb-16 mx-auto overflow-y-scroll md:px-16"
     >
       <h1 class="font-serif text-2xl">
         How many prescription medications do you currently take?
@@ -13,17 +13,15 @@
 
       <ark-more-info-button
         @show-more-info="onShowMoreInfo"
-        class="w-auto mx-auto"
+        class="w-auto mx-auto mb-6"
       />
-
-      <ark-med-number
-        class="mt-24 mb-36"
-        v-model="number"
-        @change="number = $event"
-      />
+      <div class="flex-1 pt-8">
+        <ark-med-number v-model="number" @change="number = $event" />
+      </div>
 
       <button class="btn btn-main btn-gray" @click="onSubmit">Continue</button>
     </div>
+
     <ark-more-info-content
       :currentInfo="$route.name"
       :isVisible="showMoreInfo"

@@ -25,6 +25,16 @@
       </div>
     </template>
 
+    <template v-else-if="currentInfo === 'next-question'">
+      <div
+        class="w-full h-full p-4 border rounded-sm border-ie-gray-400 bg-ie-gray-200"
+      >
+        <h1 class="text-2xl font-semibold text-center text-ie-gray-700">
+          BLOOD PRESSURE INSTRUCTIONS MORE INFO HERE
+        </h1>
+      </div>
+    </template>
+
     <template v-else>idk how you got here...</template>
   </ark-slide-up-page>
 </template>
