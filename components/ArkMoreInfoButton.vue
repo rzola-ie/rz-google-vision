@@ -1,5 +1,8 @@
 <template>
-  <button class="px-5 py-2 font-bold text-ie-gray-600">
+  <button
+    :class="`px-5 py-2 font-bold ${textColor} rounded-sm`"
+    @click="$emit('show-more-info')"
+  >
     <svg
       class="inline-block w-5 h-5 stroke-current"
       xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +22,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    textColor: {
+      type: String,
+      required: false,
+      default: "text-ie-gray-600",
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -34,7 +34,7 @@
               </span>
             </h1>
 
-            <ark-more-info-button class="mx-auto" />
+            <ark-more-info-button @click.native="onShowMoreInfo" />
           </div>
           <div class="flex-1 w-full h-full px-6">
             <div>
@@ -115,6 +115,13 @@
       />
     </ark-slide-up-page>
     <!-- add new medication -->
+
+    <ark-more-info-content
+      :currentInfo="$route.name"
+      :isVisible="showMoreInfo"
+      @dismiss-more-info="onDismissMoreInfo"
+    />
+    <!-- moew info -->
   </div>
 </template>
 
@@ -125,6 +132,11 @@ import ArkSlideUpPage from "../components/ArkSlideUpPage.vue";
 export default {
   components: { ArkProgress, ArkAddMedication, ArkSlideUpPage },
   layout: "welcome",
+  asyncData({ store, redirect }) {
+    if (store.state.numOfMeds === null) {
+      redirect("/number");
+    }
+  },
   data() {
     return {
       medications: [],
@@ -132,6 +144,7 @@ export default {
       next: -1,
       isAddingMed: false,
       isFocused: false,
+      showMoreInfo: false,
     };
   },
   mounted() {
@@ -170,24 +183,24 @@ export default {
       this.$router.push("next-question");
 
       // construct ID array
-      // let drugIds = [];
-      // this.medications.forEach((medication) => {
-      //   drugIds.push(medication.id);
-      // });
+      let drugIds = [];
+      this.medications.forEach((medication) => {
+        drugIds.push(medication.id);
+      });
 
-      // this.$store
-      //   .dispatch("checkDrugToDrugInteractions", {
-      //     drugIds,
-      //   })
-      //   .then(({ data }) => {
-      //     if (data.DDIScreenResponse.DDIScreenResults.length) {
-      //       this.$router.push("/kickout");
-      //       return;
-      //     }
+      this.$store
+        .dispatch("checkDrugToDrugInteractions", {
+          drugIds,
+        })
+        .then(({ data }) => {
+          if (data.DDIScreenResponse.DDIScreenResults.length) {
+            this.$router.push("/kickout");
+            return;
+          }
 
-      //     this.$router.push("next-question");
-      //   })
-      //   .catch((error) => console.error(error));
+          this.$router.push("next-question");
+        })
+        .catch((error) => console.error(error));
     },
     onAdd() {
       console.log("flippy flip");
@@ -209,6 +222,12 @@ export default {
       }
 
       this.$store.commit("REMOVE_MEDICATION", i);
+    },
+    onShowMoreInfo() {
+      this.showMoreInfo = true;
+    },
+    onDismissMoreInfo() {
+      this.showMoreInfo = false;
     },
   },
 };

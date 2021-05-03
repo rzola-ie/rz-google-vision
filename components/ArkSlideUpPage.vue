@@ -19,6 +19,3 @@ export default {
   props: ["isVisible"],
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

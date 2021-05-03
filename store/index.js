@@ -117,7 +117,7 @@ export const actions = {
           },
         ].filter(item => item.name.toLowerCase().includes(term.toLowerCase()))
         ),
-        1500
+        3000
       )
     })
   }

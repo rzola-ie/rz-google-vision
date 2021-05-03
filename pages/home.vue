@@ -30,7 +30,9 @@
 </template>
 
 <script>
+import ArkMoreInfoContent from "../components/ArkMoreInfoContent.vue";
 export default {
+  components: { ArkMoreInfoContent },
   layout: "welcome",
 };
 </script>

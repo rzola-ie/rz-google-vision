@@ -1,7 +1,7 @@
 <template>
   <div
     id="number"
-    class="flex flex-col flex-1 overflow-hidden text-gray-600 bg-white rounded-t-lg"
+    class="relative flex flex-col flex-1 overflow-hidden text-gray-600 bg-white rounded-t-lg"
   >
     <ark-progress backTo="/home" value="25" />
     <div
@@ -11,7 +11,10 @@
         How many prescription medications do you currently take?
       </h1>
 
-      <ark-more-info-button @click.native="onMoreInfo" />
+      <ark-more-info-button
+        @show-more-info="onShowMoreInfo"
+        class="w-auto mx-auto"
+      />
 
       <ark-med-number
         class="mt-24 mb-36"
@@ -21,6 +24,12 @@
 
       <button class="btn btn-main btn-gray" @click="onSubmit">Continue</button>
     </div>
+    <ark-more-info-content
+      :currentInfo="$route.name"
+      :isVisible="showMoreInfo"
+      @dismiss-more-info="onDismissMoreInfo"
+    />
+    <!-- moew info -->
   </div>
 </template>
 
@@ -34,6 +43,7 @@ export default {
   data() {
     return {
       number: 0,
+      showMoreInfo: false,
     };
   },
   mounted() {
@@ -61,6 +71,13 @@ export default {
     },
     onMoreInfo() {
       console.log("more info");
+    },
+    onShowMoreInfo() {
+      this.showMoreInfo = true;
+      console.log("more info", this.showMoreInfo);
+    },
+    onDismissMoreInfo() {
+      this.showMoreInfo = false;
     },
   },
 };
