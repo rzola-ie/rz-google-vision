@@ -5,7 +5,7 @@
   >
     <ark-progress backTo="/home" value="25" />
     <div
-      class="flex flex-col flex-1 max-w-2xl px-6 pb-16 mx-auto overflow-y-scroll md:px-16"
+      class="flex flex-col flex-1 max-w-2xl px-6 pb-24 mx-auto overflow-y-scroll md:px-16"
     >
       <h1 class="font-serif text-2xl">
         How many prescription medications do you currently take?
