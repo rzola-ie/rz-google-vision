@@ -13,7 +13,7 @@
         Health!
       </h2>
       <div class="flex-1 pt-12 md:pt-24">
-        <p class="mb-6 md:mb-12">
+        <p class="mb-6 md:mb-28">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo quaerat
           voluptas fuga non nostrum quam, dolore quisquam mollitia porro?
           Consectetur dignissimos modi ut excepturi ducimus earum nesciunt

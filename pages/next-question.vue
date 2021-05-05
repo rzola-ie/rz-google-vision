@@ -13,8 +13,7 @@
       class="relative w-full h-full p-5 overflow-x-hidden overflow-y-scroll text-white bg-ie-gray-600"
     >
       <h1 class="px-4 font-serif text-2xl">
-        Before providing your blood pressure numbers, please review the
-        checklist:
+        Ensure an Accurate BP Measurement:
       </h1>
 
       <ark-slide-show />

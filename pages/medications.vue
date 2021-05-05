@@ -174,13 +174,11 @@ export default {
     goBack() {
       this.$router.push("/number");
     },
-    onSubmit() {
+    async onSubmit() {
       if (this.medications.length >= 5) {
         this.$router.push("/kickout");
         return;
       }
-
-      this.$router.push("next-question");
 
       // construct ID array
       let drugIds = [];
@@ -188,12 +186,16 @@ export default {
         drugIds.push(medication.id);
       });
 
-      this.$store
+      await this.$store
         .dispatch("checkDrugToDrugInteractions", {
           drugIds,
         })
         .then(({ data }) => {
-          if (data.DDIScreenResponse.DDIScreenResults.length) {
+          const hasInteraction = data.some((item) => {
+            return item.severity;
+          });
+
+          if (hasInteraction) {
             this.$router.push("/kickout");
             return;
           }
