@@ -73,7 +73,7 @@
         class="border-2 border-ie-gray-500 btn btn-main text-ie-gray-500"
         @click="$emit('clear-photo')"
       >
-        Re-Select
+        Cancel
       </button>
     </div>
     <!-- buttons -->

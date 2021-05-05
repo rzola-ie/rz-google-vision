@@ -1,7 +1,7 @@
 <template>
   <div
     id="number"
-    class="relative flex flex-col flex-1 overflow-hidden text-gray-600 bg-white rounded-t-lg"
+    class="relative flex flex-col flex-1 max-w-2xl mx-auto overflow-hidden text-gray-600 bg-white rounded-t-lg shadow-lg"
   >
     <ark-progress backTo="/home" value="25" />
     <div

@@ -33,7 +33,6 @@ export const actions = {
     );
   },
   searchMeds(_, term) {
-    console.log('the term is ', term)
     return new Promise((resolve) => {
       setTimeout(() =>
         resolve([

@@ -15,7 +15,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route.name);
+    // console.log(this.$route.name);
 
     // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
     let vh = window.innerHeight * 0.01;
@@ -24,7 +24,7 @@ export default {
   },
   watch: {
     $route(newVal, oldVal) {
-      console.log(newVal.name);
+      // console.log(newVal.name);
     },
   },
 };

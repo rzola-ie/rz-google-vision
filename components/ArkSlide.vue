@@ -3,7 +3,11 @@
     class="flex flex-col w-full h-full p-4 rounded-md"
     style="background-color: #7081a3"
   >
-    <img class="mb-2 rounded-md" :src="slideImage" alt="placeholder" />
+    <img
+      class="mb-2 rounded-md pointer-events-none"
+      :src="slideImage"
+      alt="placeholder"
+    />
 
     <slot />
   </div>

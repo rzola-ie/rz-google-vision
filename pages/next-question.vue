@@ -2,7 +2,7 @@
   <div
     id="next"
     style="height: calc(100% - 64px)"
-    class="relative flex flex-col flex-1 text-gray-600 bg-white rounded-t-lg"
+    class="relative flex flex-col flex-1 w-full max-w-2xl mx-auto text-gray-600 bg-white rounded-t-lg"
   >
     <ark-progress :backTo="backLink" value="75" />
     <div
@@ -10,9 +10,9 @@
         border-radius: 3rem 0 0 0;
         box-shadow: 0px -4px 10px rgb(0 0 0 / 20%);
       "
-      class="relative w-full h-full max-w-2xl p-5 overflow-x-hidden overflow-y-scroll text-white bg-ie-gray-600"
+      class="relative w-full h-full p-5 overflow-x-hidden overflow-y-scroll text-white bg-ie-gray-600"
     >
-      <h1 class="font-serif text-2xl">
+      <h1 class="px-4 font-serif text-2xl">
         Before providing your blood pressure numbers, please review the
         checklist:
       </h1>

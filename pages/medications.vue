@@ -1,7 +1,7 @@
 <template>
   <div
     id="medications"
-    class="relative h-full overflow-hidden bg-white rounded-t-lg"
+    class="relative h-full max-w-2xl mx-auto overflow-hidden bg-white rounded-t-lg shadow-lg"
   >
     <div class="w-full h-full">
       <div
