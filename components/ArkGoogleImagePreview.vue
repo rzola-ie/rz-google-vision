@@ -5,7 +5,7 @@
         <div
           class="w-full h-full overflow-hidden bg-center bg-no-repeat bg-contain border bg-ie-gray-200"
           :style="`background-image: url(${photoURL}); ${
-            loading ? 'filter: blur(1rem) brightness(.2)' : ''
+            loading ? 'filter: blur(0.2rem) brightness(.2)' : ''
           }`"
         ></div>
 
@@ -38,7 +38,7 @@
             v-else
             xmlns="http://www.w3.org/2000/svg"
             :class="`w-24 h-24 text-red-600 mx-auto ${
-              !hasResults ? 'opacity-100' : 'opacity-0'
+              !hasResults && searchComplete ? 'opacity-100' : 'opacity-0'
             }`"
             fill="none"
             viewBox="0 0 24 24"
@@ -98,6 +98,16 @@
 <script>
 export default {
   props: ["loading", "photoURL", "hasResults"],
+  data() {
+    return {
+      searchComplete: false,
+    };
+  },
+  watch: {
+    loading() {
+      this.searchComplete = true;
+    },
+  },
 };
 </script>
 

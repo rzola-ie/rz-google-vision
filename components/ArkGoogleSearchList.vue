@@ -83,7 +83,10 @@
     </div>
     <!-- no results -->
 
-    <div class="relative flex justify-center px-4 mb-8 text-ie-gray-600">
+    <div
+      v-if="googleResults.length"
+      class="relative flex justify-center px-4 mb-8 text-ie-gray-600"
+    >
       <div class="relative z-10 px-4 text-xl bg-white">OR</div>
       <div class="absolute border inset-x-8 top-1/2 border-ie-gray-500" />
     </div>

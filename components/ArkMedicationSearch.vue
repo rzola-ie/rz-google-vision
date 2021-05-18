@@ -8,16 +8,30 @@
       @input="filterSearch"
       v-model="searchTerm"
       autocomplete="off"
-      :style="`${
-        hasFocus
-          ? 'border-radius: 1.5rem 1.5rem 0 0; border-bottom: none;'
-          : 'border-radius: 1.5rem'
-      }`"
-      class="w-full h-12 px-12 text-2xl uppercase border border-gray-500 outline-none"
+      class="w-full h-12 text-2xl uppercase rounded-md outline-none px-14 bg-ie-gray-100"
     />
 
+    <button
+      class="absolute w-12 h-12 text-white rounded-md left-4 bg-ie-gray-500"
+      @click="selectTerm(null)"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-6 h-6 mx-auto stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+    </button>
+
     <form
-      class="absolute top-0 flex items-center justify-center w-12 h-12 right-5 text-ie-gray-900"
+      class="absolute top-0 flex items-center justify-center w-12 h-12 right-5 text-ie-gray-500"
       @submit.prevent="onSubmit"
       enctype="multipart/form-data"
     >
@@ -54,7 +68,7 @@
     </form>
     <div
       v-if="hasFocus"
-      class="p-2 overflow-y-scroll bg-white border border-t-0 border-gray-500 rounded-b-sm shadow-md"
+      class="p-1 mt-1 overflow-y-scroll rounded-md shadow-md bg-ie-blue-100"
     >
       <ul v-if="!searchTerm">
         <p class="px-2 text-sm font-bold">Try Searching</p>
@@ -101,7 +115,7 @@
           class="relative mb-1"
         >
           <button
-            :class="`w-full h-full text-xl text-left p-3 rounded-sm  transition duration-150 ease-in-out ${
+            :class="`w-full h-full text-xl text-left p-3 rounded-md  transition duration-150 ease-in-out ${
               suggested(item)
                 ? 'bg-blue-100 hover:bg-blue-200'
                 : 'bg-transparent hover:bg-ie-gray-200'
@@ -176,7 +190,12 @@ export default {
       this.searchTerm = null;
     },
     selectTerm(item) {
-      this.searchTerm = item.charAt(0).toUpperCase() + item.slice(1);
+      if (!this.searchTerm) return;
+
+      if (item) {
+        this.searchTerm = item.charAt(0).toUpperCase() + item.slice(1);
+      }
+
       this.$emit("term-selected", this.searchTerm);
       this.hasFocus = false;
     },
@@ -191,12 +210,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-#text-search {
-  background-image: url("/icn-search.svg");
-  background-repeat: no-repeat;
-  background-size: 28px;
-  background-position: 10px 10px;
-}
-</style>
