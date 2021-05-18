@@ -1,16 +1,17 @@
 <template>
   <div>
-    <ul v-if="googleSearched && loading" class="px-4 mb-4">
+    <ul v-if="googleSearched && loading" class="px-4 mb-8">
       <li class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"></li>
       <li class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"></li>
       <li class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"></li>
     </ul>
     <!-- loading -->
-    <ul v-else-if="googleSearched && googleResults.length" class="px-4 mb-4">
+
+    <ul v-else-if="googleSearched && googleResults.length" class="px-4 mb-8">
       <li
         v-for="result in googleResults"
         :key="result"
-        @click="addToList(result)"
+        @click="$emit('submit-selected', result)"
         role="checkbox"
         :class="[
           `flex items-center p-4 text-2xl uppercase mb-2 cursor-pointer last:mb-0 ${
@@ -55,7 +56,31 @@
     </ul>
     <!-- results -->
 
-    <div v-else>No search results, dummy</div>
+    <div v-else class="px-4 mb-8">
+      <p class="mb-4">
+        Your search has returned no results. Please retake or upload a new photo
+        and try again.
+      </p>
+
+      <button
+        class="flex items-center mx-auto text-lg font-semibold"
+        @click="$emit('show-photo-tips')"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5 mr-2"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Photo Tips
+      </button>
+    </div>
     <!-- no results -->
 
     <div class="px-4 pb-8">
@@ -73,7 +98,7 @@
         class="border-2 border-ie-gray-500 btn btn-main text-ie-gray-500"
         @click="$emit('clear-photo')"
       >
-        Cancel
+        Start New Search
       </button>
     </div>
     <!-- buttons -->

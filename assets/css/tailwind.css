@@ -6,6 +6,7 @@
 @tailwind utilities;
 
 @layer components {
+  /* buttons */
   .btn {
     @apply px-5 py-3 text-2xl font-semibold transition duration-200 ease-in rounded-md shadow-md disabled:opacity-50 disabled:text-gray-700;
   }
@@ -30,8 +31,30 @@
     @apply text-white bg-ie-gray-500 hover:bg-ie-gray-500;
   }
 
+  /* medications: medication slot */
   .med-slot {
     @apply relative w-full h-20 mb-4 overflow-hidden rounded-md shadow-lg;
     color: #5273A1;
+  }
+
+  /* photo tips component */
+  #photo-tips .tip {
+    @apply absolute inset-0 flex-1 p-6 text-center transition-opacity ease-in-out opacity-0;
+  }
+
+  #photo-tips .tip.focused {
+    @apply transition-opacity ease-in-out opacity-100;
+  }
+
+  #photo-tips .tip-dot {
+    @apply w-1 h-1 transform scale-95 rounded-full opacity-50 bg-ie-gray-800;
+  }
+
+  #photo-tips .tip-dot.focused {
+    @apply transform scale-100 opacity-100;
+  }
+
+  #photo-tips .tip-dot:nth-child(2) {
+    @apply mx-6;
   }
 }

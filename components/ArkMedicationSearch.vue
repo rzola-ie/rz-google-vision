@@ -5,6 +5,7 @@
       name=""
       id="text-search"
       @focus="onFocus"
+      @input="filterSearch"
       v-model="searchTerm"
       autocomplete="off"
       :style="`${
@@ -91,6 +92,8 @@
           </button>
         </li>
       </ul>
+      <!-- results for search term -->
+
       <ul v-else>
         <li
           v-for="(item, index) in filteredArray"
@@ -132,12 +135,14 @@
           </div>
         </li>
       </ul>
+      <!-- empty search term contra list -->
     </div>
   </div>
 </template>
 
 <script>
-import { blackList, whiteList, contras } from "~/lib/words";
+import { contras } from "~/lib/words";
+import { debounce } from "debounce";
 import axios from "axios";
 
 export default {
@@ -146,39 +151,20 @@ export default {
     return {
       hasFocus: false,
       searchTerm: null,
-      blackList: [],
-      whiteList: [],
       initialSuggested: [],
+      filteredArray: [],
     };
   },
   mounted() {
     this.initialSuggested = [...contras];
-    this.whiteList = [...whiteList];
-    this.blackList = [...blackList];
-  },
-  computed: {
-    filteredArray() {
-      let initials = [];
-      this.initialSuggested.forEach(({ name }) =>
-        initials.push(name.toLowerCase())
-      );
-
-      let sorted = [...initials, ...this.whiteList];
-      let uniqueSorted = [...new Set([...initials, ...this.whiteList])];
-
-      return uniqueSorted
-        .sort((a, b) => {
-          return a.indexOf(this.searchTerm[0]) - b.indexOf(this.searchTerm[0]);
-        })
-        .filter((str) => {
-          return str.includes(this.searchTerm.toLowerCase());
-        })
-        .filter((_, index) => {
-          return index < 5;
-        });
-    },
   },
   methods: {
+    filterSearch: debounce(async function (e) {
+      this.filteredArray = await this.$store.dispatch(
+        "filterSearch",
+        e.target.value
+      );
+    }, 400),
     onFocus() {
       this.hasFocus = true;
       this.$emit("on-focus");

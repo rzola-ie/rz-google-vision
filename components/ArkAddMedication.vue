@@ -32,6 +32,7 @@
           @add-med="onAddMed"
         />
         <!-- search results -->
+
         <div
           v-else-if="searched && loading"
           class="flex flex-col items-center justify-center w-full h-full text-3xl font-semibold text-center text-ie-gray-700"
@@ -58,6 +59,8 @@
           </svg>
           loading...
         </div>
+        <!-- loading screen -->
+
         <div
           v-else-if="searched && searchResults.length === 0"
           class="flex flex-col items-center justify-center w-full h-full text-3xl font-semibold text-center text-ie-gray-700"
@@ -70,11 +73,13 @@
           lol what even is that?
         </div>
         <!-- no results -->
-        <div v-else>
+
+        <div class="h-full" v-else>
           <div v-if="hasPhoto">
             <ark-google-image-preview
               :loading="loading"
               :photoURL="photoURL"
+              :hasResults="googleResults.length"
               @show-photo-tips="onShowPhotoTips"
             />
 
@@ -84,31 +89,47 @@
               :googleResults="googleResults"
               @clear-photo="onClearPhoto"
               @submit-selected="onSubmitSelected"
+              @show-photo-tips="onShowPhotoTips"
               ref="googleSearchList"
             />
           </div>
 
-          <div v-else class="px-4">
-            <img class="w-full mx-auto" src="/photos.png" alt="" />
+          <div v-else class="flex flex-col items-center justify-center h-full">
+            <div class="p-4 text-center">
+              <p class="mb-4 font-serif text-xl">
+                You can also try searching for your medication by using a photo
+              </p>
+              <button
+                class="flex items-center mx-auto text-lg font-semibold"
+                @click="onShowPhotoTips"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 mr-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Learn More
+              </button>
+            </div>
           </div>
-          <!-- default view - photo tips carousel -->
+          <!-- default view - photo tips -->
         </div>
         <!-- photo search results -->
       </div>
     </div>
 
-    <ark-slide-up-page :isVisible="showPhotoTips" class="p-4">
-      <div class="flex justify-end w-full mb-4" style="color: #95a2b8">
-        <button @click="onDismissPhotoTips" class="text-xs font-bold">
-          DISMISS
-        </button>
-      </div>
-      <div class="w-full h-full p-4 border border-ie-gray-400 bg-ie-gray-200">
-        <h1 class="text-2xl font-semibold text-center text-ie-gray-700">
-          PHOTO TIPS HERE
-        </h1>
-      </div>
-    </ark-slide-up-page>
+    <ark-photo-tips
+      :isVisible="showPhotoTips"
+      @dismiss-photo-tips="onDismissPhotoTips"
+      ref="photoTips"
+    />
   </div>
 </template>
 
@@ -120,6 +141,7 @@ import ArkMedicationSearch from "./ArkMedicationSearch.vue";
 import { blackList, whiteList, contras } from "~/lib/words";
 import ArkGoogleSearchList from "./ArkGoogleSearchList.vue";
 import ArkSlideUpPage from "./ArkSlideUpPage.vue";
+import ArkPhotoTips from "./ArkPhotoTips.vue";
 
 export default {
   components: {
@@ -127,6 +149,7 @@ export default {
     ArkMedicationResultList,
     ArkGoogleSearchList,
     ArkSlideUpPage,
+    ArkPhotoTips,
   },
   data() {
     return {
@@ -233,6 +256,12 @@ export default {
           requestBody
         );
 
+        if (
+          !predictionResults.data.responses[0].hasOwnProperty("textAnnotations")
+        ) {
+          return;
+        }
+
         this.googleResults = [
           ...predictionResults.data.responses[0].textAnnotations.map((r) =>
             r.description.toLowerCase()
@@ -277,7 +306,7 @@ export default {
       }
     },
     onSubmitSelected(selectedResults) {
-      this.searchTerm = [...selectedResults].join(" ");
+      this.searchTerm = selectedResults;
       this.$refs.googleSearchList.onClearResults();
       this.hasPhoto = false;
       this.photoSrc = null;
@@ -317,6 +346,7 @@ export default {
     onShowPhotoTips() {
       console.log("got any more of them photo tips?");
       this.showPhotoTips = true;
+      this.$refs.photoTips.resetFocusPosition();
     },
     onDismissPhotoTips() {
       this.showPhotoTips = false;

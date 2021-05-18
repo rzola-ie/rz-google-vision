@@ -1,3 +1,6 @@
+// dummy data
+import { blackList, whiteList, contras } from "~/lib/words";
+
 export const state = () => ({
   user: null,
   numOfMeds: null,
@@ -118,6 +121,33 @@ export const actions = {
         ),
         3000
       )
+    })
+  },
+  filterSearch(_, term) {
+    if(!term) return;
+
+    return new Promise((resolve) => {
+      let contraNames = [];
+      contras.forEach(({ name }) => {
+        contraNames.push(name.toLowerCase());
+      });
+
+      // filter contra array
+      let contraFilter = contraNames
+        .sort((a, b) => a.indexOf(term[0]) - b.indexOf(term[0]))
+        .filter(str => str.includes(term.toLowerCase()))
+
+      // filter whitelist arrat
+      let whiteFilter = whiteList
+        .sort((a, b) => a.indexOf(term[0]) - b.indexOf(term[0]))
+        .filter(str => str.includes(term.toLowerCase()))
+
+      // combine arrays and only return the first 5 results
+      let uniqueSorted = [...new Set([...contraFilter, ...whiteFilter])]
+        // return only top 5 results
+        .filter((_, index) => index < 5);
+
+      setTimeout(() => resolve(uniqueSorted), 150)
     })
   }
 }
