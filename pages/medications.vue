@@ -58,16 +58,13 @@
                     : 'pointer-events-none transform translate-x-full opacity-0'
                 } transition duration-500 ease-in-out flex flex-col justify-center mb-6`"
               >
-                <p :class="complete ? 'opacity-100' : 'opacity-0'">
-                  Need to add more?
-                </p>
                 <button
-                  style="background-color: #d7ecf6"
-                  class="text-lg font-semibold tracking-wider text-gray-700 rounded-md shadow-md btn-main"
+                  style="color: #5273a1"
+                  class="flex items-center h-auto px-2 py-4 text-base font-semibold tracking-wider text-left border-dashed rounded-md border-ie-gray-400 border-3"
                   @click="() => (isAddingMed = true)"
                 >
                   <svg
-                    class="inline-block w-6 h-6 mr-2 stroke-current"
+                    class="inline-block w-8 h-8 mr-2 stroke-current"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                   >
@@ -78,7 +75,10 @@
                       d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                     />
                   </svg>
-                  Add Another Medication
+                  <div class="inline-block">
+                    Need to Add Another Medication?
+                    <div class="text-sm text-ie-gray-500">(Optional)</div>
+                  </div>
                 </button>
               </div>
               <!-- add more section -->

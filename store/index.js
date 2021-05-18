@@ -142,9 +142,8 @@ export const actions = {
         .sort((a, b) => a.indexOf(term[0]) - b.indexOf(term[0]))
         .filter(str => str.includes(term.toLowerCase()))
 
-      // combine arrays and only return the first 5 results
+      // combine arrays remove duplicates and only return the first 5 results
       let uniqueSorted = [...new Set([...contraFilter, ...whiteFilter])]
-        // return only top 5 results
         .filter((_, index) => index < 5);
 
       setTimeout(() => resolve(uniqueSorted), 150)
