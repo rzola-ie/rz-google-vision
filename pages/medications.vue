@@ -52,11 +52,12 @@
               </ul>
 
               <div
+                v-if="medications.length < 5"
                 :class="`${
                   complete
                     ? 'pointer-events-auto transform translate-x-0 opacity-100'
-                    : 'pointer-events-none transform translate-x-full opacity-0'
-                } transition duration-500 ease-in-out flex flex-col justify-center mb-6`"
+                    : 'pointer-events-none transform translate-x-full opacity-0 scale-y-0'
+                } transition duration-500 ease-in-out flex flex-col justify-center mb-6 scale-y-1`"
               >
                 <button
                   style="color: #5273a1"

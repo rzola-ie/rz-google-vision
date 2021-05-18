@@ -83,15 +83,20 @@
     </div>
     <!-- no results -->
 
+    <div class="relative flex justify-center px-4 mb-8 text-ie-gray-600">
+      <div class="relative z-10 px-4 text-xl bg-white">OR</div>
+      <div class="absolute border inset-x-8 top-1/2 border-ie-gray-500" />
+    </div>
+
     <div class="px-4 pb-8">
-      <button
+      <!-- <button
         v-if="googleResults.length"
         class="mb-2 btn btn-main btn-gray"
         @click="$emit('submit-selected', selectedResults)"
         :disabled="selectedResults.length === 0"
       >
         Search Term
-      </button>
+      </button> -->
 
       <button
         v-if="!loading"
