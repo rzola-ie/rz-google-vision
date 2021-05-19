@@ -190,11 +190,11 @@ export default {
       this.searchTerm = null;
     },
     selectTerm(item) {
-      if (!this.searchTerm) return;
-
       if (item) {
         this.searchTerm = item.charAt(0).toUpperCase() + item.slice(1);
       }
+
+      if (!this.searchTerm) return;
 
       this.$emit("term-selected", this.searchTerm);
       this.hasFocus = false;
