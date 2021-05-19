@@ -7,7 +7,8 @@
           :style="`background-image: url(${photoURL}); ${
             loading ? 'filter: blur(0.2rem) brightness(.2)' : ''
           }`"
-        ></div>
+        />
+        <!-- image thumbnail -->
 
         <div
           :class="`absolute inset-0 flex items-center justify-center text-4xl font-bold text-white`"
@@ -33,6 +34,7 @@
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             ></path>
           </svg>
+          <!-- loading spinner -->
 
           <svg
             v-else
@@ -52,11 +54,17 @@
               stroke-width="2"
             />
           </svg>
+          <!-- no results warning -->
         </div>
+        <!-- icon overlay -->
       </div>
+      <!-- preview image  -->
+
       <div v-if="loading">
         <p>Your photo is being processed</p>
       </div>
+      <!-- processing message -->
+
       <div v-else-if="!loading && hasResults" class="flex-1">
         <h2 class="text-xl font-semibold leading-none">
           Your photo has been successfully processed
@@ -83,6 +91,7 @@
           Photo Tips
         </button>
       </div>
+      <!-- processing successful message -->
 
       <div
         v-else-if="!loading && !hasResults"
@@ -90,7 +99,7 @@
       >
         Image processing failed
       </div>
-      <!-- no results -->
+      <!-- processing failed message -->
     </div>
   </div>
 </template>

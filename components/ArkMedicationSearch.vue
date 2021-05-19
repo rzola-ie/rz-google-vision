@@ -10,6 +10,7 @@
       autocomplete="off"
       class="w-full h-12 text-2xl uppercase rounded-md outline-none px-14 bg-ie-gray-100"
     />
+    <!-- text search field -->
 
     <button
       class="absolute top-0 w-12 h-12 text-white rounded-md left-4 bg-ie-gray-500"
@@ -29,6 +30,7 @@
         />
       </svg>
     </button>
+    <!-- search button -->
 
     <form
       class="absolute top-0 flex items-center justify-center w-12 h-12 right-5 text-ie-gray-500"
@@ -66,6 +68,8 @@
         </svg>
       </label>
     </form>
+    <!-- camera stuff -->
+
     <div
       v-if="hasFocus"
       class="p-1 mt-1 overflow-y-scroll rounded-md shadow-md bg-ie-blue-100"
@@ -151,13 +155,13 @@
       </ul>
       <!-- empty search term contra list -->
     </div>
+    <!-- suggested results lists -->
   </div>
 </template>
 
 <script>
 import { contras } from "~/lib/words";
 import { debounce } from "debounce";
-import axios from "axios";
 
 export default {
   props: ["hasPhoto"],
