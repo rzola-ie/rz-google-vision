@@ -12,7 +12,7 @@
     />
 
     <button
-      class="absolute w-12 h-12 text-white rounded-md left-4 bg-ie-gray-500"
+      class="absolute top-0 w-12 h-12 text-white rounded-md left-4 bg-ie-gray-500"
       @click="selectTerm(null)"
     >
       <svg

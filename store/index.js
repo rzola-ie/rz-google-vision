@@ -117,7 +117,9 @@ export const actions = {
             description: 'A medicine to treat erectile disfunction.',
             imgUrl: 'https://www.drugs.com/images/pills/fio/GSO00330/sildenafil-citrate.JPG'
           },
-        ].filter(item => item.name.toLowerCase().includes(term.toLowerCase()))
+        ]
+        .filter(item => item.name.toLowerCase().includes(term.toLowerCase()))
+        .sort((a, b) => a.indexOf(term[0]) - b.indexOf(term[0]))
         ),
         3000
       )
