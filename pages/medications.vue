@@ -31,7 +31,8 @@
                 prescription medications
               </span>
               are you currently taking?
-              <span class="font-sans text-sm italic text-gray-700"
+              <span
+                class="font-sans text-sm italic text-gray-700 whitespace-nowrap"
                 >List all that apply
               </span>
             </h1>
