@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-4 pb-32">
     <ul v-if="googleSearched && loading" class="px-4 mb-8">
       <li class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"></li>
       <li class="w-full h-16 mb-4 bg-gray-200 rounded-sm animate-pulse"></li>
@@ -56,11 +56,9 @@
     </ul>
     <!-- results -->
 
-    <div v-else class="px-4 mb-8">
-      <p class="mb-4">
-        Your search has returned no results. Please retake or upload a new photo
-        and try again.
-      </p>
+    <div v-else class="px-4 py-8 mb-8 text-xl">
+      <p class="mb-4">Your search has returned no results.</p>
+      <p class="mb-8">Please retake or upload a new photo and try again.</p>
 
       <button
         class="flex items-center mx-auto text-lg font-semibold"
@@ -91,24 +89,16 @@
       <div class="absolute border inset-x-8 top-1/2 border-ie-gray-500" />
     </div>
 
-    <div class="px-4 pb-8">
-      <!-- <button
-        v-if="googleResults.length"
-        class="mb-2 btn btn-main btn-gray"
-        @click="$emit('submit-selected', selectedResults)"
-        :disabled="selectedResults.length === 0"
-      >
-        Search Term
-      </button> -->
-
+    <div class="flex items-center justify-center">
       <button
         v-if="!loading"
-        class="border-2 border-ie-gray-500 btn btn-main text-ie-gray-500"
+        class="mx-auto border-2 border-ie-gray-500 btn btn-main text-ie-gray-500 md:w-2/3"
         @click="$emit('clear-photo')"
       >
         Start New Search
       </button>
     </div>
+
     <!-- buttons -->
   </div>
 </template>

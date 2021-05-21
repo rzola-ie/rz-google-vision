@@ -12,7 +12,7 @@
       <div class="flex flex-col h-full">
         <ark-progress backTo="/number" value="50" />
         <div
-          :class="`flex flex-col w-full h-full max-w-2xl pb-8 mx-auto md:px-16 ${
+          :class="`flex flex-col w-full h-full max-w-2xl pb-32 mx-auto md:px-16 ${
             isAddingMed
               ? 'overflow-hidden'
               : 'overflow-x-hidden overflow-y-scroll'
@@ -21,12 +21,14 @@
           <div class="flex flex-col items-center px-6 mb-4">
             <h1 class="mx-auto font-serif text-2xl text-gray-700">
               Which
-              <span v-if="medications.length === 1"> medication </span>
+              <span v-if="medications.length === 1">
+                prescription medication
+              </span>
               <span v-else>
                 <span class="text-3xl text-blue-900">{{
                   medications.length
                 }}</span>
-                medications
+                prescription medications
               </span>
               are you currently taking?
               <span class="font-sans text-sm italic text-gray-700"
@@ -36,8 +38,8 @@
 
             <ark-more-info-button @click.native="onShowMoreInfo" />
           </div>
-          <div class="flex-1 w-full h-full px-6">
-            <div>
+          <div class="flex flex-col flex-1 w-full h-full px-6">
+            <div class="flex-1">
               <ul class="mb-4">
                 <ark-medication-slot
                   v-for="({ name, description }, index) in medications"
@@ -84,18 +86,18 @@
               </div>
               <!-- add more section -->
             </div>
-            <div>
-              <button
-                style="background-color: #97a2b6"
-                class="tracking-wider btn btn-main btn-gray"
-                :disabled="
-                  $store.state.medications.length < $store.state.numOfMeds
-                "
-                @click="onSubmit"
-              >
-                Confirm and Continue
-              </button>
-            </div>
+            <!-- medication slots -->
+
+            <button
+              style="background-color: #97a2b6"
+              class="mx-auto tracking-wider btn btn-main btn-gray md:w-2/3"
+              :disabled="
+                $store.state.medications.length < $store.state.numOfMeds
+              "
+              @click="onSubmit"
+            >
+              Confirm and Continue
+            </button>
           </div>
         </div>
       </div>

@@ -69,9 +69,9 @@
             >
               Sign in with Apple
             </button>
-            <p class="w-full mx-auto text-xs text-gray-600 md:w-2/3">
+            <!-- <p class="w-full mx-auto text-xs text-gray-600 md:w-2/3">
               This costs money, so no Apple yet.
-            </p>
+            </p> -->
           </div>
 
           <form

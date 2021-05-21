@@ -19,7 +19,9 @@
         <ark-med-number v-model="number" @change="number = $event" />
       </div>
 
-      <button class="btn btn-main btn-gray" @click="onSubmit">Continue</button>
+      <button class="mx-auto btn btn-main btn-gray md:w-2/3" @click="onSubmit">
+        Continue
+      </button>
     </div>
 
     <ark-more-info-content

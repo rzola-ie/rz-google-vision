@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex w-full h-40 p-4">
-      <div class="relative w-1/3 h-full mr-2">
+      <div class="relative w-1/3 h-full mr-2 md:mr-6">
         <div
           class="w-full h-full overflow-hidden bg-center bg-no-repeat bg-contain border bg-ie-gray-200"
           :style="`background-image: url(${photoURL}); ${

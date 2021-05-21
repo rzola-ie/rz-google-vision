@@ -4,7 +4,7 @@
     class="relative flex flex-col items-center flex-1 w-full max-w-2xl mx-auto overflow-hidden text-gray-600 bg-white rounded-t-lg shadow-lg"
   >
     <div
-      class="flex flex-col items-center justify-center h-full px-6 py-4 md:py-6 md:px-12"
+      class="flex flex-col items-center justify-center h-full px-6 pt-4 pb-32 md:pt-6 md:px-12"
     >
       <h1 class="mb-2 font-serif text-3xl font-bold text-center text-blue-900">
         Hi
@@ -12,8 +12,8 @@
       <h2 class="mb-4 font-semibold tracking-wider text-center text-blue-900">
         Health!
       </h2>
-      <div class="flex-1 pt-12 md:pt-24">
-        <p class="mb-6 md:mb-28">
+      <div class="flex flex-col flex-1 pt-12 md:pt-24">
+        <p class="flex-1 mb-6 md:mb-28">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo quaerat
           voluptas fuga non nostrum quam, dolore quisquam mollitia porro?
           Consectetur dignissimos modi ut excepturi ducimus earum nesciunt

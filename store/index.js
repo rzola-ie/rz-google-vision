@@ -58,13 +58,7 @@ export const actions = {
             imgUrl: 'https://www.drugs.com/images/pills/nlm/433530367.jpg'
           },
           {
-            id: '1248',
-            name: 'Potassium Chloride',
-            description: 'Used to prevent or to treat low blood levels of potassium (hypokalemia).',
-            imgUrl: 'https://www.drugs.com/images/pills/mtm/Potassium%20Chloride%20ER%208%20mEq-COP.jpg'
-          },
-          {
-            id: '0',
+            id: '594789',
             name: 'Calquence',
             description: 'Blocks the action of certain enzymes in the body, which can interfere with the growth and spread of cancer cells',
             imgUrl: 'https://www.drugs.com/images/pills/fio/ASZ05120/calquence.JPG'
@@ -76,7 +70,13 @@ export const actions = {
             imgUrl: 'https://www.drugs.com/images/pills/nlm/548685341.jpg'
           },
           {
-            id: '0',
+            id: '451293',
+            name: 'Rosuvastatin',
+            description: 'How about that web app? pretty cool!',
+            imgUrl: 'https://www.drugs.com/images/pills/nlm/548685341.jpg'
+          },
+          {
+            id: '590396',
             name: 'Bevespi',
             description: 'an inhalation aerosol used to...',
             imgUrl: 'https://qtxasset.com/styles/breakpoint_sm_default_480px_w/s3/2016-04/Bevespi.jpg?LOgW3SVM6VuATrorjb2QvFCMvrYMpN3x&itok=U13FB9i-'
@@ -88,38 +88,50 @@ export const actions = {
             imgUrl: 'https://www.drugs.com/images/pills/nlm/516724027.jpg'
           },
           {
-            id: '0',
+            id: '151939',
             name: 'Advil',
             description: 'Pass a couple this way.',
             imgUrl: 'https://www.drugs.com/images/pills/nlm/005730150.jpg'
           },
           {
-            id: '0',
+            id: '151266',
             name: 'Simvastatin',
             description: 'A statin to treat cholesterol.',
             imgUrl: 'https://www.drugs.com/images/pills/nlm/633040793.jpg'
           },
           {
-            id: '0',
+            id: '154599',
             name: 'Cyclosporine',
             description: 'A medicine for your immune system.',
             imgUrl: 'https://www.drugs.com/images/pills/nlm/200000630.jpg'
           },
           {
-            id: '0',
+            id: '185379',
             name: 'Tacrolimus',
             description: 'A medicine for your immune system.',
             imgUrl: 'https://www.drugs.com/images/pills/custom/pill15153-1/tacrolimus.jpg'
           },
           {
-            id: '0',
+            id: '170033',
             name: 'Sildenafil',
             description: 'A medicine to treat erectile disfunction.',
             imgUrl: 'https://www.drugs.com/images/pills/fio/GSO00330/sildenafil-citrate.JPG'
           },
+          {
+            id: '187550',
+            name: 'Zoloft',
+            description: 'An antidepresant.',
+            imgUrl: 'https://www.drugs.com/images/pills/fio/GSO64430/zoloft.JPG'
+          },
+          {
+            id: '558610',
+            name: 'Creon',
+            description: 'Used to replace enzymes important in the digestion of fats, proteins, and sugars.',
+            imgUrl: 'https://www.drugs.com/images/pills/mmx/t104495f/creon.jpg'
+          },
         ]
         .filter(item => item.name.toLowerCase().includes(term.toLowerCase()))
-        .sort((a, b) => a.indexOf(term[0]) - b.indexOf(term[0]))
+        .sort((a, b) => (a.name[0] !== term[0]) - (b.name[0] !== term[0]))
         ),
         3000
       )

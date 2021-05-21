@@ -6,7 +6,7 @@
       id="text-search"
       @focus="onFocus"
       @input="filterSearch"
-      v-model="searchTerm"
+      v-model.trim="searchTerm"
       autocomplete="off"
       class="w-full h-12 text-2xl uppercase rounded-md outline-none px-14 bg-ie-gray-100"
     />
@@ -180,7 +180,7 @@ export default {
     filterSearch: debounce(async function (e) {
       this.filteredArray = await this.$store.dispatch(
         "filterSearch",
-        e.target.value
+        e.target.value.trim()
       );
     }, 400),
     onFocus() {
